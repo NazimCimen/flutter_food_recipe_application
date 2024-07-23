@@ -14,6 +14,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  connectivity_plus: ^6.0.3
+  dartz: ^0.10.1
+  easy_localization: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +25,10 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 
 flutter:
-
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/animations/
+    - assets/lang/
+    - assets/sounds/
 
