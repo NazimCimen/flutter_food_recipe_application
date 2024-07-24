@@ -1,31 +1,37 @@
 name: flutter_food_recipe_application
 description: "A new Flutter project."
 
-publish_to: 'none' 
-
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
-
+  sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-
-  cupertino_icons: ^1.0.6
+  # For checking the device's network connectivity status
   connectivity_plus: ^6.0.3
-  dartz: ^0.10.1
-  easy_localization: ^3.0.7
-  get_it: ^7.7.0
-  google_fonts: ^6.2.1
-  shared_preferences: ^2.2.3
+  # Cupertino style icons for iOS design
+  cupertino_icons: ^1.0.6 
+  # Functional programming library for Dart
+  dartz: ^0.10.1 
+  # Simplifies localization and internationalization of the app
+  easy_localization: ^3.0.7 
+  # Service locator for dependency injection
+  get_it: ^7.7.0 
+  # Allows the use of fonts from Google Fonts
+  google_fonts: ^6.2.1 
+  # For storing key-value data locally on the device
+  shared_preferences: ^2.2.3 
+  # State management library 
   provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Linter rules for code quality and consistency
   very_good_analysis: ^6.0.0
 
 flutter:
@@ -35,4 +41,3 @@ flutter:
     - assets/animations/
     - assets/lang/
     - assets/sounds/
-
