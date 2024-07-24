@@ -42,7 +42,7 @@ class AppInitImpl extends AppInit {
   Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
-    setup();
+    setupLocator();
   }
 
   @override
