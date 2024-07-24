@@ -1,19 +1,15 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 
 /// İnternet bağlantısını kontrol etmek için kullanılan arayüz.
-abstract class NetworkInfoI {
+abstract class INetworkInfo {
   Future<ConnectivityResult> get getConnectionType;
   Future<bool> get currentConnectivityResult;
 }
 
-class NetworkInfo implements NetworkInfoI {
+class NetworkInfo implements INetworkInfo {
   final Connectivity connectivity;
 
-  static final NetworkInfo _instance = NetworkInfo._internal(Connectivity());
-  factory NetworkInfo() {
-    return _instance;
-  }
-  NetworkInfo._internal(this.connectivity);
+  NetworkInfo(this.connectivity);
 
   @override
   Future<ConnectivityResult> get getConnectionType async {
