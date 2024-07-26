@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feature/auth/onboard/onboard_view.dart';
+import 'package:flutter_food_recipe_application/feauture/onboard/presentation/view/onboard_view.dart';
 
 class AppRoutes {
   static const String initialRoute = '/initialRoute';

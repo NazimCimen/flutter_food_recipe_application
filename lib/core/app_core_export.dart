@@ -5,3 +5,4 @@ export 'package:get_it/get_it.dart';
 export 'package:flutter_food_recipe_application/core/init/dependency_injection.dart';
 export 'package:provider/provider.dart';
 export 'package:flutter_food_recipe_application/core/init/app_init.dart';
+export 'package:flutter_food_recipe_application/core/utils/app_size_extensions.dart';

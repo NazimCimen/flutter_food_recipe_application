@@ -5,8 +5,8 @@ final class CustomColorScheme {
   CustomColorScheme._();
   static const lightScheme = ColorScheme(
     brightness: Brightness.light,
-    primary: Color(
-        0xFF1FCC79), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
+    primary: Color.fromRGBO(31, 204, 121,
+        1), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
     onPrimary: Colors.white,
     secondary: Color(
         0xFF24D37F), // used for icons. and third main color of app(black white blue)
@@ -14,7 +14,7 @@ final class CustomColorScheme {
     error: Colors.red,
     onError: Colors.white,
     surface: Colors.white, //default card color
-    onSurface: Colors.black,
+    onSurface: Colors.white,
     tertiary: Colors.grey, // used for hint and field colors
   );
   static const darkSheme = ColorScheme(

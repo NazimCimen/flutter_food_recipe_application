@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/feauture/onboard/presentation/viewmodel/onboard_view_model.dart';
 import 'package:flutter_food_recipe_application/main.dart';
 
 abstract class AppInit {
@@ -31,6 +32,9 @@ class AppInitImpl extends AppInit {
         providers: [
           ChangeNotifierProvider<ThemeManager>(
             create: (_) => sl<IThemeManager>() as ThemeManager,
+          ),
+          ChangeNotifierProvider(
+            create: (context) => OnboardViewModel(),
           ),
         ],
         child: const MyApp(),
