@@ -12,10 +12,10 @@ final class CustomLightTheme implements ApplicationTheme {
         useMaterial3: true,
         fontFamily: GoogleFonts.montserrat().fontFamily,
         colorScheme: CustomColorScheme.lightScheme,
-        appBarTheme: AppBarTheme(
+        /*  appBarTheme: AppBarTheme(
             elevation: 0,
-            backgroundColor: CustomColorScheme.lightScheme.primary),
-        scaffoldBackgroundColor: CustomColorScheme.lightScheme.primary,
+            backgroundColor: CustomColorScheme.lightScheme.primary),*/
+        //  scaffoldBackgroundColor: CustomColorScheme.lightScheme.primary,
       );
 }
 
@@ -26,10 +26,10 @@ final class CustomDarkTheme implements ApplicationTheme {
         useMaterial3: true,
         colorScheme: CustomColorScheme.darkSheme,
         fontFamily: GoogleFonts.montserrat().fontFamily,
-        appBarTheme: AppBarTheme(
+        /*  appBarTheme: AppBarTheme(
           elevation: 0,
           color: CustomColorScheme.darkSheme.primary,
         ),
-        scaffoldBackgroundColor: CustomColorScheme.darkSheme.primary,
+        scaffoldBackgroundColor: CustomColorScheme.darkSheme.primary,*/
       );
 }

@@ -1,0 +1,20 @@
+[
+    {
+        "imagePath": "assets/images/page1.png",
+        "color": "#F6B87B",
+        "title": "Entdecke Erstaunliche Rezepte",
+        "description": "Entdecke eine Welt voller köstlicher Rezepte, die von Kochbegeisterten wie dir geteilt werden. Lass dich von Gerichten aus aller Welt inspirieren!"
+    },
+    {
+        "imagePath": "assets/images/page2.png",
+        "color": "#FFBD59",
+        "title": "Teile Deine Kreationen",
+        "description": "Zeige deine Kochkünste! Lade Fotos, Videos hoch oder verlinke deine YouTube-Rezepte, um andere zu inspirieren."
+    },
+    {
+        "imagePath": "assets/images/page3.png",
+        "color": "#FDA976",
+        "title": "Intelligente Zutatenbasierte Vorschläge",
+        "description": "Weißt du nicht, was du kochen sollst? Mach ein Foto deiner Zutaten und wir schlagen dir Rezepte vor, die du damit machen kannst."
+    }
+]

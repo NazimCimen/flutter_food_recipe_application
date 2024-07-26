@@ -1,0 +1,20 @@
+[
+    {
+        "imagePath": "assets/images/page1.png",
+        "color": "#F6B87B",
+        "title": "素晴らしいレシピを発見する",
+        "description": "あなたのような料理愛好家が共有する美味しいレシピの世界を探索しましょう。世界中の料理からインスピレーションを得ましょう！"
+    },
+    {
+        "imagePath": "assets/images/page2.png",
+        "color": "#FFBD59",
+        "title": "あなたの創作を共有する",
+        "description": "あなたの料理スキルを披露しましょう！写真や動画をアップロードするか、YouTubeのレシピをリンクして他の人をインスパイアしましょう。"
+    },
+    {
+        "imagePath": "assets/images/page3.png",
+        "color": "#FDA976",
+        "title": "食材に基づくスマートな提案",
+        "description": "何を作るか迷っていますか？食材の写真を撮ってください、それを使ったレシピを提案します。"
+    }
+]

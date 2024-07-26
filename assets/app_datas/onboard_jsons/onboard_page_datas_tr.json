@@ -1,0 +1,20 @@
+[
+    {
+        "imagePath": "assets/images/test1.png",
+        "color": "#F6B87B",
+        "title": "Harika Tarifler Keşfedin",
+        "description": "Sizin gibi yemek tutkunlarının paylaştığı lezzetli tarifler dünyasını keşfedin. Dünyanın dört bir yanından ilham verici yemeklere göz atın!"
+    },
+    {
+        "imagePath": "assets/images/page2.png",
+        "color": "#FFBD59",
+        "title": "Yaratımlarınızı Paylaşın",
+        "description": "Aşçılık becerilerinizi sergileyin! Fotoğraflar, videolar yükleyin veya YouTube tariflerinizi paylaşarak başkalarına ilham verin."
+    },
+    {
+        "imagePath": "assets/images/page3.png",
+        "color": "#FDA976",
+        "title": "Akıllı Malzeme Bazlı Öneriler",
+        "description": "Ne pişireceğinize karar veremiyor musunuz? Malzemelerinizin fotoğrafını çekin ve biz de onlarla yapabileceğiniz tarifleri önerelim."
+    }
+]

@@ -44,4 +44,4 @@ flutter:
     - assets/animations/
     - assets/lang/
     - assets/sounds/
-    - assets/app_datas/
+    - assets/app_datas/onboard_jsons/

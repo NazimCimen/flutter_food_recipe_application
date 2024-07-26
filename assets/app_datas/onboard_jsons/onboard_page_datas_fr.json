@@ -1,0 +1,20 @@
+[
+    {
+        "imagePath": "assets/images/page1.png",
+        "color": "#F6B87B",
+        "title": "Découvrez des Recettes Incroyables",
+        "description": "Explorez un monde de délicieuses recettes partagées par des passionnés de cuisine comme vous. Inspirez-vous de plats du monde entier !"
+    },
+    {
+        "imagePath": "assets/images/page2.png",
+        "color": "#FFBD59",
+        "title": "Partagez Vos Créations",
+        "description": "Montrez vos compétences culinaires ! Téléchargez des photos, des vidéos ou partagez vos recettes YouTube pour inspirer les autres."
+    },
+    {
+        "imagePath": "assets/images/page3.png",
+        "color": "#FDA976",
+        "title": "Suggestions Intelligentes Basées sur les Ingrédients",
+        "description": "Vous ne savez pas quoi cuisiner ? Prenez une photo de vos ingrédients et nous vous suggérerons des recettes que vous pouvez réaliser avec eux."
+    }
+]

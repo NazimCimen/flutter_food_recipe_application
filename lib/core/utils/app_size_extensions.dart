@@ -14,14 +14,11 @@ extension NumberExtension on BuildContext {
 }
 
 extension PaddingExtension on BuildContext {
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   EdgeInsets get paddingAllXLow => EdgeInsets.all(xLowValue);
   EdgeInsets get paddingAllLow => EdgeInsets.all(lowValue);
   EdgeInsets get paddingAllMedium => EdgeInsets.all(mediumValue);
   EdgeInsets get paddingAllLarge => EdgeInsets.all(largeValue);
   EdgeInsets get paddingAllXlarge => EdgeInsets.all(xLargeValue);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   EdgeInsets get paddingHorizAllXLow =>
       EdgeInsets.only(left: xLowValue, right: xLowValue);
@@ -44,8 +41,6 @@ extension PaddingExtension on BuildContext {
   EdgeInsets get paddingHorizRightLarge => EdgeInsets.only(right: largeValue);
   EdgeInsets get paddingHorizRightXlarge => EdgeInsets.only(right: xLargeValue);
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   EdgeInsets get paddingVertAllLow =>
       EdgeInsets.only(top: lowValue, bottom: lowValue);
   EdgeInsets get paddingVertAllMedium =>
@@ -66,6 +61,4 @@ extension PaddingExtension on BuildContext {
   EdgeInsets get paddingVertBottomLarge => EdgeInsets.only(bottom: largeValue);
   EdgeInsets get paddingVertBottomXlarge =>
       EdgeInsets.only(bottom: xLargeValue);
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

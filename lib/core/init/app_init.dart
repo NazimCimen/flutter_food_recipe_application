@@ -27,7 +27,7 @@ class AppInitImpl extends AppInit {
         LocaleConstants.ruLocale,
       ],
       path: LocaleConstants.localePath,
-      fallbackLocale: LocaleConstants.trLocale,
+      fallbackLocale: LocaleConstants.enLocale,
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<ThemeManager>(

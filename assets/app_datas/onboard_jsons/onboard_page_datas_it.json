@@ -1,0 +1,20 @@
+[
+    {
+        "imagePath": "assets/images/page1.png",
+        "color": "#F6B87B",
+        "title": "Scopri Ricette Straordinarie",
+        "description": "Esplora un mondo di deliziose ricette condivise da appassionati di cucina come te. Ispirati a piatti da tutto il mondo!"
+    },
+    {
+        "imagePath": "assets/images/page2.png",
+        "color": "#FFBD59",
+        "title": "Condividi le Tue Creazioni",
+        "description": "Mostra le tue abilità culinarie! Carica foto, video o collega le tue ricette di YouTube per ispirare gli altri."
+    },
+    {
+        "imagePath": "assets/images/page3.png",
+        "color": "#FDA976",
+        "title": "Suggerimenti Intelligenti Basati sugli Ingredienti",
+        "description": "Non sei sicuro di cosa cucinare? Scatta una foto dei tuoi ingredienti e ti suggeriremo ricette che puoi realizzare con essi."
+    }
+]

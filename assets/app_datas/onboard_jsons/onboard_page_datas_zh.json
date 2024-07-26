@@ -1,0 +1,20 @@
+[
+    {
+        "imagePath": "assets/images/page1.png",
+        "color": "#F6B87B",
+        "title": "发现惊人的食谱",
+        "description": "探索由像你这样的美食爱好者分享的美味食谱世界。从世界各地的菜肴中汲取灵感！"
+    },
+    {
+        "imagePath": "assets/images/page2.png",
+        "color": "#FFBD59",
+        "title": "分享你的创作",
+        "description": "展示你的烹饪技巧！上传照片、视频或链接你的YouTube食谱来激励他人。"
+    },
+    {
+        "imagePath": "assets/images/page3.png",
+        "color": "#FDA976",
+        "title": "基于食材的智能建议",
+        "description": "不确定要做什么？拍一张你的食材照片，我们会为你推荐可以用它们制作的食谱。"
+    }
+]
