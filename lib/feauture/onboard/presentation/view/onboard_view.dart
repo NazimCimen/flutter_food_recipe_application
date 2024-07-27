@@ -28,54 +28,49 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
     );
   }
 
-  Center _buildLoading() {
-    return const Center(
-      child: CircularProgressIndicator(
-        strokeAlign: 3,
-      ),
-    );
-  }
-
   PageView _buildPageView(OnboardViewModel provider, Widget? child) {
     return PageView.builder(
       itemCount: provider.onBoardDatas?.length,
       controller: pageController,
       itemBuilder: (context, index) {
-        if (provider.onBoardDatas != null) {
-          return Stack(
-            children: [
-              OnBoardPageWidget(
-                pageColor: provider.onBoardDatas?[index]?.color,
-                title: provider.onBoardDatas?[index]?.title,
-                description: provider.onBoardDatas?[index]?.description,
-                imagePath: provider.onBoardDatas?[index]?.imagePath,
+        return Stack(
+          children: [
+            OnBoardPageWidget(
+              pageColor: provider.onBoardDatas?[index]?.color,
+              title: provider.onBoardDatas?[index]?.title,
+              description: provider.onBoardDatas?[index]?.description,
+              imagePath: provider.onBoardDatas?[index]?.imagePath,
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: LeftTriangelWidget(
+                butonColor: provider.onBoardDatas?[index]?.color,
+                onPressed: () {
+                  nextPageButton(index);
+                },
+                height: context.dynamicHeight(0.25),
+                widht: context.dynamicWidht(0.28),
               ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: LeftTriangelWidget(
-                    butonColor: provider.onBoardDatas?[index]?.color,
-                    onPressed: () {
-                      nextPageButton(index);
-                    },
-                    height: context.dynamicHeight(0.25),
-                    widht: context.dynamicWidht(0.28),
-                  )),
-              Align(
-                alignment: Alignment.topRight,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: context.dynamicHeight(0.05),
-                    ),
-                    Padding(
-                      padding: context.paddingHorizRightMedium,
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: context.dynamicHeight(0.05),
+                  ),
+                  Padding(
+                    padding: context.paddingHorizRightMedium,
+                    child: GestureDetector(
+                      onTap: navigateToLoginView,
                       child: Container(
                         height: context.dynamicHeight(0.04),
                         width: context.dynamicWidht(0.2),
                         decoration: BoxDecoration(
                           borderRadius: context.borderRadiusAllLow,
                           border: Border.all(
-                              color: Theme.of(context).colorScheme.outline),
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.03),
@@ -86,36 +81,47 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
                           ],
                         ),
                         child: Center(
-                            child: FittedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              StringConstants.skip,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                          child: FittedBox(
+                            child: Padding(
+                              padding: context.paddingAllLow,
+                              child: Text(
+                                StringConstants.skip,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
                             ),
                           ),
-                        )),
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                    padding: context.paddingVertBottomMedium, child: child),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: context.paddingVertBottomMedium,
+                child: child,
               ),
-            ],
-          );
-        }
+            ),
+          ],
+        );
       },
     );
   }
 
   Widget _buildFailure(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
-      //  Navigator.of(context).pushReplacementNamed('/login');
+      navigateToLoginView();
     });
+    return const Center(
+      child: CircularProgressIndicator(
+        strokeAlign: 3,
+      ),
+    );
+  }
+
+  Center _buildLoading() {
     return const Center(
       child: CircularProgressIndicator(
         strokeAlign: 3,

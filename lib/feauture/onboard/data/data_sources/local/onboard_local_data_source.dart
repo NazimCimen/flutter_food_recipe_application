@@ -3,10 +3,13 @@ import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.
 
 abstract class OnBoardLocalDataSource {
   Future<List<OnBoardModel>> getOnBoardData({required Locale locale});
+  Future<void> setOnBoardShown();
 }
 
 class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
-  OnBoardLocalDataSourceImpl();
+  final SharedPreferences sharedPreferences;
+
+  OnBoardLocalDataSourceImpl(this.sharedPreferences);
 
   @override
   Future<List<OnBoardModel>> getOnBoardData({required Locale locale}) async {
@@ -18,5 +21,10 @@ class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
           (jsonItem) => OnBoardModel.fromJson(jsonItem as Map<String, dynamic>),
         )
         .toList();
+  }
+
+  @override
+  Future<void> setOnBoardShown() async {
+    await sharedPreferences.setBool(SharedKeyEnum.onboardShown.name, true);
   }
 }

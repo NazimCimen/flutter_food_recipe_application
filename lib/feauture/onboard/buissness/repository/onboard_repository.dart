@@ -4,4 +4,5 @@ import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.
 abstract class OnBoardRepository {
   Future<Either<Failure, List<OnBoardEntity>>> getOnBoardDatas(
       {required Locale locale});
+  Future<void> setOnBoardShown();
 }

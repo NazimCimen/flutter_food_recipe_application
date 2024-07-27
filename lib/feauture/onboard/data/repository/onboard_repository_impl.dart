@@ -6,13 +6,19 @@ class OnBoardRepositoryImpl implements OnBoardRepository {
   OnBoardRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, List<OnBoardEntity>>> getOnBoardDatas(
-      {required Locale locale}) async {
+  Future<Either<Failure, List<OnBoardEntity>>> getOnBoardDatas({
+    required Locale locale,
+  }) async {
     try {
       final onboardDatas = await localDataSource.getOnBoardData(locale: locale);
       return Right(onboardDatas);
     } on ServerException {
-      return Left(CacheFailure(errorMessage: 'errorMessage'));
+      return Left(CacheFailure(errorMessage: ''));
     }
+  }
+
+  @override
+  Future<void> setOnBoardShown() async {
+    await localDataSource.setOnBoardShown();
   }
 }

@@ -15,5 +15,5 @@ export 'package:smooth_page_indicator/smooth_page_indicator.dart';
 export 'package:flutter_food_recipe_application/feauture/onboard/presentation/widgets/left_triangle_widget.dart';
 export 'package:flutter_food_recipe_application/feauture/onboard/presentation/widgets/onboard_page_widget.dart';
 export 'package:flutter_food_recipe_application/feauture/onboard/data/repository/onboard_repository_impl.dart';
-export 'package:flutter_food_recipe_application/feauture/onboard/buissness/usecases/get_onboard_datas.dart';
+export 'package:flutter_food_recipe_application/feauture/onboard/buissness/usecases/get_onboard_datas_usecase.dart';
 export 'package:flutter_food_recipe_application/feauture/onboard/data/data_sources/local/onboard_json_path_provider.dart';

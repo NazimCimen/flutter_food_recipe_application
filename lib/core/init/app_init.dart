@@ -33,8 +33,8 @@ class AppInitImpl extends AppInit {
           ChangeNotifierProvider<ThemeManager>(
             create: (_) => sl<IThemeManager>() as ThemeManager,
           ),
-          ChangeNotifierProvider(
-            create: (context) => OnboardViewModel(),
+          ChangeNotifierProvider<OnboardViewModel>(
+            create: (_) => sl<OnboardViewModel>(),
           ),
         ],
         child: const MyApp(),

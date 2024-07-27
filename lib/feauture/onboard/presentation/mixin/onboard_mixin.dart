@@ -1,5 +1,5 @@
-import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 
 mixin OnBoardMixin on State<OnBoardView> {
   late final PageController pageController;
@@ -25,6 +25,14 @@ mixin OnBoardMixin on State<OnBoardView> {
     if (index < ((onboardDataList != null) ? onboardDataList.length - 1 : 0)) {
       pageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
-    } else {}
+    } else {
+      navigateToLoginView();
+    }
+  }
+
+  void navigateToLoginView() {
+    Provider.of<OnboardViewModel>(context, listen: false)
+        .setOnBoardShownUseCase();
+    NavigatorService.pushNamedAndRemoveUntil(AppRoutes.loginView);
   }
 }

@@ -10,3 +10,4 @@ export 'package:get_it/get_it.dart';
 export 'package:provider/provider.dart';
 export 'package:flutter_food_recipe_application/core/error/failure.dart';
 export 'package:flutter_food_recipe_application/core/utils/image_extension.dart';
+export 'package:flutter_food_recipe_application/core/utils/shared_key_enum.dart';
