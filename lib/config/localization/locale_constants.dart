@@ -3,17 +3,17 @@ import 'package:flutter_food_recipe_application/config/app_config_export.dart';
 
 class LocaleConstants {
   LocaleConstants._();
-  static const trLocale = Locale("tr", "TR");
-  static const enLocale = Locale("en", "US");
-  static const frLocale = Locale("fr", "FR");
-  static const arLocale = Locale("ar", "AR");
-  static const esLocale = Locale("es", "ES");
-  static const deLocale = Locale("de", "DE");
-  static const itLocale = Locale("it", "IT");
-  static const ptLocale = Locale("pt", "BR");
-  static const zhLocale = Locale("zh", "CN");
-  static const jaLocale = Locale("ja", "JP");
-  static const ruLocale = Locale("ru", "RU");
+  static const trLocale = Locale('tr', 'TR');
+  static const enLocale = Locale('en', 'US');
+  static const frLocale = Locale('fr', 'FR');
+  static const arLocale = Locale('ar', 'AR');
+  static const esLocale = Locale('es', 'ES');
+  static const deLocale = Locale('de', 'DE');
+  static const itLocale = Locale('it', 'IT');
+  static const ptLocale = Locale('pt', 'BR');
+  static const zhLocale = Locale('zh', 'CN');
+  static const jaLocale = Locale('ja', 'JP');
+  static const ruLocale = Locale('ru', 'RU');
   static const localePath = 'assets/lang';
 
   static final List<AppLanguages> languageList = [

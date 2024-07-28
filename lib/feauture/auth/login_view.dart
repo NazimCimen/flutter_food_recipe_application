@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class OnBoardView extends StatelessWidget {
-  const OnBoardView({super.key});
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.red,
       body: Center(
-        child: Text('data'),
+        child: Text('Login View'),
       ),
     );
   }

@@ -1,7 +1,14 @@
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:flutter_food_recipe_application/config/app_config_export.dart';
 export 'package:flutter_food_recipe_application/core/connection/network_info.dart';
-export 'package:get_it/get_it.dart';
-export 'package:flutter_food_recipe_application/core/init/dependency_injection.dart';
-export 'package:provider/provider.dart';
 export 'package:flutter_food_recipe_application/core/init/app_init.dart';
+export 'package:flutter_food_recipe_application/core/init/dependency_injection.dart';
+export 'package:flutter_food_recipe_application/core/utils/app_extensions.dart';
+export 'package:flutter_food_recipe_application/core/utils/app_size_extensions.dart';
+export 'package:flutter_food_recipe_application/core/utils/left_triangle_clipper.dart';
+export 'package:get_it/get_it.dart';
+export 'package:provider/provider.dart';
+export 'package:flutter_food_recipe_application/core/error/failure.dart';
+export 'package:flutter_food_recipe_application/core/utils/image_enum.dart';
+export 'package:flutter_food_recipe_application/core/utils/shared_key_enum.dart';
+export 'package:flutter_food_recipe_application/core/utils/app_border_radius_extensions.dart';

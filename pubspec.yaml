@@ -1,32 +1,63 @@
 name: flutter_food_recipe_application
 description: "A new Flutter project."
 
-publish_to: 'none' 
-
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
-
+  sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.6
+  # Cupertino style icons for iOS design
+  cupertino_icons: ^1.0.6 
+
+  # For checking the device's network connectivity status
   connectivity_plus: ^6.0.3
-  dartz: ^0.10.1
+
+  # Functional programming library for Dart
+  dartz: ^0.10.1 
+
+  # Simplifies localization and internationalization of the app
   easy_localization: ^3.0.7
-  get_it: ^7.7.0
-  google_fonts: ^6.2.1
-  shared_preferences: ^2.2.3
+
+  # Service locator for dependency injection
+  get_it: ^7.7.0 
+
+  # Allows the use of fonts from Google Fonts
+  google_fonts: ^6.2.1 
+
+  # For storing key-value data locally on the device
+  shared_preferences: ^2.2.3 
+
+  # State management library 
   provider: ^6.1.2
+
+  # HTTP client for making API requests
+  dio: ^5.5.0+1
+
+  # Annotation library for JSON serialization
+  json_annotation: ^4.9.0
+
+  # Customizable page indicator for PageView widgets
+  smooth_page_indicator: ^1.2.0+3
+    # used for creating mock objects in tests
+  mockito: ^5.4.4
+  animate_do: ^3.3.4
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Linter rules for code quality and consistency
   very_good_analysis: ^6.0.0
+  # Code generator for JSON serialization
+  json_serializable: ^6.8.0
+  # Build system for Dart to generate code
+  build_runner: ^2.3.3
 
 flutter:
   uses-material-design: true
@@ -35,4 +66,4 @@ flutter:
     - assets/animations/
     - assets/lang/
     - assets/sounds/
-
+    - assets/app_datas/onboard_jsons/
