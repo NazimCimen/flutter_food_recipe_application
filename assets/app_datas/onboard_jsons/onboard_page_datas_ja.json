@@ -1,20 +1,17 @@
 [
     {
-        "imagePath": "assets/images/page1.png",
-        "color": "#F6B87B",
-        "title": "素晴らしいレシピを発見する",
-        "description": "あなたのような料理愛好家が共有する美味しいレシピの世界を探索しましょう。世界中の料理からインスピレーションを得ましょう！"
+      "imagePath": "assets/images/onboardImage1.png",
+      "title": "美味しいレシピの世界",
+      "description": "食通が共有する美味しいレシピが満載の世界へ足を踏み入れてください。世界中の風味を発見し、あなたのキッチンに新しい息吹をもたらしましょう！"
     },
     {
-        "imagePath": "assets/images/page2.png",
-        "color": "#FFBD59",
-        "title": "あなたの創作を共有する",
-        "description": "あなたの料理スキルを披露しましょう！写真や動画をアップロードするか、YouTubeのレシピをリンクして他の人をインスパイアしましょう。"
+      "imagePath": "assets/images/onboardImage2.png",
+      "title": "あなたのキッチンを世界に披露",
+      "description": "あなたの料理の腕前を世界に披露してください！美味しいレシピを写真や動画で共有するか、YouTubeチャンネルから直接共有しましょう。インスピレーションを与え、インスピレーションを受け取りましょう。"
     },
     {
-        "imagePath": "assets/images/page3.png",
-        "color": "#FDA976",
-        "title": "食材に基づくスマートな提案",
-        "description": "何を作るか迷っていますか？食材の写真を撮ってください、それを使ったレシピを提案します。"
+      "imagePath": "assets/images/onboardImage3.png",
+      "title": "スマートなレシピの提案を受ける",
+      "description": "食材で何を作るか迷ったときは、写真を撮ってください。私たちが最適なレシピを提案します。簡単で創造的な食事を作りましょう！"
     }
-]
+  ]

@@ -1,5 +1,10 @@
-class OnBoardJsonPathProvider {
-  static String getJsonPath(String languageCode) {
+abstract class OnBoardJsonPathProvider {
+  String getJsonPath(String languageCode);
+}
+
+class OnBoardJsonPathProviderImpl implements OnBoardJsonPathProvider {
+  @override
+  String getJsonPath(String languageCode) {
     const basePath = 'assets/app_datas/onboard_jsons/onboard_page_datas_';
     switch (languageCode) {
       case 'tr':

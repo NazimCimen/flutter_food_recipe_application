@@ -5,7 +5,6 @@ part 'onboard_model.g.dart';
 @JsonSerializable()
 class OnBoardModel extends OnBoardEntity {
   OnBoardModel({
-    required super.color,
     required super.title,
     required super.description,
     required super.imagePath,

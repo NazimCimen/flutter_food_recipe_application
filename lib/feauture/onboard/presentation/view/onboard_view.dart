@@ -1,4 +1,3 @@
-import 'package:flutter_food_recipe_application/core/utils/app_border_radius_extensions.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter/material.dart';
 
@@ -18,95 +17,84 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
           if (provider.failure != null) {
             return _buildFailure(context);
           } else if (provider.onBoardDatas != null) {
-            return _buildPageView(provider, child);
+            return _buildBody(provider, child);
           } else {
             return _buildLoading();
           }
         },
-        child: _buildPageIndicator(),
+        child: _buildPageIndicatorAndButtons(),
       ),
     );
   }
 
-  PageView _buildPageView(OnboardViewModel provider, Widget? child) {
-    return PageView.builder(
-      itemCount: provider.onBoardDatas?.length,
-      controller: pageController,
-      itemBuilder: (context, index) {
-        return Stack(
-          children: [
-            OnBoardPageWidget(
-              pageColor: provider.onBoardDatas?[index]?.color,
-              title: provider.onBoardDatas?[index]?.title,
-              description: provider.onBoardDatas?[index]?.description,
-              imagePath: provider.onBoardDatas?[index]?.imagePath,
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: LeftTriangelWidget(
-                butonColor: provider.onBoardDatas?[index]?.color,
-                onPressed: () {
-                  nextPageButton(index);
-                },
-                height: context.dynamicHeight(0.25),
-                widht: context.dynamicWidht(0.28),
+  Widget _buildBody(OnboardViewModel provider, Widget? child) {
+    return Stack(
+      children: [
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: OnBoardPageWidget(
+            key: ValueKey<int>(currentPage),
+            title: provider.onBoardDatas?[currentPage]?.title,
+            description: provider.onBoardDatas?[currentPage]?.description,
+            imagePath: provider.onBoardDatas?[currentPage]?.imagePath,
+          ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Column(
+            children: [
+              SizedBox(
+                height: context.dynamicHeight(0.05),
               ),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: context.dynamicHeight(0.05),
-                  ),
-                  Padding(
-                    padding: context.paddingHorizRightMedium,
-                    child: GestureDetector(
-                      onTap: navigateToLoginView,
-                      child: Container(
-                        height: context.dynamicHeight(0.04),
-                        width: context.dynamicWidht(0.2),
-                        decoration: BoxDecoration(
-                          borderRadius: context.borderRadiusAllLow,
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.03),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
+              Padding(
+                padding: context.paddingHorizRightMedium,
+                child: GestureDetector(
+                  onTap: navigateToLoginView,
+                  child: Container(
+                    height: context.dynamicHeight(0.04),
+                    width: context.dynamicWidht(0.2),
+                    decoration: BoxDecoration(
+                      borderRadius: context.borderRadiusAllLow,
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.03),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
                         ),
-                        child: Center(
-                          child: FittedBox(
-                            child: Padding(
-                              padding: context.paddingAllLow,
-                              child: Text(
-                                StringConstants.skip,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            ),
+                      ],
+                    ),
+                    child: Center(
+                      child: FittedBox(
+                        child: Padding(
+                          padding: context.paddingAllLow,
+                          child: Text(
+                            StringConstants.skip,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: context.paddingVertBottomMedium,
-                child: child,
-              ),
-            ),
-          ],
-        );
-      },
+            ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: context.paddingVertBottomMedium,
+            child: child,
+          ),
+        ),
+      ],
     );
   }
 
@@ -129,16 +117,72 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
     );
   }
 
-  Padding _buildPageIndicator() {
+  Padding _buildPageIndicatorAndButtons() {
     return Padding(
       padding: context.paddingAllMedium,
-      child: SmoothPageIndicator(
-        controller: pageController,
-        count: 3,
-        effect: ScrollingDotsEffect(
-          activeDotColor: Theme.of(context).colorScheme.outline,
-          dotColor: Theme.of(context).colorScheme.tertiary,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: context.paddingAllMedium,
+            child: _buildPageButton(
+              onTap: () {
+                previousPageButton();
+              },
+              assetPath: ImageEnums.leftButton.toPathPng,
+            ),
+          ),
+          const Spacer(),
+          ...List.generate(
+            3,
+            (index) => Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: (currentPage == index)
+                      ? Theme.of(context).colorScheme.outline
+                      : Colors.transparent,
+                ),
+              ),
+              child: Padding(
+                padding: context.paddingAllXLow,
+                child: Container(
+                  height: context.dynamicWidht(0.036),
+                  width: context.dynamicWidht(0.036),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.outline,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: context.paddingAllMedium,
+            child: _buildPageButton(
+              onTap: () {
+                nextPageButton();
+              },
+              assetPath: ImageEnums.rightButton.toPathPng,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  GestureDetector _buildPageButton({
+    required VoidCallback onTap,
+    required String assetPath,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Image.asset(
+        assetPath,
+        height: context.dynamicHeight(0.05),
+        fit: BoxFit.cover,
       ),
     );
   }

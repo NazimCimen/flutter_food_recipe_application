@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/feauture/onboard/buissness/usecases/set_onboard_shown_usecase.dart';
+import 'package:flutter_food_recipe_application/feauture/onboard/business/usecases/set_onboard_shown_usecase.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/data/data_sources/local/onboard_local_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 
@@ -14,8 +14,12 @@ void setupLocator() {
     ..registerLazySingleton<INetworkInfo>(() => NetworkInfo(sl<Connectivity>()))
     ..registerLazySingleton<IThemeManager>(() => ThemeManager())
     ..registerLazySingleton<Dio>(() => Dio())
+    ..registerLazySingleton<OnBoardJsonPathProvider>(
+      () => OnBoardJsonPathProviderImpl(),
+    )
     ..registerLazySingleton<OnBoardLocalDataSource>(
-      () => OnBoardLocalDataSourceImpl(sl<SharedPreferences>()),
+      () => OnBoardLocalDataSourceImpl(
+          sl<SharedPreferences>(), sl<OnBoardJsonPathProvider>()),
     )
     ..registerLazySingleton<GetOnBoardDatasUseCase>(
       () => GetOnBoardDatasUseCase(sl<OnBoardRepository>()),

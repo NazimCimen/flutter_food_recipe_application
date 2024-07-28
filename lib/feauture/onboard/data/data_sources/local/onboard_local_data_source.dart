@@ -8,19 +8,25 @@ abstract class OnBoardLocalDataSource {
 
 class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
   final SharedPreferences sharedPreferences;
+  final OnBoardJsonPathProvider jsonPathProvider;
 
-  OnBoardLocalDataSourceImpl(this.sharedPreferences);
+  OnBoardLocalDataSourceImpl(this.sharedPreferences, this.jsonPathProvider);
 
   @override
   Future<List<OnBoardModel>> getOnBoardData({required Locale locale}) async {
-    final jsonString = await rootBundle
-        .loadString(OnBoardJsonPathProvider.getJsonPath(locale.languageCode));
-    final jsonList = json.decode(jsonString) as List;
-    return jsonList
-        .map(
-          (jsonItem) => OnBoardModel.fromJson(jsonItem as Map<String, dynamic>),
-        )
-        .toList();
+    try {
+      final jsonString = await rootBundle
+          .loadString(jsonPathProvider.getJsonPath(locale.languageCode));
+      final jsonList = json.decode(jsonString) as List;
+      return jsonList
+          .map(
+            (jsonItem) =>
+                OnBoardModel.fromJson(jsonItem as Map<String, dynamic>),
+          )
+          .toList();
+    } catch (e) {
+      throw CacheException();
+    }
   }
 
   @override
