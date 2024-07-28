@@ -32,54 +32,60 @@ class OnBoardPageWidget extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FadeInLeft(
-                  child: Text(
-                    textAlign: TextAlign.start,
-                    title ?? '',
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: context.dynamicWidht(0.09),
-                      letterSpacing: 1.3,
-                      shadows: [
-                        Shadow(
-                          offset: const Offset(1.5, 1.5),
-                          blurRadius: 2,
-                          color: Colors.black.withOpacity(0.7),
-                        ),
-                      ],
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: context.dynamicHeight(0.06),
+                  ),
+                  FadeInLeft(
+                    child: Text(
+                      textAlign: TextAlign.start,
+                      title ?? '',
+                      style:
+                          Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: context.dynamicWidht(0.09),
+                        letterSpacing: 1.3,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(1.5, 1.5),
+                            blurRadius: 2,
+                            color: Colors.black.withOpacity(0.7),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: context.dynamicHeight(0.03),
-                ),
-                FadeInRight(
-                  child: Text(
-                    description ?? '',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontSize: context.dynamicWidht(0.04),
-                        ),
+                  SizedBox(
+                    height: context.dynamicHeight(0.03),
                   ),
-                ),
-                SizedBox(
-                  height: context.dynamicHeight(0.06),
-                ),
-                Center(
-                  child: FadeInLeft(
-                    child: Image.asset(
-                      imagePath ?? ImageEnums.defaultOnBoardImage.toPathPng,
-                      height: context.dynamicHeight(0.4),
+                  FadeInRight(
+                    child: Text(
+                      description ?? '',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: context.dynamicWidht(0.04),
+                          ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: context.dynamicHeight(0.06),
-                ),
-              ],
+                  SizedBox(
+                    height: context.dynamicHeight(0.06),
+                  ),
+                  Center(
+                    child: FadeInLeft(
+                      child: Image.asset(
+                        imagePath ?? ImageEnums.defaultOnBoardImage.toPathPng,
+                        height: context.dynamicHeight(0.4),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: context.dynamicHeight(0.06),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
