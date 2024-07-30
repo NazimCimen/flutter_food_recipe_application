@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -7,7 +8,11 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('HOME VIEW'),
+        child: ElevatedButton(
+            onPressed: () {
+              NavigatorService.pushNamed(AppRoutes.loginView);
+            },
+            child: Text('data')),
       ),
     );
   }

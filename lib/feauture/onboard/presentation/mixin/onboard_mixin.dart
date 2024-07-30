@@ -6,16 +6,13 @@ mixin OnBoardMixin on State<OnBoardView> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final locale = context.locale;
-    Provider.of<OnboardViewModel>(context, listen: false)
-        .setOnBoardShownUseCase();
-    Provider.of<OnboardViewModel>(context, listen: false)
-        .eitherFailureOrOnBoardDatas(locale: locale);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final locale = context.locale;
+      Provider.of<OnboardViewModel>(context, listen: false)
+          .setOnBoardShownUseCase();
+      Provider.of<OnboardViewModel>(context, listen: false)
+          .eitherFailureOrOnBoardDatas(locale: locale);
+    });
   }
 
   @override

@@ -1,55 +1,49 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/feauture/onboard/business/usecases/set_onboard_shown_usecase.dart';
-import 'package:flutter_food_recipe_application/feauture/onboard/data/data_source/local/onboard_local_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/business/repository/splash_repository.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/business/usecase/check_cache_onboard_shown_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/data/data_source/splash_local_data_source.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/data/repository/splash_repository_impl.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/presentation/viewmodel/splash_view_model.dart';
+import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
-final sl = GetIt.instance;
+final serviceLocator = GetIt.instance;
 void setupLocator() {
-  sl
+  serviceLocator
     ..registerSingletonAsync<SharedPreferences>(
       () async => SharedPreferences.getInstance(),
     )
-    ..registerLazySingleton<INetworkInfo>(() => NetworkInfo(sl<Connectivity>()))
+    ..registerLazySingleton<INetworkInfo>(
+        () => NetworkInfo(serviceLocator<Connectivity>()))
     ..registerLazySingleton<IThemeManager>(() => ThemeManager())
     ..registerLazySingleton<Dio>(() => Dio())
     ..registerLazySingleton<OnBoardJsonPathProvider>(
       () => OnBoardJsonPathProviderImpl(),
     )
     ..registerLazySingleton<OnBoardLocalDataSource>(
-      () => OnBoardLocalDataSourceImpl(
-          sl<SharedPreferences>(), sl<OnBoardJsonPathProvider>()),
+      () => OnBoardLocalDataSourceImpl(serviceLocator<SharedPreferences>(),
+          serviceLocator<OnBoardJsonPathProvider>()),
     )
     ..registerLazySingleton<GetOnBoardDatasUseCase>(
-      () => GetOnBoardDatasUseCase(sl<OnBoardRepository>()),
+      () => GetOnBoardDatasUseCase(serviceLocator<OnBoardRepository>()),
     )
     ..registerLazySingleton<OnboardViewModel>(
       () => OnboardViewModel(
-          getOnBoardDatasUseCase: sl(), setOnBoardShownUseCase: sl()),
+          getOnBoardDatasUseCase: serviceLocator(),
+          setOnBoardShownUseCase: serviceLocator()),
     )
     ..registerLazySingleton<OnBoardRepository>(
-      () =>
-          OnBoardRepositoryImpl(localDataSource: sl<OnBoardLocalDataSource>()),
+      () => OnBoardRepositoryImpl(
+          localDataSource: serviceLocator<OnBoardLocalDataSource>()),
     )
     ..registerLazySingleton<SetOnBoardShownUseCase>(
-      () => SetOnBoardShownUseCase(sl<OnBoardRepository>()),
+      () => SetOnBoardShownUseCase(serviceLocator<OnBoardRepository>()),
     )
     ..registerLazySingleton<SplashLocalDataSource>(
-      () => SplashLocalDataSourceImpl(sl<SharedPreferences>()),
+      () => SplashLocalDataSourceImpl(serviceLocator<SharedPreferences>()),
     )
     ..registerLazySingleton<SplashRepository>(
-      () => SplashRepositoryImpl(sl<SplashLocalDataSource>()),
+      () => SplashRepositoryImpl(serviceLocator<SplashLocalDataSource>()),
     )
     ..registerLazySingleton<CheckCacheOnboardShownUseCase>(
-      () => CheckCacheOnboardShownUseCase(sl<SplashRepository>()),
+      () => CheckCacheOnboardShownUseCase(serviceLocator<SplashRepository>()),
     )
     ..registerLazySingleton<SplashViewModel>(
-      () => SplashViewModel(sl<CheckCacheOnboardShownUseCase>()),
+      () => SplashViewModel(serviceLocator<CheckCacheOnboardShownUseCase>()),
     );
 }

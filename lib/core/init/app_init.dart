@@ -32,13 +32,13 @@ class AppInitImpl extends AppInit {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<ThemeManager>(
-            create: (_) => sl<IThemeManager>() as ThemeManager,
+            create: (_) => serviceLocator<IThemeManager>() as ThemeManager,
           ),
           ChangeNotifierProvider<OnboardViewModel>(
-            create: (_) => sl<OnboardViewModel>(),
+            create: (_) => serviceLocator<OnboardViewModel>(),
           ),
           ChangeNotifierProvider<SplashViewModel>(
-            create: (_) => sl<SplashViewModel>(),
+            create: (_) => serviceLocator<SplashViewModel>(),
           )
         ],
         child: const MyApp(),

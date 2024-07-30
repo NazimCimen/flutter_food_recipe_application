@@ -3,7 +3,9 @@ enum ImageEnums {
   onboardBackground,
   leftButton,
   rightButton,
-  appLogo
+  appLogo,
+  googleIcon,
+  appleIcon,
 }
 
 extension AssetExtension on ImageEnums {

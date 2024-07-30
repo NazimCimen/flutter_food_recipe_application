@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/auth/login_view.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/presentation/view/login_view.dart';
 import 'package:flutter_food_recipe_application/feauture/home/home_view.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/presentation/view/onboard_view.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/presentation/view/splash_view.dart';
