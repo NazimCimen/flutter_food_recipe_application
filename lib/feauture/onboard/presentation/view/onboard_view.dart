@@ -12,6 +12,7 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Consumer<OnboardViewModel>(
         builder: (context, provider, child) {
           if (provider.failure != null) {
