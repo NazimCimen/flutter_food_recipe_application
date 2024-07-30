@@ -15,7 +15,7 @@ void main() {
     mockGetOnBoardDatasUseCase = MockGetOnBoardDatasUseCase();
     mockSetOnBoardShownUseCase = MockSetOnBoardShownUseCase();
     viewModel = OnboardViewModel(
-      getOnBoardDatas: mockGetOnBoardDatasUseCase,
+      getOnBoardDatasUseCase: mockGetOnBoardDatasUseCase,
       setOnBoardShownUseCase: mockSetOnBoardShownUseCase,
     );
   });

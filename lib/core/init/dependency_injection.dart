@@ -25,8 +25,8 @@ void setupLocator() {
       () => GetOnBoardDatasUseCase(sl<OnBoardRepository>()),
     )
     ..registerLazySingleton<OnboardViewModel>(
-      () =>
-          OnboardViewModel(getOnBoardDatas: sl(), setOnBoardShownUseCase: sl()),
+      () => OnboardViewModel(
+          getOnBoardDatasUseCase: sl(), setOnBoardShownUseCase: sl()),
     )
     ..registerLazySingleton<OnBoardRepository>(
       () =>

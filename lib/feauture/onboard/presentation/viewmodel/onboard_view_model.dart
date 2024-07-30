@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class OnboardViewModel extends ChangeNotifier {
   OnboardViewModel({
-    required this.getOnBoardDatas,
+    required this.getOnBoardDatasUseCase,
     required this.setOnBoardShownUseCase,
     this.failure,
     this.onBoardDatas,
   });
 
-  final GetOnBoardDatasUseCase getOnBoardDatas;
+  final GetOnBoardDatasUseCase getOnBoardDatasUseCase;
   final SetOnBoardShownUseCase setOnBoardShownUseCase;
   List<OnBoardEntity?>? onBoardDatas;
   Failure? failure;
@@ -17,7 +17,7 @@ class OnboardViewModel extends ChangeNotifier {
   Future<void> eitherFailureOrOnBoardDatas({
     required Locale locale,
   }) async {
-    final failureOrOnboard = await getOnBoardDatas.call(locale: locale);
+    final failureOrOnboard = await getOnBoardDatasUseCase.call(locale: locale);
 
     failureOrOnboard.fold((failure) {
       this.failure = failure;
