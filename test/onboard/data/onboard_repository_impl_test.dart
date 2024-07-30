@@ -19,7 +19,7 @@ void main() {
   );
 
   group(
-    'get_onboard_data',
+    'succes/fail test onbaord repository impl',
     () {
       const tLocale = Locale('en');
       final tOnBoardDataModel = [
@@ -32,7 +32,7 @@ void main() {
 
       // Test 1: Success
       test(
-        'success_get_onboard_data',
+        'success test',
         () async {
           // Arrange
           when(
@@ -55,7 +55,7 @@ void main() {
 
       // Test 2: Failure
       test(
-        'should return CacheFailure when the call to local data source is unsuccessful',
+        'fail test',
         () async {
           // Arrange
           when(

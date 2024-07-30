@@ -15,7 +15,7 @@ void main() {
     useCase = GetOnBoardDatasUseCase(mockOnBoardRepository);
   });
   group(
-    'get_onboard_datas_use_case',
+    'succes/fail test get onboard datas use case',
     () {
       const tLocale = Locale('en');
       const tOnBoardData = [
@@ -26,7 +26,7 @@ void main() {
         ),
       ];
 
-      test('should get data from the repository', () async {
+      test('succes test', () async {
         // arrange
         when(mockOnBoardRepository.getOnBoardDatas(locale: anyNamed('locale')))
             .thenAnswer((_) async => const Right(tOnBoardData));
@@ -41,8 +41,7 @@ void main() {
         verifyNoMoreInteractions(mockOnBoardRepository);
       });
 
-      test('should return failure when the repository returns a failure',
-          () async {
+      test('fail test', () async {
         // arrange
         final cacheFailure = CacheFailure(errorMessage: 'error');
         when(mockOnBoardRepository.getOnBoardDatas(locale: anyNamed('locale')))

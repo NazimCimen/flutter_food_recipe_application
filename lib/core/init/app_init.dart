@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/presentation/viewmodel/onboard_view_model.dart';
+import 'package:flutter_food_recipe_application/feauture/splash/presentation/viewmodel/splash_view_model.dart';
 import 'package:flutter_food_recipe_application/main.dart';
 
 abstract class AppInit {
@@ -36,6 +37,9 @@ class AppInitImpl extends AppInit {
           ChangeNotifierProvider<OnboardViewModel>(
             create: (_) => sl<OnboardViewModel>(),
           ),
+          ChangeNotifierProvider<SplashViewModel>(
+            create: (_) => sl<SplashViewModel>(),
+          )
         ],
         child: const MyApp(),
       ),
