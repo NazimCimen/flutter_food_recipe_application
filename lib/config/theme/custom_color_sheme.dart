@@ -5,11 +5,11 @@ final class CustomColorScheme {
   CustomColorScheme._();
   static const lightScheme = ColorScheme(
       brightness: Brightness.light,
-      primary: Color.fromRGBO(31, 204, 121,
-          1), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
+      primary: Color(
+          0xFF24D37F), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
       onPrimary: Colors.white,
       secondary: Color(
-          0xFF24D37F), // used for icons. and third main color of app(black white blue)
+          0xFF202E3B), // used for icons. and third main color of app(black white blue)
       onSecondary: Colors.white,
       error: Colors.red,
       onError: Colors.white,
@@ -23,7 +23,7 @@ final class CustomColorScheme {
           .black, //background scaffold and appbar. check light themedata for  appbar and scaffold theme
       onPrimary: Colors.white,
       secondary: Color(
-          0xff5479f7), // used for icons. and third main color of app(black white blue)
+          0xFF202E3B), // used for icons. and third main color of app(black white blue)
       onSecondary: Colors.white,
       error: Colors.red,
       onError: Colors.white,

@@ -2,7 +2,8 @@ enum ImageEnums {
   defaultOnBoardImage,
   onboardBackground,
   leftButton,
-  rightButton
+  rightButton,
+  appLogo
 }
 
 extension AssetExtension on ImageEnums {

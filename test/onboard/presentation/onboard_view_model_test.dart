@@ -20,7 +20,7 @@ void main() {
     );
   });
 
-  group('eitherFailureOrOnBoardDatas', () {
+  group('succes/fail test onboard view model eitherFailureOrOnBoardDatas', () {
     const tLocale = Locale('en');
     const tOnBoardData = [
       OnBoardEntity(
@@ -30,7 +30,7 @@ void main() {
       ),
     ];
 
-    test('should set failure when use case returns a failure', () async {
+    test('succes test', () async {
       // arrange
       when(mockGetOnBoardDatasUseCase.call(locale: anyNamed('locale')))
           .thenAnswer((_) async => Left(CacheFailure(errorMessage: 'error')));
@@ -43,7 +43,7 @@ void main() {
       verify(mockGetOnBoardDatasUseCase.call(locale: tLocale));
     });
 
-    test('should set onBoardDatas when use case returns data', () async {
+    test('fail test', () async {
       // arrange
       when(mockGetOnBoardDatasUseCase.call(locale: anyNamed('locale')))
           .thenAnswer((_) async => const Right(tOnBoardData));
@@ -54,11 +54,12 @@ void main() {
       // assert
       expect(viewModel.onBoardDatas, tOnBoardData);
       verify(mockGetOnBoardDatasUseCase.call(locale: tLocale));
+      verifyNoMoreInteractions(mockGetOnBoardDatasUseCase);
     });
   });
 
-  group('setOnBoardShown', () {
-    test('should call use case to set onboard shown', () async {
+  group('succes/fail test onboard view model setOnBoardShown', () {
+    test('succes', () async {
       // arrange
       when(mockSetOnBoardShownUseCase.call())
           .thenAnswer((_) async => Future.value());

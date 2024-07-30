@@ -15,7 +15,7 @@ void main() {
     },
   );
   test(
-    'succes_set_onboard_shown_use_case',
+    'succes set onboard shown use case',
     () async {
       //arrange
       when(mockOnBoardRepository.setOnBoardShown()).thenAnswer(
