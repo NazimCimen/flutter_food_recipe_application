@@ -72,6 +72,7 @@ class AuthViewModel extends ChangeNotifier {
     );
   }
 
+  /// USED TO CLEAN FAILURE
   void clearFailure() {
     failure = null;
     notifyListeners();
