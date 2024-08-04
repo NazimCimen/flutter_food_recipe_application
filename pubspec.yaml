@@ -23,6 +23,7 @@ dependencies:
   json_annotation: ^4.9.0 # Annotation library for JSON serialization
   flutter_dotenv: ^5.1.0 # Used to control environment variables
   mockito: ^5.4.4 # Used to test the app and improve the code quality
+  equatable: ^2.0.5 # used to prevent object reference shifts
 
   # Firebase
   firebase_auth: ^4.16.0 # Used for user authentication.

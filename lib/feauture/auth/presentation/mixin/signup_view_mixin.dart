@@ -28,11 +28,14 @@ mixin SignupViewMixin on State<SignupView> {
     super.dispose();
   }
 
+  ///it used to show failures in SnackBar
+  void showScaffoldSnackBar({required Failure? failure});
+
   /// it works when user click sign up button
   Future<void> signupButtonOnPressed() async {
+    FocusScope.of(context).unfocus();
     valiadateFields();
     if (isRequestAvaible) {
-      AppDialogs.showMyDialog(context: context, condition: true);
       await signupUser(
         signUpInputModel: UserSignUpInputModel(
           email: emailController.text,
@@ -54,15 +57,11 @@ mixin SignupViewMixin on State<SignupView> {
 
   /// it provides to signin with google
   Future<void> signinUserWithGoogle() async {
-    AppDialogs.showMyDialog(context: context, condition: true);
-
     await Provider.of<AuthViewModel>(context, listen: false).signinWithGoogle();
   }
 
   /// it provides to signin with apple
   Future<void> signinUserWithApple() async {
-    AppDialogs.showMyDialog(context: context, condition: true);
-
     await Provider.of<AuthViewModel>(context, listen: false).signinWithApple();
   }
 
@@ -91,19 +90,5 @@ mixin SignupViewMixin on State<SignupView> {
     setState(() {
       isRequestAvaible = false;
     });
-  }
-
-  ///it used to show failures in SnackBar
-  void showScaffoldSnackBar(Failure? failure) {
-    if (failure != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('An error occurred: ${failure.errorMessage}')),
-        );
-        Provider.of<AuthViewModel>(context, listen: false).clearFailure();
-        await Future<void>.delayed(const Duration(seconds: 1));
-        NavigatorService.goBack();
-      });
-    }
   }
 }

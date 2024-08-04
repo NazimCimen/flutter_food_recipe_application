@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/main.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class AppInit {
   Future<void> initialize();
@@ -48,7 +47,6 @@ class AppInitImpl extends AppInit {
   @override
   Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await dotenv.load(fileName: ".env");
     await EasyLocalization.ensureInitialized();
     setupLocator();
     await Firebase.initializeApp(

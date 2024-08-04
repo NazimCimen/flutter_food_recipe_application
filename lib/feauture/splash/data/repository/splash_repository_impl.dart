@@ -3,6 +3,8 @@ import 'package:flutter_food_recipe_application/feauture/splash/splash_export.da
 class SplashRepositoryImpl implements SplashRepository {
   final SplashLocalDataSource splashLocalDataSource;
   SplashRepositoryImpl(this.splashLocalDataSource);
+
+  /// CHECKING CACHE FOR ONBOARD SCREEN VISIBILITY FLAG
   @override
   Future<Either<Failure, bool?>> checkCacheOnboardShown() async {
     try {

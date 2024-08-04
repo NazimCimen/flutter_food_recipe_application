@@ -1,7 +1,7 @@
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 class UserModel extends UserEntity {
-  UserModel({
+  const UserModel({
     required super.id,
     required super.email,
     required super.username,

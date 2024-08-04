@@ -9,7 +9,6 @@ mixin SigninViewMixin on State<SigninView> {
   bool isRequestAvaible = false;
   AutovalidateMode isAutoValidateSignin = AutovalidateMode.disabled;
   bool obsecureText = true;
-  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
@@ -26,11 +25,14 @@ mixin SigninViewMixin on State<SigninView> {
     super.dispose();
   }
 
+  ///it used to show failures in SnackBar and it overrides in view.
+  void showScaffoldSnackBar({required Failure? failure});
+
   /// it works when user click sign in button
   Future<void> signinButtonOnPressed() async {
+    FocusScope.of(context).unfocus();
     validateFields();
     if (isRequestAvaible) {
-      AppDialogs.showMyDialog(context: context, condition: true);
       await signinUser(
         signInInputModel: UserSigninInputModel(
           email: emailController.text,
@@ -51,13 +53,11 @@ mixin SigninViewMixin on State<SigninView> {
 
   /// it provides to signin with google
   Future<void> signinUserWithGoogle() async {
-    AppDialogs.showMyDialog(context: context, condition: true);
     await Provider.of<AuthViewModel>(context, listen: false).signinWithGoogle();
   }
 
   /// it provides to signin with apple
   Future<void> signinUserWithApple() async {
-    AppDialogs.showMyDialog(context: context, condition: true);
     await Provider.of<AuthViewModel>(context, listen: false).signinWithApple();
   }
 
@@ -86,19 +86,5 @@ mixin SigninViewMixin on State<SigninView> {
     setState(() {
       isRequestAvaible = false;
     });
-  }
-
-  ///it used to show failures in SnackBar
-  void showScaffoldSnackBar(Failure? failure) {
-    if (failure != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('An error occurred: ${failure.errorMessage}')),
-        );
-        Provider.of<AuthViewModel>(context, listen: false).clearFailure();
-        await Future<void>.delayed(const Duration(seconds: 1));
-        NavigatorService.goBack();
-      });
-    }
   }
 }

@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart'
     as _i2;
-import 'package:flutter_food_recipe_application/feauture/splash/business/repository/splash_repository.dart'
+import 'package:flutter_food_recipe_application/feauture/splash/domain/repository/splash_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 

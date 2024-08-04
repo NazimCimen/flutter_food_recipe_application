@@ -14,50 +14,63 @@ class _SigninViewState extends State<SigninView> with SigninViewMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      body: Stack(
-        children: [
-          Image.asset(
-            ImageEnums.authBackgroundImage.toPathPng,
-            fit: BoxFit.cover,
-          ),
-          SingleChildScrollView(
-            reverse: true,
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: SizedBox(
-              height: context.dynamicHeight(1),
-              child: Column(
-                children: [
-                  SizedBox(height: context.dynamicHeight(0.04)),
-                  Padding(
-                    padding: context.paddingHorizAllMedium,
-                    child: NavigateSignInOrUpWidget(
-                      backButtonOnTap: () {
-                        NavigatorService.pushNamedAndRemoveUntil(
-                          AppRoutes.homeView,
-                        );
-                      },
-                      navigateButtonOnTap: () {
-                        NavigatorService.pushNamedAndRemoveUntil(
-                          AppRoutes.signupView,
-                        );
-                      },
-                      text: StringConstants.dontHaveAccount,
-                      buttonText: StringConstants.signUp,
-                    ),
-                  ),
-                  _buildStackFoodImages(context),
-                  Expanded(
-                    child: _buildContainerLoginFields(context),
-                  ),
-                  _buildErrorListener(context),
-                ],
+      body: AbsorbPointer(
+        absorbing: isRequestAvaible,
+        child: Stack(
+          children: [
+            _buildBackgroundImage(),
+            _buildBodyContent(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SingleChildScrollView _buildBodyContent(BuildContext context) {
+    return SingleChildScrollView(
+      reverse: true,
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: SizedBox(
+        height: context.dynamicHeight(1),
+        child: Column(
+          children: [
+            SizedBox(height: context.dynamicHeight(0.04)),
+            // Navigate Signup Widget
+            Padding(
+              padding: context.paddingHorizAllMedium,
+              child: NavigateSignInOrUpWidget(
+                backButtonOnTap: () {
+                  NavigatorService.pushNamedAndRemoveUntil(
+                    AppRoutes.homeView,
+                  );
+                },
+                navigateButtonOnTap: () {
+                  NavigatorService.pushNamedAndRemoveUntil(
+                    AppRoutes.signupView,
+                  );
+                },
+                text: StringConstants.dontHaveAccount,
+                buttonText: StringConstants.signUp,
               ),
             ),
-          ),
-        ],
+            _buildStackFoodImages(context),
+            // Build Form Fields
+            Expanded(
+              child: _buildContainerLoginFields(context),
+            ),
+            _buildErrorListener(context),
+          ],
+        ),
       ),
+    );
+  }
+
+  Image _buildBackgroundImage() {
+    return Image.asset(
+      ImageEnums.authBackgroundImage.toPathPng,
+      fit: BoxFit.cover,
     );
   }
 
@@ -74,20 +87,21 @@ class _SigninViewState extends State<SigninView> with SigninViewMixin {
         ),
       ),
       child: Padding(
-        padding: context.paddingAllMedium,
+        padding: context.paddingHorizAllMedium,
         child: Form(
           key: formKey,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                SizedBox(height: context.dynamicHeight(0.02)),
                 AuthCustomTitleTextWidget(
                   text: StringConstants.loginTitle,
                 ),
                 AuthCustomSubTitleTextWidget(
                   text: StringConstants.loginSubtitle,
                 ),
-                SizedBox(height: context.dynamicHeight(0.01)),
+                SizedBox(height: context.dynamicHeight(0.02)),
                 CustomTextFieldWidget(
                   labelText: StringConstants.email,
                   keyboardType: TextInputType.emailAddress,
@@ -173,9 +187,21 @@ class _SigninViewState extends State<SigninView> with SigninViewMixin {
     return Selector<AuthViewModel, Failure?>(
       selector: (_, viewModel) => viewModel.failure,
       builder: (context, failure, child) {
-        showScaffoldSnackBar(failure);
+        showScaffoldSnackBar(failure: failure);
         return const SizedBox.shrink();
       },
     );
+  }
+
+  @override
+  void showScaffoldSnackBar({required Failure? failure}) {
+    if (failure != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(failure.errorMessage)),
+        );
+        Provider.of<AuthViewModel>(context, listen: false).clearFailure();
+      });
+    }
   }
 }

@@ -14,9 +14,10 @@ class _SignupViewState extends State<SignupView> with SignupViewMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
+      body: SafeArea(
+        child: AbsorbPointer(
+          absorbing: isRequestAvaible,
+          child: SingleChildScrollView(
             reverse: true,
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -25,7 +26,8 @@ class _SignupViewState extends State<SignupView> with SignupViewMixin {
               height: context.dynamicHeight(1),
               child: Column(
                 children: [
-                  SizedBox(height: context.dynamicHeight(0.05)),
+                  SizedBox(height: context.dynamicHeight(0.04)),
+                  // Navigate Sign Up Widget
                   Padding(
                     padding: context.paddingHorizAllMedium,
                     child: NavigateSignInOrUpWidget(
@@ -44,6 +46,7 @@ class _SignupViewState extends State<SignupView> with SignupViewMixin {
                     ),
                   ),
                   SizedBox(height: context.dynamicHeight(0.02)),
+                  // Build Form Fields
                   Expanded(
                     child: _buildContainerSignupFields(context),
                   ),
@@ -51,7 +54,7 @@ class _SignupViewState extends State<SignupView> with SignupViewMixin {
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -69,56 +72,59 @@ class _SignupViewState extends State<SignupView> with SignupViewMixin {
         ),
       ),
       child: Padding(
-        padding: context.paddingAllMedium,
+        padding: context.paddingHorizAllMedium,
         child: Form(
           key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AuthCustomTitleTextWidget(
-                text: StringConstants.signUpTitle,
-              ),
-              AuthCustomSubTitleTextWidget(
-                text: StringConstants.signUpSubtitle,
-              ),
-              SizedBox(height: context.dynamicHeight(0.03)),
-              CustomTextFieldWidget(
-                labelText: StringConstants.username,
-                keyboardType: TextInputType.text,
-                controller: usernameController,
-                prefixIconData: Icons.alternate_email,
-                validator: (value) => validators.usernameValidator(value),
-              ),
-              SizedBox(height: context.dynamicHeight(0.03)),
-              CustomTextFieldWidget(
-                labelText: StringConstants.email,
-                keyboardType: TextInputType.emailAddress,
-                controller: emailController,
-                prefixIconData: Icons.mail_outline_rounded,
-                validator: (value) => validators.emailValidator(value),
-              ),
-              SizedBox(height: context.dynamicHeight(0.03)),
-              CustomPasswordFormField(
-                controller: passwordController,
-                labelText: StringConstants.password,
-                obsecureText: obsecureText,
-                changeObsecureText: changeObsecureText,
-                validator: (value) => validators.passwordValidator(value),
-              ),
-              SizedBox(height: context.dynamicHeight(0.02)),
-              CustomAuthButtonWidget(
-                onPressed: signupButtonOnPressed,
-                text: StringConstants.signUpButton,
-                buttonColor: Theme.of(context).colorScheme.primary,
-                isRequestAvaliable: isRequestAvaible,
-              ),
-              SizedBox(height: context.dynamicHeight(0.02)),
-              AuthPreferencesWidget(
-                onPressedGoogle: signinUserWithGoogle,
-                onPressedApple: signinUserWithApple,
-              ),
-              _buildErrorListener(context),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: context.dynamicHeight(0.02)),
+                AuthCustomTitleTextWidget(
+                  text: StringConstants.signUpTitle,
+                ),
+                AuthCustomSubTitleTextWidget(
+                  text: StringConstants.signUpSubtitle,
+                ),
+                SizedBox(height: context.dynamicHeight(0.03)),
+                CustomTextFieldWidget(
+                  labelText: StringConstants.username,
+                  keyboardType: TextInputType.text,
+                  controller: usernameController,
+                  prefixIconData: Icons.alternate_email,
+                  validator: (value) => validators.usernameValidator(value),
+                ),
+                SizedBox(height: context.dynamicHeight(0.03)),
+                CustomTextFieldWidget(
+                  labelText: StringConstants.email,
+                  keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
+                  prefixIconData: Icons.mail_outline_rounded,
+                  validator: (value) => validators.emailValidator(value),
+                ),
+                SizedBox(height: context.dynamicHeight(0.03)),
+                CustomPasswordFormField(
+                  controller: passwordController,
+                  labelText: StringConstants.password,
+                  obsecureText: obsecureText,
+                  changeObsecureText: changeObsecureText,
+                  validator: (value) => validators.passwordValidator(value),
+                ),
+                SizedBox(height: context.dynamicHeight(0.02)),
+                CustomAuthButtonWidget(
+                  onPressed: signupButtonOnPressed,
+                  text: StringConstants.signUpButton,
+                  buttonColor: Theme.of(context).colorScheme.primary,
+                  isRequestAvaliable: isRequestAvaible,
+                ),
+                SizedBox(height: context.dynamicHeight(0.02)),
+                AuthPreferencesWidget(
+                  onPressedGoogle: signinUserWithGoogle,
+                  onPressedApple: signinUserWithApple,
+                ),
+                _buildErrorListener(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -129,9 +135,21 @@ class _SignupViewState extends State<SignupView> with SignupViewMixin {
     return Selector<AuthViewModel, Failure?>(
       selector: (_, viewModel) => viewModel.failure,
       builder: (context, failure, child) {
-        showScaffoldSnackBar(failure);
+        showScaffoldSnackBar(failure: failure);
         return const SizedBox.shrink();
       },
     );
+  }
+
+  @override
+  void showScaffoldSnackBar({required Failure? failure}) {
+    if (failure != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(failure.errorMessage)),
+        );
+        Provider.of<AuthViewModel>(context, listen: false).clearFailure();
+      });
+    }
   }
 }

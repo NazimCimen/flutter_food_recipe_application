@@ -1,3 +1,3 @@
 enum SharedKeyEnum {
-  onboardShown7,
+  onboardShown,
 }
