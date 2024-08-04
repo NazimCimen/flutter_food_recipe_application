@@ -1,4 +1,4 @@
-# Uygulamanızın Adı
+# YUMMY APP
 
 ![Uygulama Logosu](https://github.com/NazimCimen/flutter_food_recipe_application/blob/development/assets/images/appLogo.png)
 
