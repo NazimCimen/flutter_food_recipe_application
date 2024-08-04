@@ -3,6 +3,7 @@ import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 
 void main() async {
   final appInit = AppInitImpl();
+  //test
   await appInit.run();
 }
 
