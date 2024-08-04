@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/domain/entity/user_entity.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final SigninUserUseCase signinUserUseCase;
@@ -7,15 +8,16 @@ class AuthViewModel extends ChangeNotifier {
   final SigninWithGoogleUserUseCase signinWithGoogleUserUseCase;
   final SigninWithAppleUserUseCase signinWithAppleUserUseCase;
 
-  AuthViewModel({
-    required this.signinUserUseCase,
-    required this.signupUserUseCase,
-    required this.signinWithGoogleUserUseCase,
-    required this.signinWithAppleUserUseCase,
-    this.failure,
-  });
+  AuthViewModel(
+      {required this.signinUserUseCase,
+      required this.signupUserUseCase,
+      required this.signinWithGoogleUserUseCase,
+      required this.signinWithAppleUserUseCase,
+      this.failure,
+      this.user});
 
   Failure? failure;
+  UserEntity? user;
 
   /// SIGN IN - RESULT: FAILURE OR USER OBJECT
   Future<void> signinUser({
@@ -28,7 +30,9 @@ class AuthViewModel extends ChangeNotifier {
         this.failure = failure;
         notifyListeners();
       },
-      (user) {},
+      (user) {
+        this.user = user;
+      },
     );
   }
 
@@ -44,7 +48,9 @@ class AuthViewModel extends ChangeNotifier {
         this.failure = failure;
         notifyListeners();
       },
-      (user) {},
+      (user) {
+        this.user = user;
+      },
     );
   }
 
@@ -56,7 +62,9 @@ class AuthViewModel extends ChangeNotifier {
         this.failure = failure;
         notifyListeners();
       },
-      (user) {},
+      (user) {
+        this.user = user;
+      },
     );
   }
 
@@ -68,7 +76,9 @@ class AuthViewModel extends ChangeNotifier {
         this.failure = failure;
         notifyListeners();
       },
-      (user) {},
+      (user) {
+        this.user = user;
+      },
     );
   }
 

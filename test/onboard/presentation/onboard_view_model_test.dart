@@ -30,7 +30,7 @@ void main() {
       ),
     ];
 
-    test('succes test', () async {
+    test('fail test', () async {
       // arrange
       when(mockGetOnBoardDatasUseCase.call(locale: anyNamed('locale')))
           .thenAnswer((_) async => Left(CacheFailure(errorMessage: 'error')));
@@ -41,9 +41,10 @@ void main() {
       // assert
       expect(viewModel.failure, isA<Failure>());
       verify(mockGetOnBoardDatasUseCase.call(locale: tLocale));
+      verifyNoMoreInteractions(mockGetOnBoardDatasUseCase);
     });
 
-    test('fail test', () async {
+    test('succes test', () async {
       // arrange
       when(mockGetOnBoardDatasUseCase.call(locale: anyNamed('locale')))
           .thenAnswer((_) async => const Right(tOnBoardData));
