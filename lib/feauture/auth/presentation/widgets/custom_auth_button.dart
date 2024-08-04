@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 class CustomAuthButtonWidget extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final Color buttonColor;
+  final bool isRequestAvaliable;
   const CustomAuthButtonWidget({
     required this.onPressed,
     required this.text,
     required this.buttonColor,
+    required this.isRequestAvaliable,
     super.key,
   });
 
@@ -24,17 +26,16 @@ class CustomAuthButtonWidget extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: /*context.watch<AuthController>().isRequestAvaible
+      child: isRequestAvaliable
           ? CircularProgressIndicator(
-              color: AppColors.white,
-            )
-          :*/
-          Text(
-        text,
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Theme.of(context).colorScheme.surface,
+            )
+          : Text(
+              text,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
             ),
-      ),
     );
   }
 }

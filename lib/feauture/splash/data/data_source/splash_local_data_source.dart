@@ -10,7 +10,8 @@ class SplashLocalDataSourceImpl implements SplashLocalDataSource {
   @override
   Future<bool?> checkCacheOnboardShown() async {
     try {
-      final result = sharedPreferences.getBool(SharedKeyEnum.onboardShown.name);
+      final result =
+          sharedPreferences.getBool(SharedKeyEnum.onboardShown7.name);
       return result;
     } catch (e) {
       throw CacheException();

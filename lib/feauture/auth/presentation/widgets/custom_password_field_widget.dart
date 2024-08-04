@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 class CustomPasswordFormField extends StatelessWidget {
-  final String hintText;
+  final String labelText;
   final TextEditingController controller;
-
+  final String? Function(String?)? validator;
+  final bool obsecureText;
+  final VoidCallback changeObsecureText;
   const CustomPasswordFormField({
     required this.controller,
-    required this.hintText,
+    required this.labelText,
+    required this.validator,
+    required this.obsecureText,
+    required this.changeObsecureText,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //   obscureText: context.watch<AuthController>().obsecureText,
-      validator: (value) => null,
+      obscureText: obsecureText,
+      validator: validator,
       controller: controller,
       keyboardType: TextInputType.text,
       cursorColor: Theme.of(context).colorScheme.tertiary,
@@ -29,7 +34,7 @@ class CustomPasswordFormField extends StatelessWidget {
     return InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onTertiary,
           width: 2,
         ),
         borderRadius: context.borderRadiusAllMedium,
@@ -38,23 +43,27 @@ class CustomPasswordFormField extends StatelessWidget {
         borderRadius: context.borderRadiusAllMedium,
         borderSide: BorderSide(
           width: 2,
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
       focusColor: Theme.of(context).colorScheme.tertiary,
-      hintText: hintText,
-      hintStyle: Theme.of(context).textTheme.labelMedium,
-      prefixIcon: const Icon(Icons.lock_outline),
+      labelText: labelText,
+      labelStyle: TextStyle(
+        color: Theme.of(context).colorScheme.onTertiary,
+      ),
+      prefixIcon: Icon(
+        Icons.lock_outline,
+        color: Theme.of(context).colorScheme.onTertiary,
+      ),
       suffixIcon: IconButton(
         onPressed: () {
-          // context.read<AuthController>().changeObsecureText();
+          changeObsecureText();
         },
         icon: Icon(
-          //context.watch<AuthController>().obsecureText
-          //    ? Icons.visibility_off_outlined
-          //:
-          Icons.visibility_outlined,
-          color: Theme.of(context).colorScheme.tertiary,
+          obsecureText
+              ? Icons.visibility_off_outlined
+              : Icons.visibility_outlined,
+          color: Theme.of(context).colorScheme.onTertiary,
         ),
       ),
     );

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 class CustomTextFieldWidget extends StatelessWidget {
-  final String hintText;
+  final String labelText;
   final TextEditingController controller;
   final TextInputType keyboardType;
+  final IconData prefixIconData;
   final String? Function(String?)? validator;
-
   const CustomTextFieldWidget({
-    required this.hintText,
+    required this.labelText,
     required this.keyboardType,
     required this.controller,
     required this.validator,
+    required this.prefixIconData,
     super.key,
   });
 
@@ -32,7 +33,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     return InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.onTertiary,
           width: 2,
         ),
         borderRadius: context.borderRadiusAllMedium,
@@ -41,13 +42,18 @@ class CustomTextFieldWidget extends StatelessWidget {
         borderRadius: context.borderRadiusAllMedium,
         borderSide: BorderSide(
           width: 2,
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
-      prefixIcon: const Icon(Icons.mail_outline_rounded),
+      prefixIcon: Icon(
+        prefixIconData,
+        color: Theme.of(context).colorScheme.onTertiary,
+      ),
       focusColor: Theme.of(context).colorScheme.tertiary,
-      hintText: hintText,
-      hintStyle: Theme.of(context).textTheme.labelMedium,
+      labelText: labelText,
+      labelStyle: TextStyle(
+        color: Theme.of(context).colorScheme.onTertiary,
+      ),
     );
   }
 }

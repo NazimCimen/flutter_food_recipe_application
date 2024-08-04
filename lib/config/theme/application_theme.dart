@@ -16,7 +16,7 @@ final class CustomLightTheme implements ApplicationTheme {
         useMaterial3: true,
         fontFamily: GoogleFonts.montserrat().fontFamily,
         colorScheme: CustomColorScheme.lightScheme,
-        textTheme: TextTheme(
+        /*    textTheme: TextTheme(
           bodyMedium: TextStyle(
             color: colorScheme.onSurface,
           ),
@@ -26,7 +26,7 @@ final class CustomLightTheme implements ApplicationTheme {
           headlineMedium: TextStyle(
             color: colorScheme.onSurface,
           ),
-        ),
+        ),*/
       );
 }
 

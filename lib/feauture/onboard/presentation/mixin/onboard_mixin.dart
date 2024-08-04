@@ -9,8 +9,6 @@ mixin OnBoardMixin on State<OnBoardView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final locale = context.locale;
       Provider.of<OnboardViewModel>(context, listen: false)
-          .setOnBoardShownUseCase();
-      Provider.of<OnboardViewModel>(context, listen: false)
           .eitherFailureOrOnBoardDatas(locale: locale);
     });
   }
@@ -28,7 +26,9 @@ mixin OnBoardMixin on State<OnBoardView> {
       currentPage++;
       setState(() {});
     } else {
-      navigateToLoginView();
+      if (mounted) {
+        navigateToHomeView();
+      }
     }
   }
 
@@ -40,9 +40,9 @@ mixin OnBoardMixin on State<OnBoardView> {
     }
   }
 
-  void navigateToLoginView() {
+  void navigateToHomeView() {
     Provider.of<OnboardViewModel>(context, listen: false)
         .setOnBoardShownUseCase();
-    NavigatorService.pushNamedAndRemoveUntil(AppRoutes.loginView);
+    NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView);
   }
 }

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 class AuthPreferencesWidget extends StatelessWidget {
-  final String owWith;
-  final String navigateToFirst;
-  final String navigateToSecond;
-  final VoidCallback pressNavigate;
+  final VoidCallback onPressedGoogle;
+  final VoidCallback onPressedApple;
+
   const AuthPreferencesWidget({
+    required this.onPressedGoogle,
+    required this.onPressedApple,
     super.key,
-    required this.owWith,
-    required this.navigateToFirst,
-    required this.navigateToSecond,
-    required this.pressNavigate,
   });
 
   @override
@@ -20,61 +17,67 @@ class AuthPreferencesWidget extends StatelessWidget {
       children: [
         buildDivider(context),
         SizedBox(height: context.dynamicHeight(0.025)),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             buildContainerIcon(
               context: context,
+              text: StringConstants.continueWithGoogle,
               iconPath: ImageEnums.googleIcon.toPathPng,
+              onPressed: onPressedGoogle,
             ),
+            SizedBox(height: context.dynamicHeight(0.025)),
             buildContainerIcon(
               context: context,
               iconPath: ImageEnums.appleIcon.toPathPng,
+              text: StringConstants.continueWithApple,
+              onPressed: onPressedApple,
             ),
           ],
-        ),
-        SizedBox(height: context.dynamicHeight(0.025)),
-        InkWell(
-          onTap: pressNavigate,
-          child: Text.rich(
-            TextSpan(
-              text: '$navigateToFirst ',
-              children: [
-                TextSpan(
-                  text: ' $navigateToSecond',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ],
-            ),
-          ),
         ),
       ],
     );
   }
 
-  Container buildContainerIcon(
-      {required BuildContext context, required String iconPath}) {
-    return Container(
-      height: context.dynamicHeight(0.08),
-      width: context.dynamicHeight(0.08),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
-            spreadRadius: 3,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
-        color: Colors.white,
-        borderRadius: context.borderRadiusAllMedium,
-      ),
-      child: Image.asset(
-        iconPath,
-        height: context.dynamicHeight(0.1),
+  GestureDetector buildContainerIcon({
+    required BuildContext context,
+    required String iconPath,
+    required String text,
+    required VoidCallback onPressed,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        height: context.dynamicHeight(0.06),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: const Offset(0, 3),
+            ),
+          ],
+          color: Colors.white,
+          borderRadius: context.borderRadiusAllMedium,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              iconPath,
+              height: context.dynamicHeight(0.1),
+            ),
+            Text(
+              text,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -85,16 +88,16 @@ class AuthPreferencesWidget extends StatelessWidget {
         Expanded(
           child: Divider(
             color: Theme.of(context).colorScheme.onTertiary,
-            height: 2,
+            thickness: 2,
           ),
         ),
-        Text('  $owWith  '),
+        Text(StringConstants.or),
         Expanded(
           child: Divider(
             color: Theme.of(context).colorScheme.onTertiary,
-            height: 2,
+            thickness: 1,
           ),
-        )
+        ),
       ],
     );
   }

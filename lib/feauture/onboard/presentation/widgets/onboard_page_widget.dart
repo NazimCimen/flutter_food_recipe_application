@@ -49,6 +49,7 @@ class OnBoardPageWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: context.dynamicWidht(0.09),
                         letterSpacing: 1.3,
+                        color: Theme.of(context).colorScheme.surface,
                         shadows: [
                           Shadow(
                             offset: const Offset(1.5, 1.5),
@@ -67,6 +68,7 @@ class OnBoardPageWidget extends StatelessWidget {
                       description ?? '',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: context.dynamicWidht(0.04),
+                            color: Theme.of(context).colorScheme.surface,
                           ),
                     ),
                   ),

@@ -19,7 +19,6 @@ void main() {
     'succes/fail test splash repository impl',
     () {
       const testResult = false;
-      final testFail = CacheFailure(errorMessage: 'errorMessage');
       test(
         'succes test',
         () async {
@@ -31,7 +30,7 @@ void main() {
           final result = await splashRepositoryImpl.checkCacheOnboardShown();
           //assert
           // ignore: inference_failure_on_instance_creation
-          expect(result, Right(testResult));
+          expect(result, const Right(testResult));
         },
       );
       test(
