@@ -32,26 +32,33 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required UserSigninInputModel signInInputModel,
   }) async {
     if (!await networkInfo.currentConnectivityResult) {
-      return Left(ServerFailure(errorMessage: 'No internet connection.'));
-    }
-    try {
-      final userCredential = await auth.signInWithEmailAndPassword(
-        email: signInInputModel.email,
-        password: signInInputModel.password,
-      );
-
-      final user = userCredential.user;
-      if (user != null) {
-        return Right(UserModel.fromFirebaseUser(user));
-      } else {
-        return Left(ServerFailure(errorMessage: 'User ID is null'));
-      }
-    } on FirebaseAuthException catch (e) {
       return Left(
         ServerFailure(
-          errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e),
+          errorMessage: StringConstants.authErrorNoInternetConnection,
         ),
       );
+    } else {
+      try {
+        final userCredential = await auth.signInWithEmailAndPassword(
+          email: signInInputModel.email,
+          password: signInInputModel.password,
+        );
+
+        final user = userCredential.user;
+        if (user != null) {
+          return Right(UserModel.fromFirebaseUser(user));
+        } else {
+          return Left(
+            ServerFailure(errorMessage: StringConstants.authErrorUserIdIsNull),
+          );
+        }
+      } on FirebaseAuthException catch (e) {
+        return Left(
+          ServerFailure(
+            errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e.code),
+          ),
+        );
+      }
     }
   }
 
@@ -61,7 +68,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required UserSignUpInputModel signUpInputModel,
   }) async {
     if (!await networkInfo.currentConnectivityResult) {
-      return Left(ServerFailure(errorMessage: 'No internet connection.'));
+      return Left(
+        ServerFailure(
+          errorMessage: StringConstants.authErrorNoInternetConnection,
+        ),
+      );
     }
     try {
       final userCredential = await auth.createUserWithEmailAndPassword(
@@ -74,12 +85,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         await user.updateDisplayName(signUpInputModel.username);
         return Right(UserModel.fromFirebaseUser(user));
       } else {
-        return Left(ServerFailure(errorMessage: 'User ID is null'));
+        return Left(
+          ServerFailure(errorMessage: StringConstants.authErrorUserIdIsNull),
+        );
       }
     } on FirebaseAuthException catch (e) {
       return Left(
         ServerFailure(
-          errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e),
+          errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e.code),
         ),
       );
     }
@@ -121,7 +134,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       return Left(
         ServerFailure(
-          errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e),
+          errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e.code),
         ),
       );
     } catch (e) {
@@ -162,7 +175,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       return Left(
         ServerFailure(
-          errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e),
+          errorMessage: errorMapper.mapFirebaseAuthExceptionToMessage(e.code),
         ),
       );
     } catch (e) {

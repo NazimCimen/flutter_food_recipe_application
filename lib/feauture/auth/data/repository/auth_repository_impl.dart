@@ -13,7 +13,12 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, UserEntity>> signinUser({
     required UserSigninInputModel signinInputModel,
   }) async {
-    return remoteDataSource.signinUser(signInInputModel: signinInputModel);
+    final result =
+        await remoteDataSource.signinUser(signInInputModel: signinInputModel);
+    return result.fold(
+      (failure) => Left(failure),
+      (userModel) => Right(userModel.toEntity()),
+    );
   }
 
   /// SIGN UP - RETURN FAILURE OR USER
@@ -21,18 +26,31 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, UserEntity>> signupUser({
     required UserSignUpInputModel signUpInputModel,
   }) async {
-    return remoteDataSource.signupUser(signUpInputModel: signUpInputModel);
+    final result =
+        await remoteDataSource.signupUser(signUpInputModel: signUpInputModel);
+    return result.fold(
+      (failure) => Left(failure),
+      (userModel) => Right(userModel.toEntity()),
+    );
   }
 
   /// SIGN IN WITH GOOGLE - RETURN FAILURE OR USER
   @override
   Future<Either<Failure, UserEntity>> signinWithGoogleUser() async {
-    return remoteDataSource.signinWithGoogleUser();
+    final result = await remoteDataSource.signinWithGoogleUser();
+    return result.fold(
+      (failure) => Left(failure),
+      (userModel) => Right(userModel.toEntity()),
+    );
   }
 
   /// SIGN IN WITH APPLE - RETURN FAILURE OR USER
   @override
   Future<Either<Failure, UserEntity>> signinWithAppleUser() async {
-    return remoteDataSource.signinWithAppleUser();
+    final result = await remoteDataSource.signinWithAppleUser();
+    return result.fold(
+      (failure) => Left(failure),
+      (userModel) => Right(userModel.toEntity()),
+    );
   }
 }

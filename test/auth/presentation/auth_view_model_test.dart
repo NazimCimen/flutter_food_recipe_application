@@ -33,7 +33,7 @@ void main() {
     },
   );
   const tUserEntity =
-      UserEntity(id: 'id', email: 'email', username: 'username');
+      UserEntity(userId: 'id', email: 'email', username: 'username');
   final tInputSigninModel = UserSigninInputModel(
     email: 'email',
     password: 'password',
@@ -44,6 +44,7 @@ void main() {
     username: 'username',
   );
   final tFailure = ServerFailure(errorMessage: 'errorMessage');
+
   group(
     'succes/fail test auth view model signin user',
     () {

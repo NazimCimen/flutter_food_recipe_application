@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
-import 'package:flutter_food_recipe_application/feauture/auth/domain/entity/user_entity.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final SigninUserUseCase signinUserUseCase;

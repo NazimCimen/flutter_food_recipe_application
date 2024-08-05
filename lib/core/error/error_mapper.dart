@@ -1,15 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_food_recipe_application/config/app_config_export.dart';
 
 abstract class IErrorMapper {
-  String mapFirebaseAuthExceptionToMessage(FirebaseAuthException e);
-  String mapFailureToMessage(String e);
+  String mapFirebaseAuthExceptionToMessage(String firebaseAuthExceptionCode);
 }
 
 class ErrorMapper implements IErrorMapper {
   @override
-  String mapFirebaseAuthExceptionToMessage(FirebaseAuthException e) {
-    switch (e.code) {
+  String mapFirebaseAuthExceptionToMessage(String firebaseAuthExceptionCode) {
+    switch (firebaseAuthExceptionCode) {
       case 'invalid-email':
         return StringConstants.authErrorInvalidMail;
       case 'user-not-found':
@@ -33,11 +31,5 @@ class ErrorMapper implements IErrorMapper {
       default:
         return StringConstants.authErrorUnknown;
     }
-  }
-
-  @override
-  String mapFailureToMessage(String e) {
-    // TODO: implement mapFailureToMessage
-    throw UnimplementedError();
   }
 }

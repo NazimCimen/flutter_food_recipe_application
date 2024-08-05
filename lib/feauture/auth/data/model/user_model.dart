@@ -2,24 +2,20 @@ import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
-    required super.id,
+    required super.userId,
     required super.email,
     required super.username,
   });
 
   factory UserModel.fromFirebaseUser(User user) {
     return UserModel(
-      id: user.uid,
-      email: user.email!,
-      username: user.displayName ?? '',
+      userId: user.uid,
+      email: user.email,
+      username: user.displayName,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'email': email,
-      'username': username,
-    };
+  UserEntity toEntity() {
+    return UserEntity(userId: userId, email: email, username: username);
   }
 }

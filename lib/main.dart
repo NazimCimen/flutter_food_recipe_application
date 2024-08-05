@@ -16,8 +16,6 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: CustomLightTheme().themeData,
-        //  darkTheme: CustomDarkTheme().themeData,
-        // themeMode: provider.themeMode,
         debugShowCheckedModeBanner: false,
         routes: AppRoutes.routes,
         initialRoute: AppRoutes.initialRoute,
