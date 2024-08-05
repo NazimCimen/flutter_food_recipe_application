@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "Überspringen"
+  },
+  "auth": {
+    "login": {
+      "title": "Leckere Momente erwarten Sie!",
+      "subtitle": "Melden Sie sich an und entdecken Sie Rezepte nur für Sie.",
+      "dontHaveAccount": "Haben Sie noch kein Konto?",
+      "signUp": "Anmelden",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "forgotPassword": "Passwort vergessen?",
+      "loginButton": "ANMELDEN",
+      "continueWithGoogle": "Mit Google fortfahren",
+      "continueWithApple": "Mit Apple fortfahren",
+      "or": "ODER"
+    },
+    "signup": {
+      "title": "Teil der köstlichen Entdeckungen werden!",
+      "subtitle": "Registrieren Sie sich und tauchen Sie ein in eine Welt voller auf Ihren Geschmack abgestimmter Rezepte.",
+      "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
+      "login": "Anmelden",
+      "username": "Benutzername",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "signUpButton": "ANMELDEN",
+      "continueWithGoogle": "Mit Google fortfahren",
+      "continueWithApple": "Mit Apple fortfahren",
+      "or": "ODER"
+    },
+    "errors": {
+      "invalid-email": "Ungültige E-Mail-Adresse.",
+      "user-not-found": "Kein Benutzer mit dieser E-Mail gefunden.",
+      "wrong-password": "Falsches Passwort.",
+      "email-already-in-use": "E-Mail-Adresse bereits in Verwendung.",
+      "user-disabled": "Benutzerkonto wurde deaktiviert.",
+      "operation-not-allowed": "Diese Operation ist nicht erlaubt.",
+      "weak-password": "Das angegebene Passwort ist zu schwach.",
+      "account-exists-with-different-credential": "Ein Konto existiert bereits mit anderen Anmeldeinformationen.",
+      "invalid-credential": "Ungültige oder abgelaufene Anmeldeinformationen.",
+      "requires-recent-login": "Für diese Operation ist eine aktuelle Authentifizierung erforderlich. Bitte melden Sie sich erneut an.",
+      "unknown": "Ein unbekannter Fehler ist aufgetreten.",
+      "no-internet-connection": "Keine Internetverbindung.",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "Anmeldung vom Benutzer abgebrochen."
+    }
+  }
+}

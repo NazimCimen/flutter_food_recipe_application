@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "تخطي"
+  },
+  "auth": {
+    "login": {
+      "title": "لحظات لذيذة في انتظارك!",
+      "subtitle": "قم بتسجيل الدخول إلى حسابك واكتشف وصفات مخصصة لك.",
+      "dontHaveAccount": "لا تمتلك حسابًا؟",
+      "signUp": "سجل الآن",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "loginButton": "تسجيل الدخول",
+      "continueWithGoogle": "متابعة باستخدام Google",
+      "continueWithApple": "متابعة باستخدام Apple",
+      "or": "أو"
+    },
+    "signup": {
+      "title": "انضم إلى اكتشافات لذيذة!",
+      "subtitle": "سجل الآن وادخل إلى عالم مليء بالوصفات المناسبة لذوقك.",
+      "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+      "login": "تسجيل الدخول",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "signUpButton": "سجل الآن",
+      "continueWithGoogle": "متابعة باستخدام Google",
+      "continueWithApple": "متابعة باستخدام Apple",
+      "or": "أو"
+    },
+    "errors": {
+      "invalid-email": "عنوان البريد الإلكتروني غير صالح.",
+      "user-not-found": "لم يتم العثور على مستخدم بهذا البريد الإلكتروني.",
+      "wrong-password": "كلمة مرور خاطئة.",
+      "email-already-in-use": "عنوان البريد الإلكتروني قيد الاستخدام بالفعل.",
+      "user-disabled": "تم تعطيل حساب المستخدم.",
+      "operation-not-allowed": "هذه العملية غير مسموح بها.",
+      "weak-password": "كلمة المرور المقدمة ضعيفة جدًا.",
+      "account-exists-with-different-credential": "يوجد حساب بالفعل بمعلومات تسجيل دخول مختلفة.",
+      "invalid-credential": "معلومات تسجيل الدخول غير صالحة أو منتهية.",
+      "requires-recent-login": "تتطلب هذه العملية مصادقة حديثة. يرجى تسجيل الدخول مرة أخرى.",
+      "unknown": "حدث خطأ غير معروف.",
+      "no-internet-connection": "لا يوجد اتصال بالإنترنت.",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "تسجيل الدخول تم إلغاؤه بواسطة المستخدم."
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "Omitir"
+  },
+  "auth": {
+    "login": {
+      "title": "¡Momentos deliciosos te esperan!",
+      "subtitle": "Inicia sesión en tu cuenta y descubre recetas personalizadas para ti.",
+      "dontHaveAccount": "¿No tienes una cuenta?",
+      "signUp": "Regístrate",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "loginButton": "INICIAR SESIÓN",
+      "continueWithGoogle": "Continuar con Google",
+      "continueWithApple": "Continuar con Apple",
+      "or": "O"
+    },
+    "signup": {
+      "title": "¡Únete a los descubrimientos deliciosos!",
+      "subtitle": "Regístrate y adéntrate en un mundo lleno de recetas adaptadas a tu gusto.",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar sesión",
+      "username": "Nombre de Usuario",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "signUpButton": "REGISTRARSE",
+      "continueWithGoogle": "Continuar con Google",
+      "continueWithApple": "Continuar con Apple",
+      "or": "O"
+    },
+    "errors": {
+      "invalid-email": "Dirección de correo electrónico inválida.",
+      "user-not-found": "No se encontró un usuario con este correo electrónico.",
+      "wrong-password": "Contraseña incorrecta.",
+      "email-already-in-use": "La dirección de correo electrónico ya está en uso.",
+      "user-disabled": "La cuenta de usuario está deshabilitada.",
+      "operation-not-allowed": "Esta operación no está permitida.",
+      "weak-password": "La contraseña proporcionada es muy débil.",
+      "account-exists-with-different-credential": "La cuenta existe con credenciales diferentes.",
+      "invalid-credential": "Credencial inválida o expirado.",
+      "requires-recent-login": "Se requiere autenticación reciente para esta operación. Por favor, inicia sesión nuevamente.",
+      "unknown": "Se produjo un error desconocido.",
+      "no-internet-connection": "Sin conexión a Internet",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "Inicio de sesión cancelado por el usuario."
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "Salta"
+  },
+  "auth": {
+    "login": {
+      "title": "Momenti deliziosi ti aspettano!",
+      "subtitle": "Accedi al tuo account e scopri ricette solo per te.",
+      "dontHaveAccount": "Non hai un account?",
+      "signUp": "Registrati",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Password dimenticata?",
+      "loginButton": "ACCEDI",
+      "continueWithGoogle": "Continua con Google",
+      "continueWithApple": "Continua con Apple",
+      "or": "OPPURE"
+    },
+    "signup": {
+      "title": "Unisciti alle scoperte deliziose!",
+      "subtitle": "Registrati e immergiti in un mondo di ricette adatte al tuo gusto.",
+      "alreadyHaveAccount": "Hai già un account?",
+      "login": "Accedi",
+      "username": "Nome utente",
+      "email": "Email",
+      "password": "Password",
+      "signUpButton": "REGISTRATI",
+      "continueWithGoogle": "Continua con Google",
+      "continueWithApple": "Continua con Apple",
+      "or": "OPPURE"
+    },
+    "errors": {
+      "invalid-email": "Indirizzo email non valido.",
+      "user-not-found": "Nessun utente trovato con questa email.",
+      "wrong-password": "Password errata.",
+      "email-already-in-use": "L'indirizzo email è già in uso.",
+      "user-disabled": "L'account utente è stato disabilitato.",
+      "operation-not-allowed": "Questa operazione non è consentita.",
+      "weak-password": "La password fornita è troppo debole.",
+      "account-exists-with-different-credential": "Esiste già un account con credenziali diverse.",
+      "invalid-credential": "Credenziale non valida o scaduta.",
+      "requires-recent-login": "Questa operazione richiede un'autenticazione recente. Effettua nuovamente il login.",
+      "unknown": "Si è verificato un errore sconosciuto.",
+      "no-internet-connection": "Nessuna connessione a Internet.",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "Accesso annullato dall'utente."
+    }
+  }
+}

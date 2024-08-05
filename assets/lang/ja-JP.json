@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "スキップ"
+  },
+  "auth": {
+    "login": {
+      "title": "美味しい瞬間が待っています！",
+      "subtitle": "アカウントにログインして、自分だけのレシピを見つけましょう。",
+      "dontHaveAccount": "アカウントをお持ちでないですか？",
+      "signUp": "サインアップ",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "forgotPassword": "パスワードを忘れましたか？",
+      "loginButton": "ログイン",
+      "continueWithGoogle": "Googleで続ける",
+      "continueWithApple": "Appleで続ける",
+      "or": "または"
+    },
+    "signup": {
+      "title": "美味しい発見に参加しましょう！",
+      "subtitle": "サインアップして、お好みのレシピが満載の世界に足を踏み入れましょう。",
+      "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+      "login": "ログイン",
+      "username": "ユーザー名",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "signUpButton": "サインアップ",
+      "continueWithGoogle": "Googleで続ける",
+      "continueWithApple": "Appleで続ける",
+      "or": "または"
+    },
+    "errors": {
+      "invalid-email": "無効なメールアドレスです。",
+      "user-not-found": "このメールアドレスのユーザーが見つかりません。",
+      "wrong-password": "パスワードが間違っています。",
+      "email-already-in-use": "メールアドレスはすでに使用されています。",
+      "user-disabled": "ユーザーアカウントが無効になっています。",
+      "operation-not-allowed": "この操作は許可されていません。",
+      "weak-password": "提供されたパスワードが弱すぎます。",
+      "account-exists-with-different-credential": "異なる認証情報でアカウントが存在します。",
+      "invalid-credential": "無効または期限切れの認証情報です。",
+      "requires-recent-login": "この操作には最近のログインが必要です。再度ログインしてください。",
+      "unknown": "不明なエラーが発生しました。",
+      "no-internet-connection": "インターネット接続がありません。",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "ユーザーによってサインインが中止されました。"
+    }
+  }
+}

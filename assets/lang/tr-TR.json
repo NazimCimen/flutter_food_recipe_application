@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "Atla"
+  },
+  "auth": {
+    "login": {
+      "title": "Lezzet dolu anlar sizi bekliyor!",
+      "subtitle": "Hesabınıza giriş yapın ve size özel tariflerle buluşun.",
+      "dontHaveAccount": "Hesabınız yok mu?",
+      "signUp": "Kayıt Ol",
+      "email": "Email",
+      "password": "Şifre",
+      "forgotPassword": "Şifremi unuttum?",
+      "loginButton": "GİRİŞ YAP",
+      "continueWithGoogle": "Google ile Devam Et",
+      "continueWithApple": "Apple ile Devam Et",
+      "or": "YA DA"
+    },
+    "signup": {
+      "title": "Lezzetli keşiflere katılın!",
+      "subtitle": "Kayıt olun ve damak zevkinize uygun tariflerle dolu dünyamıza adım atın.",
+      "alreadyHaveAccount": "Zaten bir hesabınız var mı?",
+      "login": "Giriş Yap",
+      "username": "Kullanıcı Adı",
+      "email": "Email",
+      "password": "Şifre",
+      "signUpButton": "KAYIT OL",
+      "continueWithGoogle": "Google ile Devam Et",
+      "continueWithApple": "Apple ile Devam Et",
+      "or": "YA DA"
+    },
+    "errors": {
+      "invalid-email": "Geçersiz email adresi.",
+      "user-not-found": "Bu email ile kayıtlı kullanıcı bulunamadı.",
+      "wrong-password": "Hatalı şifre.",
+      "email-already-in-use": "Email adresi zaten kullanımda.",
+      "user-disabled": "Kullanıcı hesabı devre dışı bırakılmış.",
+      "operation-not-allowed": "Bu işlem izin verilmedi.",
+      "weak-password": "Sağlanan şifre çok zayıf.",
+      "account-exists-with-different-credential": "Hesap farklı kimlik bilgileriyle mevcut.",
+      "invalid-credential": "Kimlik bilgisi geçersiz veya süresi dolmuş.",
+      "requires-recent-login": "Bu işlem için yakın zamanda kimlik doğrulaması gereklidir. Lütfen tekrar giriş yapın.",
+      "unknown": "Bilinmeyen bir hata oluştu.",
+      "no-internet-connection": "İnternet Bağlantısı Yok",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "Giriş kullanıcı tarafından iptal edildi."
+    }
+  }
+}

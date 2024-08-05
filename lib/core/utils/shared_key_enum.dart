@@ -1,0 +1,3 @@
+enum SharedKeyEnum {
+  onboardShown,
+}

@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "Pular"
+  },
+  "auth": {
+    "login": {
+      "title": "Momentos deliciosos aguardam por você!",
+      "subtitle": "Faça login na sua conta e descubra receitas feitas para você.",
+      "dontHaveAccount": "Não tem uma conta?",
+      "signUp": "Inscreva-se",
+      "email": "Email",
+      "password": "Senha",
+      "forgotPassword": "Esqueceu sua senha?",
+      "loginButton": "ENTRAR",
+      "continueWithGoogle": "Continuar com Google",
+      "continueWithApple": "Continuar com Apple",
+      "or": "OU"
+    },
+    "signup": {
+      "title": "Junte-se às descobertas deliciosas!",
+      "subtitle": "Inscreva-se e entre em um mundo de receitas ajustadas ao seu gosto.",
+      "alreadyHaveAccount": "Já tem uma conta?",
+      "login": "Entrar",
+      "username": "Nome de usuário",
+      "email": "Email",
+      "password": "Senha",
+      "signUpButton": "INSCREVER-SE",
+      "continueWithGoogle": "Continuar com Google",
+      "continueWithApple": "Continuar com Apple",
+      "or": "OU"
+    },
+    "errors": {
+      "invalid-email": "Endereço de email inválido.",
+      "user-not-found": "Nenhum usuário encontrado com este email.",
+      "wrong-password": "Senha incorreta.",
+      "email-already-in-use": "Endereço de email já em uso.",
+      "user-disabled": "Conta do usuário foi desativada.",
+      "operation-not-allowed": "Esta operação não é permitida.",
+      "weak-password": "A senha fornecida é muito fraca.",
+      "account-exists-with-different-credential": "Já existe uma conta com credenciais diferentes.",
+      "invalid-credential": "Credencial inválida ou expirada.",
+      "requires-recent-login": "Esta operação requer uma autenticação recente. Por favor, faça login novamente.",
+      "unknown": "Ocorreu um erro desconhecido.",
+      "no-internet-connection": "Sem conexão com a internet.",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "Login abortado pelo usuário."
+    }
+  }
+}

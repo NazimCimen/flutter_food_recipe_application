@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "Passer"
+  },
+  "auth": {
+    "login": {
+      "title": "Des moments délicieux vous attendent !",
+      "subtitle": "Connectez-vous à votre compte et découvrez des recettes rien que pour vous.",
+      "dontHaveAccount": "Vous n'avez pas de compte ?",
+      "signUp": "S'inscrire",
+      "email": "Email",
+      "password": "Mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "loginButton": "SE CONNECTER",
+      "continueWithGoogle": "Continuer avec Google",
+      "continueWithApple": "Continuer avec Apple",
+      "or": "OU"
+    },
+    "signup": {
+      "title": "Rejoignez les découvertes gourmandes !",
+      "subtitle": "Inscrivez-vous et plongez dans un monde de recettes adaptées à votre goût.",
+      "alreadyHaveAccount": "Vous avez déjà un compte ?",
+      "login": "Se connecter",
+      "username": "Nom d'utilisateur",
+      "email": "Email",
+      "password": "Mot de passe",
+      "signUpButton": "S'INSCRIRE",
+      "continueWithGoogle": "Continuer avec Google",
+      "continueWithApple": "Continuer avec Apple",
+      "or": "OU"
+    },
+    "errors": {
+      "invalid-email": "Adresse email invalide.",
+      "user-not-found": "Aucun utilisateur trouvé avec cet email.",
+      "wrong-password": "Mot de passe incorrect.",
+      "email-already-in-use": "L'adresse email est déjà utilisée.",
+      "user-disabled": "Le compte utilisateur a été désactivé.",
+      "operation-not-allowed": "Cette opération n'est pas autorisée.",
+      "weak-password": "Le mot de passe fourni est trop faible.",
+      "account-exists-with-different-credential": "Un compte existe déjà avec des identifiants différents.",
+      "invalid-credential": "Identifiant invalide ou expiré.",
+      "requires-recent-login": "Cette opération nécessite une authentification récente. Veuillez vous reconnecter.",
+      "unknown": "Une erreur inconnue s'est produite.",
+      "no-internet-connection": "Pas de connexion Internet.",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "Connexion annulée par l'utilisateur."
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "onboard": {
+    "skip": "Skip"
+  },
+  "auth": {
+    "login": {
+      "title": "Delicious moments await you!",
+      "subtitle": "Log in to your account and discover recipes just for you.",
+      "dontHaveAccount": "Don't have an account?",
+      "signUp": "Sign Up",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot Password?",
+      "loginButton": "LOG IN",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithApple": "Continue with Apple",
+      "or": "OR"
+    },
+    "signup": {
+      "title": "Join the delicious discoveries!",
+      "subtitle": "Sign up and step into a world filled with recipes tailored to your taste.",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Log In",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "signUpButton": "SIGN UP",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithApple": "Continue with Apple",
+      "or": "OR"
+    },
+    "errors": {
+      "invalid-email": "Invalid email address.",
+      "user-not-found": "No user found with this email.",
+      "wrong-password": "Incorrect password.",
+      "email-already-in-use": "Email address already in use.",
+      "user-disabled": "User account has been disabled.",
+      "operation-not-allowed": "This operation is not allowed.",
+      "weak-password": "The provided password is too weak.",
+      "account-exists-with-different-credential": "An account already exists with different credentials.",
+      "invalid-credential": "Invalid or expired credential.",
+      "requires-recent-login": "This operation requires recent authentication. Please log in again.",
+      "unknown": "An unknown error occurred.",
+      "no-internet-connection": "No internet connection.",
+      "user-id-is-null": "User ID is null",
+      "sign-in-aborted": "Sign in aborted by user."
+    }
+  }
+}
