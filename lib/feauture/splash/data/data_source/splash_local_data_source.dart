@@ -7,6 +7,8 @@ abstract class SplashLocalDataSource {
 class SplashLocalDataSourceImpl implements SplashLocalDataSource {
   final SharedPreferences sharedPreferences;
   SplashLocalDataSourceImpl(this.sharedPreferences);
+
+  /// CHECKING CACHE FOR ONBOARD SCREEN VISIBILITY FLAG
   @override
   Future<bool?> checkCacheOnboardShown() async {
     try {

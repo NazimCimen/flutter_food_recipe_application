@@ -6,11 +6,13 @@ abstract class OnBoardLocalDataSource {
   Future<void> setOnBoardShown();
 }
 
+@immutable
 class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
   final SharedPreferences sharedPreferences;
   final OnBoardJsonPathProvider jsonPathProvider;
 
-  OnBoardLocalDataSourceImpl(this.sharedPreferences, this.jsonPathProvider);
+  const OnBoardLocalDataSourceImpl(
+      this.sharedPreferences, this.jsonPathProvider);
 
   @override
   Future<List<OnBoardModel>> getOnBoardData({required Locale locale}) async {
@@ -29,6 +31,7 @@ class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
     }
   }
 
+  /// SET AND SAVE ONBOARD SCREEN VISIBILITY FLAG
   @override
   Future<void> setOnBoardShown() async {
     await sharedPreferences.setBool(SharedKeyEnum.onboardShown.name, true);

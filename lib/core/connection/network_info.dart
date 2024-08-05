@@ -1,6 +1,6 @@
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 
-/// İnternet bağlantısını kontrol etmek için kullanılan arayüz.
+/// this interface is used to control internet connection.
 abstract class INetworkInfo {
   Future<ConnectivityResult> get getConnectionType;
   Future<bool> get currentConnectivityResult;

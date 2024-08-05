@@ -2,30 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 mixin SplashMixin on State<SplashView> {
+  late final SplashViewModel _viewModel;
+
   @override
   void initState() {
     super.initState();
+    _viewModel = GetIt.instance<SplashViewModel>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _navigateBasedOnSplash();
+      _checkOnBoardVisibility();
     });
   }
 
-  Future<void> _navigateBasedOnSplash() async {
-    await Provider.of<SplashViewModel>(context, listen: false)
-        .checkSplashShown();
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(seconds: 1));
-    navigateFromSplash();
+  Future<void> _checkOnBoardVisibility() async {
+    final result = await _viewModel.checkOnboardShown();
+    await Future<void>.delayed(const Duration(seconds: 1));
+    if (mounted) {
+      _navigateFromSplash(result);
+    }
   }
 
-  void navigateFromSplash() {
-    final onBoardShown = context.read<SplashViewModel>().onBoardShown;
-    if (onBoardShown != null) {
-      onBoardShown
-          ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView)
-          : NavigatorService.pushNamedAndRemoveUntil(AppRoutes.onboardView);
-    } else {
-      NavigatorService.pushNamedAndRemoveUntil(AppRoutes.onboardView);
-    }
+  void _navigateFromSplash(bool result) {
+    result
+        ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView)
+        : NavigatorService.pushNamedAndRemoveUntil(AppRoutes.onboardView);
   }
 }

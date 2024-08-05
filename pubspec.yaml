@@ -12,52 +12,45 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Cupertino style icons for iOS design
-  cupertino_icons: ^1.0.6 
+  # Core
+  connectivity_plus: ^6.0.3 # For checking the device's network connectivity status
+  dartz: ^0.10.1 # Functional programming library for Dart
+  easy_localization: ^3.0.7 # Simplifies localization and internationalization of the app
+  get_it: ^7.7.0 # Service locator for dependency injection
+  provider: ^6.1.2 # State management library
+  shared_preferences: ^2.2.3 # For storing key-value data locally on the device
+  dio: ^5.5.0+1 # HTTP client for making API requests
+  json_annotation: ^4.9.0 # Annotation library for JSON serialization
+  flutter_dotenv: ^5.1.0 # Used to control environment variables
+  mockito: ^5.4.4 # Used to test the app and improve the code quality
+  equatable: ^2.0.5 # used to prevent object reference shifts
 
-  # For checking the device's network connectivity status
-  connectivity_plus: ^6.0.3
+  # Firebase
+  firebase_auth: ^4.16.0 # Used for user authentication.
+  firebase_core: ^2.24.2 #  Used to initialize and configure Firebase services in the application.
+  cloud_firestore: ^4.14.0 # Used for cloud database services.
+  firebase_storage: ^11.6.0 # Used for file storage and management.
+  firebase_analytics: ^10.8.0 # Used to track and analyze user interactions.
+  firebase_messaging: ^14.7.10 # Used to send push notifications.
+  firebase_crashlytics: ^3.4.9 # Used to monitor and report application crashes.
+  cloud_functions: ^4.6.0 # Used to create server-side functions.
+  google_sign_in: ^6.2.1 # Used to provide Google authentication.
+  sign_in_with_apple: ^6.1.1 # Used to provide Apple authentication.
 
-  # Functional programming library for Dart
-  dartz: ^0.10.1 
-
-  # Simplifies localization and internationalization of the app
-  easy_localization: ^3.0.7
-
-  # Service locator for dependency injection
-  get_it: ^7.7.0 
-
-  # Allows the use of fonts from Google Fonts
-  google_fonts: ^6.2.1 
-
-  # For storing key-value data locally on the device
-  shared_preferences: ^2.2.3 
-
-  # State management library 
-  provider: ^6.1.2
-
-  # HTTP client for making API requests
-  dio: ^5.5.0+1
-
-  # Annotation library for JSON serialization
-  json_annotation: ^4.9.0
-
-  # Customizable page indicator for PageView widgets
-  smooth_page_indicator: ^1.2.0+3
-    # used for creating mock objects in tests
-  mockito: ^5.4.4
-  animate_do: ^3.3.4
-
+  # UI
+  cupertino_icons: ^1.0.6 # Cupertino style icons for iOS design
+  google_fonts: ^6.2.1 # Allows the use of fonts from Google Fonts
+  animate_do: ^3.3.4 # Used to add animation effects.
+  lottie: ^3.1.2 # Used to show lottie animations
+  flutter_image_slideshow: ^0.1.6 # Used to create image slideshows.
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # Linter rules for code quality and consistency
-  very_good_analysis: ^6.0.0
-  # Code generator for JSON serialization
-  json_serializable: ^6.8.0
-  # Build system for Dart to generate code
-  build_runner: ^2.3.3
+  very_good_analysis: ^6.0.0 # Linter rules for code quality and consistency
+  json_serializable: ^6.8.0 # Code generator for JSON serialization
+  build_runner: ^2.3.3 # Build system for Dart to generate code
 
 flutter:
   uses-material-design: true
@@ -65,5 +58,4 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/lang/
-    - assets/sounds/
     - assets/app_datas/onboard_jsons/

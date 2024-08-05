@@ -1,19 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
-class SplashViewModel extends ChangeNotifier {
+class SplashViewModel {
   final CheckCacheOnboardShownUseCase checkCacheOnboardShownUseCase;
   SplashViewModel(this.checkCacheOnboardShownUseCase);
-  bool? onBoardShown;
-  Future<void> checkSplashShown() async {
-    final failureOrResult = await checkCacheOnboardShownUseCase.call();
 
+  Future<bool> checkOnboardShown() async {
+    final failureOrResult = await checkCacheOnboardShownUseCase.call();
+    var result = false;
     failureOrResult.fold((fail) {
-      onBoardShown = false;
-      notifyListeners();
-    }, (result) {
-      onBoardShown = result ?? false;
-      notifyListeners();
+      result = false;
+    }, (succes) {
+      result = succes ?? false;
     });
+    return result;
   }
 }

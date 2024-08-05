@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/feauture/onboard/presentation/viewmodel/onboard_view_model.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/presentation/viewmodel/splash_view_model.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
+import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/main.dart';
 
 abstract class AppInit {
@@ -32,14 +31,13 @@ class AppInitImpl extends AppInit {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<ThemeManager>(
-            create: (_) => sl<IThemeManager>() as ThemeManager,
+            create: (_) => serviceLocator<IThemeManager>() as ThemeManager,
           ),
           ChangeNotifierProvider<OnboardViewModel>(
-            create: (_) => sl<OnboardViewModel>(),
+            create: (_) => serviceLocator<OnboardViewModel>(),
           ),
-          ChangeNotifierProvider<SplashViewModel>(
-            create: (_) => sl<SplashViewModel>(),
-          )
+          ChangeNotifierProvider<AuthViewModel>(
+              create: (_) => serviceLocator<AuthViewModel>()),
         ],
         child: const MyApp(),
       ),
@@ -51,6 +49,9 @@ class AppInitImpl extends AppInit {
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
     setupLocator();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 
   @override

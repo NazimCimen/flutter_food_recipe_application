@@ -53,7 +53,7 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
               Padding(
                 padding: context.paddingHorizRightMedium,
                 child: GestureDetector(
-                  onTap: navigateToLoginView,
+                  onTap: navigateToHomeView,
                   child: Container(
                     height: context.dynamicHeight(0.04),
                     width: context.dynamicWidht(0.2),
@@ -77,7 +77,12 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
                           padding: context.paddingAllLow,
                           child: Text(
                             StringConstants.skip,
-                            style: Theme.of(context).textTheme.bodyLarge,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.surface,
+                                ),
                           ),
                         ),
                       ),
@@ -101,7 +106,7 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
 
   Widget _buildFailure(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
-      navigateToLoginView();
+      navigateToHomeView();
     });
     return const Center(
       child: CircularProgressIndicator(
