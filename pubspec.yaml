@@ -58,6 +58,5 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/lang/
-    - assets/sounds/
     - assets/app_datas/onboard_jsons/
     - .env
