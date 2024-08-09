@@ -65,3 +65,5 @@ doc/api/
 
 # Keys and Certificates
 **/android/app/release.keystore
+
+lib/project_rules.txt

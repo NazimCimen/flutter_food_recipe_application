@@ -1,0 +1,14 @@
+Feature Geliştirme Sonrası Takip Edilecek Adımlar
+
+1- Dependency Injection: Gerekli dependency injection yapılandırmaları tanımlanır.
+2- Kod İncelemesi: Tüm kodlar gözden geçirilir ve kodun kalitesini artırmak için yapılabilecek iyileştirmeler uygulanır.
+3- İsimlendirme Kontrolü: Değişken, sınıf, ve fonksiyon isimlendirmeleri kontrol edilir.
+4- Export Tanımları: Gerekli yerlerde exportlar tanımlanır.
+5- Kod Standardı: Kodun very_good_analysis linter kurallarına uygun olup olmadığı kontrol edilir.
+6- Dokümantasyon: Methodlar üzerine açıklama (docstring) yazılır.
+7- Localization: Varsa sabit metinler localization dosyasına eklenir.
+8- Pubspec.yaml Düzenlemesi: pubspec.yaml dosyası gözden geçirilir ve düzenlenir.
+9- Önemli Durum Kontrolü: Gözden kaçan önemli bir durum olup olmadığı kontrol edilir (örneğin: network, cache vb.).
+10- Crash Analizi: Crash potansiyeli taşıyan durumlar olup olmadığı değerlendirilir.
+11- Test Yazımı: Gerekli testler yazılır.
+12- Pull Request & Merge: Pull request açılır ve merge edilir.
