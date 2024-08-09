@@ -23,14 +23,14 @@ class NavigateSignInOrUpWidget extends StatelessWidget {
         GestureDetector(
           onTap: backButtonOnTap,
           child: Icon(
-            Icons.arrow_back_ios_new_outlined,
+            //  Icons.arrow_back_ios_new_outlined,
+            Icons.home,
             color: Theme.of(context).colorScheme.surface,
             shadows: [
               Shadow(
                 offset: const Offset(1.5, 1.5),
                 blurRadius: 2,
-                color:
-                    Theme.of(context).colorScheme.onTertiary.withOpacity(0.5),
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
               ),
             ],
           ),

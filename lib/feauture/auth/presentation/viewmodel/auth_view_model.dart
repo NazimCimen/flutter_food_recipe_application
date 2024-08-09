@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/domain/usecase/cache_user_token_use_case.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final SigninUserUseCase signinUserUseCase;
   final SignupUserUseCase signupUserUseCase;
   final SigninWithGoogleUserUseCase signinWithGoogleUserUseCase;
   final SigninWithAppleUserUseCase signinWithAppleUserUseCase;
-
-  AuthViewModel(
-      {required this.signinUserUseCase,
-      required this.signupUserUseCase,
-      required this.signinWithGoogleUserUseCase,
-      required this.signinWithAppleUserUseCase,
-      this.failure,
-      this.user});
+  final CacheUserTokenUseCase cacheUserTokenUseCase;
+  AuthViewModel({
+    required this.signinUserUseCase,
+    required this.signupUserUseCase,
+    required this.signinWithGoogleUserUseCase,
+    required this.signinWithAppleUserUseCase,
+    required this.cacheUserTokenUseCase,
+    this.failure,
+    this.user,
+  });
 
   Failure? failure;
   UserEntity? user;
@@ -31,6 +34,7 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
   }
@@ -49,6 +53,7 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
   }
@@ -63,6 +68,7 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
   }
@@ -77,8 +83,22 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
+  }
+
+  /// USED TO SAVE AUTH TOKEN IN LOCALE
+  Future<void> cacheUserAuthToken() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final userAuthToken = await currentUser.getIdToken();
+      if (userAuthToken != null) {
+        await cacheUserTokenUseCase.cacheUserIdToken(
+          userIdToken: userAuthToken,
+        );
+      }
+    }
   }
 
   /// USED TO CLEAN FAILURE

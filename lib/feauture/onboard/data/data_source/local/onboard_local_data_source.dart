@@ -27,13 +27,13 @@ class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
           )
           .toList();
     } catch (e) {
-      throw CacheException();
+      throw CacheException('cache error');
     }
   }
 
   /// SET AND SAVE ONBOARD SCREEN VISIBILITY FLAG
   @override
   Future<void> setOnBoardShown() async {
-    await sharedPreferences.setBool(SharedKeyEnum.onboardShown.name, true);
+    await sharedPreferences.setBool(LocalKeysEnum.onboard.name, true);
   }
 }

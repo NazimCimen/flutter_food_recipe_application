@@ -51,18 +51,19 @@ mixin SignupViewMixin on State<SignupView> {
   Future<void> signupUser({
     required UserSignUpInputModel signUpInputModel,
   }) async {
-    await Provider.of<AuthViewModel>(context, listen: false)
+    await context
+        .read<AuthViewModel>()
         .signupUser(signUpInputModel: signUpInputModel);
   }
 
   /// it provides to signin with google
   Future<void> signinUserWithGoogle() async {
-    await Provider.of<AuthViewModel>(context, listen: false).signinWithGoogle();
+    await context.read<AuthViewModel>().signinWithGoogle();
   }
 
   /// it provides to signin with apple
   Future<void> signinUserWithApple() async {
-    await Provider.of<AuthViewModel>(context, listen: false).signinWithApple();
+    await context.read<AuthViewModel>().signinWithApple();
   }
 
   ///it used to validate the form fields

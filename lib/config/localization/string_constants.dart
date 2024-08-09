@@ -4,6 +4,14 @@ import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.
 class StringConstants {
   StringConstants._();
 
+  static String get appName => 'YUMMY';
+
+  //Splash
+  static String get titleForceUpdate => 'Yeni Bir Güncelleme Sizi Bekliyor!';
+  static String get descriptionForceUpdate =>
+      'En yeni özellikler ve iyileştirmelerle deneyiminizi bir üst seviyeye taşıdık. Devam edebilmek için lütfen uygulamanızı güncelleyin.';
+  static String get forceUpdateButtonText => 'Güncelle';
+
   // Onboard
   static String get skip => 'onboard.skip'.tr();
 

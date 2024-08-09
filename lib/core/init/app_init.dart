@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/main.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 abstract class AppInit {
   Future<void> initialize();
@@ -37,7 +38,8 @@ class AppInitImpl extends AppInit {
             create: (_) => serviceLocator<OnboardViewModel>(),
           ),
           ChangeNotifierProvider<AuthViewModel>(
-              create: (_) => serviceLocator<AuthViewModel>()),
+            create: (_) => serviceLocator<AuthViewModel>(),
+          ),
         ],
         child: const MyApp(),
       ),
@@ -48,10 +50,13 @@ class AppInitImpl extends AppInit {
   Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
+    await Hive.initFlutter();
+
     setupLocator();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    await serviceLocator.allReady();
   }
 
   @override

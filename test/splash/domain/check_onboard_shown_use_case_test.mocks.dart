@@ -58,4 +58,24 @@ class MockSplashRepository extends _i1.Mock implements _i3.SplashRepository {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i2.Failure, bool?>>);
+
+  @override
+  _i4.Future<_i2.Either<_i2.Failure, String?>> getAppVersionNumberFromDatabase(
+          {required String? platform}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAppVersionNumberFromDatabase,
+          [],
+          {#platform: platform},
+        ),
+        returnValue: _i4.Future<_i2.Either<_i2.Failure, String?>>.value(
+            _FakeEither_0<_i2.Failure, String?>(
+          this,
+          Invocation.method(
+            #getAppVersionNumberFromDatabase,
+            [],
+            {#platform: platform},
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i2.Failure, String?>>);
 }
