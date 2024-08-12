@@ -51,12 +51,10 @@ class AppInitImpl extends AppInit {
     WidgetsFlutterBinding.ensureInitialized();
     await EasyLocalization.ensureInitialized();
     await Hive.initFlutter();
-
     setupLocator();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    await serviceLocator.allReady();
   }
 
   @override

@@ -50,6 +50,7 @@ dependencies:
   animate_do: ^3.3.4 # Used to add animation effects.
   lottie: ^3.1.2 # Used to show lottie animations
   flutter_image_slideshow: ^0.1.6 # Used to create image slideshows.
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:

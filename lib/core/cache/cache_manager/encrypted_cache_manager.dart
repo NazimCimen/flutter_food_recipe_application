@@ -1,6 +1,4 @@
-import 'package:flutter_food_recipe_application/core/cache/cache_manager/base_cache_manager.dart';
-import 'package:flutter_food_recipe_application/core/cache/encryption/encryption_service.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 
 ///IT IS A CACHE MANAGEMENT CLASS THAT INCLUDES ENCRYPTION OPERATIONS BY EXTENDING BaseCacheManager<String>
 class EncryptedCacheManager extends BaseCacheManager<String> {

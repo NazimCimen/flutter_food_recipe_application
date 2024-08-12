@@ -1,6 +1,4 @@
-import 'package:flutter_food_recipe_application/core/cache/cache_manager/base_cache_manager.dart';
-import 'package:flutter_food_recipe_application/core/cache/cache_manager/encrypted_cache_manager.dart';
-import 'package:flutter_food_recipe_application/core/error/exception.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 abstract class AuthLocaleDataSource {
   Future<void> saveUserAuthToken({required String userIdToken});
@@ -9,6 +7,8 @@ abstract class AuthLocaleDataSource {
 class AuthLocaleDataSourceImpl implements AuthLocaleDataSource {
   final EncryptedCacheManager cacheManager;
   AuthLocaleDataSourceImpl({required this.cacheManager});
+
+  /// CACHE USER AUTH TOKEN
   @override
   Future<void> saveUserAuthToken({required String userIdToken}) async {
     try {

@@ -1,17 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_food_recipe_application/core/cache/cache_enum.dart';
-import 'package:flutter_food_recipe_application/core/cache/cache_manager/base_cache_manager.dart';
-import 'package:flutter_food_recipe_application/core/cache/cache_manager/encrypted_cache_manager.dart';
-import 'package:flutter_food_recipe_application/core/cache/encryption/encryption_service.dart';
-import 'package:flutter_food_recipe_application/core/cache/encryption/secure_encryption_key_manager.dart';
-import 'package:flutter_food_recipe_application/core/utils/firebase_utils/app_version_manager.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/data/data_source/auth_locale_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/domain/usecase/cache_user_token_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/data/data_source/splash_remote_data_source.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/domain/usecase/get_app_database_version_number.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 final serviceLocator = GetIt.instance;
@@ -71,7 +63,10 @@ void setupLocator() {
       () => SplashLocalDataSourceImpl(serviceLocator<SharedPreferences>()),
     )
     ..registerLazySingleton<SplashRemoteDataSource>(
-      () => SplashRemoteDataSourceImpl(serviceLocator<FirebaseFirestore>()),
+      () => SplashRemoteDataSourceImpl(
+        serviceLocator<FirebaseFirestore>(),
+        serviceLocator<INetworkInfo>(),
+      ),
     )
     ..registerLazySingleton<SplashRepository>(
       () => SplashRepositoryImpl(
@@ -143,12 +138,13 @@ void setupLocator() {
     )
     ..registerLazySingleton<AuthViewModel>(
       () => AuthViewModel(
-          signinUserUseCase: serviceLocator<SigninUserUseCase>(),
-          signupUserUseCase: serviceLocator<SignupUserUseCase>(),
-          signinWithAppleUserUseCase:
-              serviceLocator<SigninWithAppleUserUseCase>(),
-          signinWithGoogleUserUseCase:
-              serviceLocator<SigninWithGoogleUserUseCase>(),
-          cacheUserTokenUseCase: serviceLocator<CacheUserTokenUseCase>()),
+        signinUserUseCase: serviceLocator<SigninUserUseCase>(),
+        signupUserUseCase: serviceLocator<SignupUserUseCase>(),
+        signinWithAppleUserUseCase:
+            serviceLocator<SigninWithAppleUserUseCase>(),
+        signinWithGoogleUserUseCase:
+            serviceLocator<SigninWithGoogleUserUseCase>(),
+        cacheUserTokenUseCase: serviceLocator<CacheUserTokenUseCase>(),
+      ),
     );
 }

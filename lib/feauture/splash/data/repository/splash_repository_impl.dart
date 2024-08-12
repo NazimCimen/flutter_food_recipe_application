@@ -1,5 +1,3 @@
-import 'package:flutter_food_recipe_application/feauture/splash/data/data_source/splash_remote_data_source.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/data/model/app_version_model.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 class SplashRepositoryImpl implements SplashRepository {

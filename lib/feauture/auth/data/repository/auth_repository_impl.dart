@@ -58,6 +58,7 @@ class AuthRepositoryImpl implements AuthRepository {
     );
   }
 
+  /// CACHE USER AUTH TOKEN
   @override
   Future<void> cacheUserToken({required String userIdToken}) async {
     await localeDataSource.saveUserAuthToken(userIdToken: userIdToken);

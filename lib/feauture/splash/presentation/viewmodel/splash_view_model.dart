@@ -1,5 +1,3 @@
-import 'package:flutter_food_recipe_application/core/utils/firebase_utils/app_version_manager.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/domain/usecase/get_app_database_version_number.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 class SplashViewModel {
@@ -12,6 +10,7 @@ class SplashViewModel {
     this.appVersionManager,
   );
 
+  /// This method checks onboard screen visibility
   Future<bool> checkOnboardShown() async {
     final failureOrResult = await checkCacheOnboardShownUseCase.call();
     var result = false;

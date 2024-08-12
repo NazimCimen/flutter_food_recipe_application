@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OnBoardPageWidget extends StatelessWidget {
   final String? title;

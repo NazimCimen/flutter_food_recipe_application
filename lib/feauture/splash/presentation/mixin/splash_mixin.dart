@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 mixin SplashMixin on State<SplashView> {

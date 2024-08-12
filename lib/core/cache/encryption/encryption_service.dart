@@ -1,6 +1,4 @@
-import 'dart:convert';
-import 'package:encrypt/encrypt.dart';
-import 'package:flutter_food_recipe_application/core/cache/encryption/secure_encryption_key_manager.dart';
+import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 
 /// THIS IS A CLASS THAT DEFINES ENCRYPTION AND DECRYPTION OPERATIONS
 abstract class BaseEncryptionService {

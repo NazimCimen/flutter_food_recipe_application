@@ -1,5 +1,4 @@
-import 'package:flutter_food_recipe_application/core/cache/cache_manager/base_cache_manager.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 
 /// IT IS A STANDART CACHE MANAGEMENT CLASS THAT DOES NOT PERFORM ENCRYPTION.IT EXTENDS BaseCacheManager<T>,
 class StandartCacheManager<T> extends BaseCacheManager<T> {
