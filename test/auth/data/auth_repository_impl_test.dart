@@ -2,18 +2,20 @@ import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-
 import 'auth_repository_impl_test.mocks.dart';
 
-@GenerateMocks([AuthRemoteDataSource])
+@GenerateMocks([AuthRemoteDataSource, AuthLocaleDataSource])
 void main() {
   late AuthRepositoryImpl authRepositoryImpl;
   late MockAuthRemoteDataSource mockAuthRemoteDataSource;
-
+  late MockAuthLocaleDataSource mockAuthLocaleDataSource;
   setUp(() {
     mockAuthRemoteDataSource = MockAuthRemoteDataSource();
-    authRepositoryImpl =
-        AuthRepositoryImpl(remoteDataSource: mockAuthRemoteDataSource);
+    mockAuthLocaleDataSource = MockAuthLocaleDataSource();
+    authRepositoryImpl = AuthRepositoryImpl(
+      remoteDataSource: mockAuthRemoteDataSource,
+      localeDataSource: mockAuthLocaleDataSource,
+    );
   });
 
   const tUserModel =
@@ -163,6 +165,45 @@ void main() {
         mockAuthRemoteDataSource.signinWithGoogleUser(),
       );
       verifyNoMoreInteractions(mockAuthRemoteDataSource);
+    });
+  });
+
+  group('success/fail test AuthRepositoryImpl save user token', () {
+    test('success test', () async {
+      // Arrange
+      when(
+        mockAuthLocaleDataSource.saveUserAuthToken(userIdToken: 'userIdToken'),
+      ).thenAnswer(
+        (_) async => Future.value(),
+      );
+
+      // Act
+      await authRepositoryImpl.cacheUserToken(userIdToken: 'userIdToken');
+
+      // Assert
+      verify(
+        mockAuthLocaleDataSource.saveUserAuthToken(userIdToken: 'userIdToken'),
+      );
+      verifyNoMoreInteractions(mockAuthLocaleDataSource);
+    });
+
+    test('failure test', () async {
+      // Arrange
+      when(
+        mockAuthLocaleDataSource.saveUserAuthToken(userIdToken: 'userIdToken'),
+      ).thenThrow(CacheException('data is not saved'));
+
+      // Act
+      expect(
+        () => authRepositoryImpl.cacheUserToken(userIdToken: 'userIdToken'),
+        throwsA(isA<CacheException>()),
+      );
+
+      // Assert
+      verify(
+        mockAuthLocaleDataSource.saveUserAuthToken(userIdToken: 'userIdToken'),
+      );
+      verifyNoMoreInteractions(mockAuthLocaleDataSource);
     });
   });
 }

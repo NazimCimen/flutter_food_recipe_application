@@ -8,6 +8,7 @@ import 'dart:async' as _i3;
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -76,4 +77,100 @@ class MockCheckCacheOnboardShownUseCase extends _i1.Mock
           ),
         )),
       ) as _i3.Future<_i2.Either<_i2.Failure, bool?>>);
+}
+
+/// A class which mocks [GetAppDatabaseVersionNumberUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetAppDatabaseVersionNumberUseCase extends _i1.Mock
+    implements _i2.GetAppDatabaseVersionNumberUseCase {
+  MockGetAppDatabaseVersionNumberUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.SplashRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeSplashRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.SplashRepository);
+
+  @override
+  _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionEntity>> call(
+          {required String? platform}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+          {#platform: platform},
+        ),
+        returnValue:
+            _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionEntity>>.value(
+                _FakeEither_1<_i2.Failure, _i2.AppVersionEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+            {#platform: platform},
+          ),
+        )),
+      ) as _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionEntity>>);
+}
+
+/// A class which mocks [AppVersionManager].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppVersionManager extends _i1.Mock implements _i2.AppVersionManager {
+  MockAppVersionManager() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  bool checkVersions({
+    required String? deviceAppVersionNumber,
+    required String? databaseAppVersionNumber,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkVersions,
+          [],
+          {
+            #deviceAppVersionNumber: deviceAppVersionNumber,
+            #databaseAppVersionNumber: databaseAppVersionNumber,
+          },
+        ),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i3.Future<String> getAppDeviceVersionInfo() => (super.noSuchMethod(
+        Invocation.method(
+          #getAppDeviceVersionInfo,
+          [],
+        ),
+        returnValue: _i3.Future<String>.value(_i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getAppDeviceVersionInfo,
+            [],
+          ),
+        )),
+      ) as _i3.Future<String>);
+
+  @override
+  String getDevicePlatform() => (super.noSuchMethod(
+        Invocation.method(
+          #getDevicePlatform,
+          [],
+        ),
+        returnValue: _i4.dummyValue<String>(
+          this,
+          Invocation.method(
+            #getDevicePlatform,
+            [],
+          ),
+        ),
+      ) as String);
 }

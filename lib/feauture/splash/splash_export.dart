@@ -12,4 +12,4 @@ export 'package:flutter_food_recipe_application/feauture/splash/data/model/app_v
 export 'package:flutter_food_recipe_application/feauture/splash/domain/entity/app_version_entity.dart';
 export 'package:flutter_food_recipe_application/feauture/splash/data/data_source/splash_remote_data_source.dart';
 export 'package:flutter_food_recipe_application/core/utils/firebase_utils/app_version_manager.dart';
-export 'package:flutter_food_recipe_application/feauture/splash/domain/usecase/get_app_database_version_number.dart';
+export 'package:flutter_food_recipe_application/feauture/splash/domain/usecase/get_app_database_version_number_use_case.dart';

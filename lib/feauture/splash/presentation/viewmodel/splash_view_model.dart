@@ -2,7 +2,7 @@ import 'package:flutter_food_recipe_application/feauture/splash/splash_export.da
 
 class SplashViewModel {
   final CheckCacheOnboardShownUseCase checkCacheOnboardShownUseCase;
-  final GetAppDatabaseVersionNumber getAppDatabaseVersionNumber;
+  final GetAppDatabaseVersionNumberUseCase getAppDatabaseVersionNumber;
   final AppVersionManager appVersionManager;
   SplashViewModel(
     this.checkCacheOnboardShownUseCase,
@@ -24,14 +24,12 @@ class SplashViewModel {
 
   /// This method compares application version in firebase and device version.
   /// if return true it means there is force update
-  Future<bool> checkForceUpdate() async {
-    final databaseAppVersionNumber = await getAppDatabaseVersion();
-    final deviceAppVersionNumber =
-        await appVersionManager.getAppDeviceVersionInfo();
-    if (databaseAppVersionNumber != null) {
+  Future<bool> checkForceUpdate(
+      String? appDatabaseVersionNumber, String deviceAppVersionNumber) async {
+    if (appDatabaseVersionNumber != null) {
       final isForce = appVersionManager.checkVersions(
         deviceAppVersionNumber: deviceAppVersionNumber,
-        databaseAppVersionNumber: databaseAppVersionNumber,
+        databaseAppVersionNumber: appDatabaseVersionNumber,
       );
       return isForce;
     } else {
@@ -39,12 +37,20 @@ class SplashViewModel {
     }
   }
 
+  ///This method fetchs the device app version number.
+  Future<String> getDeviceAppVersionNumber() async {
+    final deviceAppVersionNumber =
+        await appVersionManager.getAppDeviceVersionInfo();
+    return deviceAppVersionNumber;
+  }
+
   /// This method checks application version number in firestore
-  Future<String?> getAppDatabaseVersion() async {
+  Future<String?> getAppDatabaseVersion({
+    required String devicePlatform,
+  }) async {
     String? databaseAppVersionNumber;
-    final failuereOrVersion =
-        await getAppDatabaseVersionNumber.checkAppDbVersion(
-      platform: appVersionManager.getDevicePlatform(),
+    final failuereOrVersion = await getAppDatabaseVersionNumber.call(
+      platform: devicePlatform,
     );
     failuereOrVersion.fold((fail) {
       databaseAppVersionNumber = null;
@@ -52,5 +58,10 @@ class SplashViewModel {
       databaseAppVersionNumber = dbAppVersion.versionNumber;
     });
     return databaseAppVersionNumber;
+  }
+
+  /// This method used to know device platform. android or ios
+  String getDevicePlatform() {
+    return appVersionManager.getDevicePlatform();
   }
 }

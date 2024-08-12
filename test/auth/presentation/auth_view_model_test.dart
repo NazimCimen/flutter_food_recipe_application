@@ -2,7 +2,6 @@ import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-
 import 'auth_view_model_test.mocks.dart';
 
 @GenerateMocks([
@@ -10,6 +9,9 @@ import 'auth_view_model_test.mocks.dart';
   SignupUserUseCase,
   SigninWithGoogleUserUseCase,
   SigninWithAppleUserUseCase,
+  CacheUserTokenUseCase,
+  FirebaseAuth,
+  User,
 ])
 void main() {
   late AuthViewModel viewModel;
@@ -17,21 +19,33 @@ void main() {
   late MockSignupUserUseCase mockSignupUserUseCase;
   late MockSigninWithGoogleUserUseCase mockSigninWithGoogleUserUseCase;
   late MockSigninWithAppleUserUseCase mockSigninWithAppleUserUseCase;
-
+  late MockCacheUserTokenUseCase mockCacheUserTokenUseCase;
+  late MockFirebaseAuth mockFirebaseAuth;
+  late MockUser mockUser;
   setUp(
     () {
+      mockFirebaseAuth = MockFirebaseAuth();
+      mockUser = MockUser();
+      when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+      when(mockUser.getIdToken()).thenAnswer((_) async => 'testToken');
       mockSigninUserUseCase = MockSigninUserUseCase();
       mockSignupUserUseCase = MockSignupUserUseCase();
       mockSigninWithGoogleUserUseCase = MockSigninWithGoogleUserUseCase();
       mockSigninWithAppleUserUseCase = MockSigninWithAppleUserUseCase();
+      mockCacheUserTokenUseCase = MockCacheUserTokenUseCase();
+
+      // ViewModel'i başlatın
       viewModel = AuthViewModel(
         signinUserUseCase: mockSigninUserUseCase,
         signupUserUseCase: mockSignupUserUseCase,
         signinWithGoogleUserUseCase: mockSigninWithGoogleUserUseCase,
         signinWithAppleUserUseCase: mockSigninWithAppleUserUseCase,
+        cacheUserTokenUseCase: mockCacheUserTokenUseCase,
+        auth: mockFirebaseAuth,
       );
     },
   );
+
   const tUserEntity =
       UserEntity(userId: 'id', email: 'email', username: 'username');
   final tInputSigninModel = UserSigninInputModel(
@@ -44,7 +58,6 @@ void main() {
     username: 'username',
   );
   final tFailure = ServerFailure(errorMessage: 'errorMessage');
-
   group(
     'succes/fail test auth view model signin user',
     () {
@@ -173,6 +186,29 @@ void main() {
             mockSigninWithGoogleUserUseCase.call(),
           );
           verifyNoMoreInteractions(mockSigninWithGoogleUserUseCase);
+        },
+      );
+    },
+  );
+  group(
+    'succes/fail test auth view model cache user token use case',
+    () {
+      test(
+        'succes test',
+        () async {
+          //arrange
+          when(
+            mockCacheUserTokenUseCase.call(userIdToken: 'testToken'),
+          ).thenAnswer(
+            (_) async => Future.value(),
+          );
+          //act
+          await viewModel.cacheUserAuthToken();
+          //assert
+          verify(
+            mockCacheUserTokenUseCase.call(userIdToken: 'testToken'),
+          );
+          verifyNoMoreInteractions(mockCacheUserTokenUseCase);
         },
       );
     },

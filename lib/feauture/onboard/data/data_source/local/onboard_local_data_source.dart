@@ -14,6 +14,7 @@ class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
   const OnBoardLocalDataSourceImpl(
       this.sharedPreferences, this.jsonPathProvider);
 
+  /// FETCH ONBOARD SCREEN DATAS FROM LOCALE
   @override
   Future<List<OnBoardModel>> getOnBoardData({required Locale locale}) async {
     try {

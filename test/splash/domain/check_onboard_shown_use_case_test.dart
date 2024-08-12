@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'check_onboard_shown_use_case_test.mocks.dart';
+import 'splash_repository_test.mocks.dart';
 
 @GenerateMocks([SplashRepository])
 void main() {

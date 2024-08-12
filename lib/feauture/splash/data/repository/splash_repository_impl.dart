@@ -17,6 +17,7 @@ class SplashRepositoryImpl implements SplashRepository {
     }
   }
 
+  /// FETCH APP VERSION NUMBER FROM DATABASE
   @override
   Future<Either<Failure, AppVersionModel>> getAppVersionNumberFromDatabase({
     required String platform,

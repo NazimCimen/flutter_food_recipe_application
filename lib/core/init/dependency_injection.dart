@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
-import 'package:flutter_food_recipe_application/feauture/auth/data/data_source/auth_locale_data_source.dart';
-import 'package:flutter_food_recipe_application/feauture/auth/domain/usecase/cache_user_token_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
@@ -56,8 +54,9 @@ void setupLocator() {
     ..registerLazySingleton<SetOnBoardShownUseCase>(
       () => SetOnBoardShownUseCase(serviceLocator<OnBoardRepository>()),
     )
-    ..registerLazySingleton<GetAppDatabaseVersionNumber>(
-      () => GetAppDatabaseVersionNumber(serviceLocator<SplashRepository>()),
+    ..registerLazySingleton<GetAppDatabaseVersionNumberUseCase>(
+      () => GetAppDatabaseVersionNumberUseCase(
+          serviceLocator<SplashRepository>()),
     )
     ..registerLazySingleton<SplashLocalDataSource>(
       () => SplashLocalDataSourceImpl(serviceLocator<SharedPreferences>()),
@@ -80,7 +79,7 @@ void setupLocator() {
     ..registerLazySingleton<SplashViewModel>(
       () => SplashViewModel(
         serviceLocator<CheckCacheOnboardShownUseCase>(),
-        serviceLocator<GetAppDatabaseVersionNumber>(),
+        serviceLocator<GetAppDatabaseVersionNumberUseCase>(),
         serviceLocator<AppVersionManager>(),
       ),
     )
@@ -145,6 +144,7 @@ void setupLocator() {
         signinWithGoogleUserUseCase:
             serviceLocator<SigninWithGoogleUserUseCase>(),
         cacheUserTokenUseCase: serviceLocator<CacheUserTokenUseCase>(),
+        auth: serviceLocator<FirebaseAuth>(),
       ),
     );
 }

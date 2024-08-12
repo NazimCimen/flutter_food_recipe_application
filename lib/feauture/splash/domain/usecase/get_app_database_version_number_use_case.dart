@@ -1,9 +1,9 @@
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
-class GetAppDatabaseVersionNumber {
+class GetAppDatabaseVersionNumberUseCase {
   final SplashRepository repository;
-  GetAppDatabaseVersionNumber(this.repository);
-  Future<Either<Failure, AppVersionEntity>> checkAppDbVersion({
+  GetAppDatabaseVersionNumberUseCase(this.repository);
+  Future<Either<Failure, AppVersionEntity>> call({
     required String platform,
   }) async {
     return repository.getAppVersionNumberFromDatabase(platform: platform);

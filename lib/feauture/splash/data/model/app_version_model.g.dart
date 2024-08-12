@@ -8,7 +8,7 @@ part of 'app_version_model.dart';
 
 AppVersionModel _$AppVersionModelFromJson(Map<String, dynamic> json) =>
     AppVersionModel(
-      json['versionNumber'] as String,
+      json['versionNumber'] as String?,
     );
 
 Map<String, dynamic> _$AppVersionModelToJson(AppVersionModel instance) =>

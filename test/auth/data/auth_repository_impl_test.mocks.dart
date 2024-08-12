@@ -115,3 +115,25 @@ class MockAuthRemoteDataSource extends _i1.Mock
         )),
       ) as _i3.Future<_i2.Either<_i2.Failure, _i2.UserModel>>);
 }
+
+/// A class which mocks [AuthLocaleDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthLocaleDataSource extends _i1.Mock
+    implements _i2.AuthLocaleDataSource {
+  MockAuthLocaleDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<void> saveUserAuthToken({required String? userIdToken}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveUserAuthToken,
+          [],
+          {#userIdToken: userIdToken},
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+}

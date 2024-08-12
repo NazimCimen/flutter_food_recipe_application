@@ -10,7 +10,16 @@ mixin SplashMixin on State<SplashView> {
     _viewModel = GetIt.instance<SplashViewModel>();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final onboardVisibility = await _viewModel.checkOnboardShown();
-      final isForceUpdate = await _viewModel.checkForceUpdate();
+      final devicePlatform = _viewModel.getDevicePlatform();
+      final appDatabaseVersionNumber = await _viewModel.getAppDatabaseVersion(
+        devicePlatform: devicePlatform,
+      );
+      final appDeviceVersionNumber =
+          await _viewModel.getDeviceAppVersionNumber();
+      final isForceUpdate = await _viewModel.checkForceUpdate(
+        appDatabaseVersionNumber,
+        appDeviceVersionNumber,
+      );
       _navigateFromSplash(
         isForceUpdate: isForceUpdate,
         onboardScreenVisible: onboardVisibility,

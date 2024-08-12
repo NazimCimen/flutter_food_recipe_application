@@ -3,12 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
-import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart'
+import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart'
     as _i2;
-import 'package:flutter_food_recipe_application/feauture/splash/domain/repository/splash_repository.dart'
-    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -37,19 +35,19 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// A class which mocks [SplashRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSplashRepository extends _i1.Mock implements _i3.SplashRepository {
+class MockSplashRepository extends _i1.Mock implements _i2.SplashRepository {
   MockSplashRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i2.Failure, bool?>> checkCacheOnboardShown() =>
+  _i3.Future<_i2.Either<_i2.Failure, bool?>> checkCacheOnboardShown() =>
       (super.noSuchMethod(
         Invocation.method(
           #checkCacheOnboardShown,
           [],
         ),
-        returnValue: _i4.Future<_i2.Either<_i2.Failure, bool?>>.value(
+        returnValue: _i3.Future<_i2.Either<_i2.Failure, bool?>>.value(
             _FakeEither_0<_i2.Failure, bool?>(
           this,
           Invocation.method(
@@ -57,25 +55,26 @@ class MockSplashRepository extends _i1.Mock implements _i3.SplashRepository {
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i2.Failure, bool?>>);
+      ) as _i3.Future<_i2.Either<_i2.Failure, bool?>>);
 
   @override
-  _i4.Future<_i2.Either<_i2.Failure, String?>> getAppVersionNumberFromDatabase(
-          {required String? platform}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getAppVersionNumberFromDatabase,
-          [],
-          {#platform: platform},
-        ),
-        returnValue: _i4.Future<_i2.Either<_i2.Failure, String?>>.value(
-            _FakeEither_0<_i2.Failure, String?>(
-          this,
-          Invocation.method(
-            #getAppVersionNumberFromDatabase,
-            [],
-            {#platform: platform},
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i2.Failure, String?>>);
+  _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionEntity>>
+      getAppVersionNumberFromDatabase({required String? platform}) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #getAppVersionNumberFromDatabase,
+              [],
+              {#platform: platform},
+            ),
+            returnValue:
+                _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionEntity>>.value(
+                    _FakeEither_0<_i2.Failure, _i2.AppVersionEntity>(
+              this,
+              Invocation.method(
+                #getAppVersionNumberFromDatabase,
+                [],
+                {#platform: platform},
+              ),
+            )),
+          ) as _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionEntity>>);
 }

@@ -62,7 +62,7 @@ void main() {
             mockOnBoardLocalDataSource.getOnBoardData(
               locale: anyNamed('locale'),
             ),
-          ).thenThrow(CacheException());
+          ).thenThrow(CacheException(''));
 
           // Act
           final result =

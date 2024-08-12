@@ -14,6 +14,7 @@ class OnboardViewModel extends ChangeNotifier {
   List<OnBoardEntity?>? onBoardDatas;
   Failure? failure;
 
+  /// FETCH ONBOARD SCREEN DATAS FROM LOCALE
   Future<void> eitherFailureOrOnBoardDatas({
     required Locale locale,
   }) async {
@@ -28,6 +29,7 @@ class OnboardViewModel extends ChangeNotifier {
     });
   }
 
+  /// SET AND SAVE ONBOARD SCREEN VISIBILITY FLAG
   Future<void> setOnBoardShown() async {
     await setOnBoardShownUseCase.call();
   }
