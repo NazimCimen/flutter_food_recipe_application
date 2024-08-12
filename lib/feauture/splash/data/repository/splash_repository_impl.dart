@@ -2,7 +2,9 @@ import 'package:flutter_food_recipe_application/feauture/splash/splash_export.da
 
 class SplashRepositoryImpl implements SplashRepository {
   final SplashLocalDataSource splashLocalDataSource;
-  SplashRepositoryImpl(this.splashLocalDataSource);
+  final SplashRemoteDataSource splashRemoteDataSource;
+
+  SplashRepositoryImpl(this.splashLocalDataSource, this.splashRemoteDataSource);
 
   /// CHECKING CACHE FOR ONBOARD SCREEN VISIBILITY FLAG
   @override
@@ -13,5 +15,19 @@ class SplashRepositoryImpl implements SplashRepository {
     } on CacheException {
       return Left(CacheFailure(errorMessage: 'cache error'));
     }
+  }
+
+  /// FETCH APP VERSION NUMBER FROM DATABASE
+  @override
+  Future<Either<Failure, AppVersionModel>> getAppVersionNumberFromDatabase({
+    required String platform,
+  }) async {
+    final response = await splashRemoteDataSource.getAppDatabaseVersionNumber(
+      platform: platform,
+    );
+    return response.fold(
+      (failure) => Left(failure),
+      (versionModel) => Right(versionModel),
+    );
   }
 }

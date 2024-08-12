@@ -1,11 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/data/data_source/auth_locale_data_source.dart';
 
 @immutable
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
+  final AuthLocaleDataSource localeDataSource;
+
   const AuthRepositoryImpl({
     required this.remoteDataSource,
+    required this.localeDataSource,
   });
 
   /// SIGN IN - RETURN FAILURE OR USER
@@ -52,5 +56,11 @@ class AuthRepositoryImpl implements AuthRepository {
       (failure) => Left(failure),
       (userModel) => Right(userModel.toEntity()),
     );
+  }
+
+  /// CACHE USER AUTH TOKEN
+  @override
+  Future<void> cacheUserToken({required String userIdToken}) async {
+    await localeDataSource.saveUserAuthToken(userIdToken: userIdToken);
   }
 }

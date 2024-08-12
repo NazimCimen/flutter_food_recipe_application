@@ -6,14 +6,18 @@ class AuthViewModel extends ChangeNotifier {
   final SignupUserUseCase signupUserUseCase;
   final SigninWithGoogleUserUseCase signinWithGoogleUserUseCase;
   final SigninWithAppleUserUseCase signinWithAppleUserUseCase;
-
-  AuthViewModel(
-      {required this.signinUserUseCase,
-      required this.signupUserUseCase,
-      required this.signinWithGoogleUserUseCase,
-      required this.signinWithAppleUserUseCase,
-      this.failure,
-      this.user});
+  final CacheUserTokenUseCase cacheUserTokenUseCase;
+  final FirebaseAuth auth;
+  AuthViewModel({
+    required this.signinUserUseCase,
+    required this.signupUserUseCase,
+    required this.signinWithGoogleUserUseCase,
+    required this.signinWithAppleUserUseCase,
+    required this.cacheUserTokenUseCase,
+    required this.auth,
+    this.failure,
+    this.user,
+  });
 
   Failure? failure;
   UserEntity? user;
@@ -31,6 +35,7 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
   }
@@ -49,6 +54,7 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
   }
@@ -63,6 +69,7 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
   }
@@ -77,8 +84,22 @@ class AuthViewModel extends ChangeNotifier {
       },
       (user) {
         this.user = user;
+        cacheUserAuthToken();
       },
     );
+  }
+
+  /// USED TO SAVE AUTH TOKEN IN LOCALE
+  Future<void> cacheUserAuthToken() async {
+    final currentUser = auth.currentUser;
+    if (currentUser != null) {
+      final userAuthToken = await currentUser.getIdToken();
+      if (userAuthToken != null) {
+        await cacheUserTokenUseCase.call(
+          userIdToken: userAuthToken,
+        );
+      }
+    }
   }
 
   /// USED TO CLEAN FAILURE

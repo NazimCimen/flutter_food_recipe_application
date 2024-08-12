@@ -113,4 +113,16 @@ class MockAuthRepository extends _i1.Mock implements _i2.AuthRepository {
           ),
         )),
       ) as _i3.Future<_i2.Either<_i2.Failure, _i2.UserEntity>>);
+
+  @override
+  _i3.Future<void> cacheUserToken({required String? userIdToken}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cacheUserToken,
+          [],
+          {#userIdToken: userIdToken},
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }

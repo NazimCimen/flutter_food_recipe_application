@@ -26,11 +26,11 @@ class CustomPasswordFormField extends StatelessWidget {
       cursorColor: Theme.of(context).colorScheme.tertiary,
       style: Theme.of(context).textTheme.bodyLarge,
       textInputAction: TextInputAction.next,
-      decoration: buildInputDecoration(context),
+      decoration: _buildInputDecoration(context),
     );
   }
 
-  InputDecoration buildInputDecoration(BuildContext context) {
+  InputDecoration _buildInputDecoration(BuildContext context) {
     return InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(

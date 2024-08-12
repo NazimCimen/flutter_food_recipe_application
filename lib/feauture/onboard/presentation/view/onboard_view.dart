@@ -135,7 +135,7 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
               onTap: () {
                 previousPageButton();
               },
-              assetPath: ImageEnums.leftButton.toPathPng,
+              imageAssetPath: ImageEnums.leftButton.toPathPng,
             ),
           ),
           const Spacer(),
@@ -171,7 +171,7 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
               onTap: () {
                 nextPageButton();
               },
-              assetPath: ImageEnums.rightButton.toPathPng,
+              imageAssetPath: ImageEnums.rightButton.toPathPng,
             ),
           ),
         ],
@@ -181,12 +181,12 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
 
   GestureDetector _buildPageButton({
     required VoidCallback onTap,
-    required String assetPath,
+    required String imageAssetPath,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Image.asset(
-        assetPath,
+        imageAssetPath,
         height: context.dynamicHeight(0.05),
         fit: BoxFit.cover,
       ),

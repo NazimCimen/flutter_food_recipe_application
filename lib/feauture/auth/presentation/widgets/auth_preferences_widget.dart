@@ -15,19 +15,19 @@ class AuthPreferencesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildDivider(context),
+        _buildDivider(context),
         SizedBox(height: context.dynamicHeight(0.025)),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            buildContainerIcon(
+            _buildContainerIcon(
               context: context,
               text: StringConstants.continueWithGoogle,
               iconPath: ImageEnums.googleIcon.toPathPng,
               onPressed: onPressedGoogle,
             ),
             SizedBox(height: context.dynamicHeight(0.025)),
-            buildContainerIcon(
+            _buildContainerIcon(
               context: context,
               iconPath: ImageEnums.appleIcon.toPathPng,
               text: StringConstants.continueWithApple,
@@ -39,7 +39,7 @@ class AuthPreferencesWidget extends StatelessWidget {
     );
   }
 
-  GestureDetector buildContainerIcon({
+  GestureDetector _buildContainerIcon({
     required BuildContext context,
     required String iconPath,
     required String text,
@@ -59,7 +59,7 @@ class AuthPreferencesWidget extends StatelessWidget {
               offset: const Offset(0, 3),
             ),
           ],
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: context.borderRadiusAllMedium,
         ),
         child: Row(
@@ -82,7 +82,7 @@ class AuthPreferencesWidget extends StatelessWidget {
     );
   }
 
-  Row buildDivider(BuildContext context) {
+  Row _buildDivider(BuildContext context) {
     return Row(
       children: [
         Expanded(
@@ -91,7 +91,10 @@ class AuthPreferencesWidget extends StatelessWidget {
             thickness: 2,
           ),
         ),
-        Text(StringConstants.or),
+        Padding(
+          padding: context.paddingHorizAllMedium,
+          child: Text(StringConstants.or),
+        ),
         Expanded(
           child: Divider(
             color: Theme.of(context).colorScheme.onTertiary,

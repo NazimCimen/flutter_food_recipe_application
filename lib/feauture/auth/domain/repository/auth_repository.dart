@@ -9,4 +9,5 @@ abstract class AuthRepository {
   });
   Future<Either<Failure, UserEntity>> signinWithGoogleUser();
   Future<Either<Failure, UserEntity>> signinWithAppleUser();
+  Future<void> cacheUserToken({required String userIdToken});
 }

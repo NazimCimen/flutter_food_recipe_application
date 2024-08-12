@@ -24,6 +24,7 @@ dependencies:
   flutter_dotenv: ^5.1.0 # Used to control environment variables
   mockito: ^5.4.4 # Used to test the app and improve the code quality
   equatable: ^2.0.5 # used to prevent object reference shifts
+  package_info_plus: ^4.2.0 # Used to get application version.
 
   # Firebase
   firebase_auth: ^4.16.0 # Used for user authentication.
@@ -37,13 +38,19 @@ dependencies:
   google_sign_in: ^6.2.1 # Used to provide Google authentication.
   sign_in_with_apple: ^6.1.1 # Used to provide Apple authentication.
 
+  # Cache
+  hive: ^2.2.3 # A fast and lightweight NoSQL database for local data storage
+  hive_flutter: ^1.1.0 # Provides simple and secure data storage with Hive in Flutter applications
+  encrypt: ^5.0.3 # Used for data encryption
+  flutter_secure_storage: ^9.2.2 # Secure storage for sensitive data (e.g., encrypted data)
+
   # UI
   cupertino_icons: ^1.0.6 # Cupertino style icons for iOS design
   google_fonts: ^6.2.1 # Allows the use of fonts from Google Fonts
   animate_do: ^3.3.4 # Used to add animation effects.
   lottie: ^3.1.2 # Used to show lottie animations
   flutter_image_slideshow: ^0.1.6 # Used to create image slideshows.
-  
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +58,7 @@ dev_dependencies:
   very_good_analysis: ^6.0.0 # Linter rules for code quality and consistency
   json_serializable: ^6.8.0 # Code generator for JSON serialization
   build_runner: ^2.3.3 # Build system for Dart to generate code
+  hive_generator: ^2.0.1
 
 flutter:
   uses-material-design: true

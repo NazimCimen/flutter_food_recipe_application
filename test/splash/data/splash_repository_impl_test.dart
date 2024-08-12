@@ -5,18 +5,27 @@ import 'package:mockito/mockito.dart';
 
 import 'splash_repository_impl_test.mocks.dart';
 
-@GenerateMocks([SplashLocalDataSource])
+@GenerateMocks([
+  SplashLocalDataSource,
+  SplashRemoteDataSource,
+])
 void main() {
   late SplashRepositoryImpl splashRepositoryImpl;
   late MockSplashLocalDataSource mockSplashLocalDataSource;
+  late MockSplashRemoteDataSource mockSplashRemoteDataSource;
+
   setUp(
     () {
       mockSplashLocalDataSource = MockSplashLocalDataSource();
-      splashRepositoryImpl = SplashRepositoryImpl(mockSplashLocalDataSource);
+      mockSplashRemoteDataSource = MockSplashRemoteDataSource();
+      splashRepositoryImpl = SplashRepositoryImpl(
+        mockSplashLocalDataSource,
+        mockSplashRemoteDataSource,
+      );
     },
   );
   group(
-    'succes/fail test splash repository impl',
+    'succes/fail test splash repository impl cache for onboard screen visibility flag',
     () {
       const testResult = false;
       test(
@@ -38,7 +47,7 @@ void main() {
         () async {
           //arrange
           when(mockSplashLocalDataSource.checkCacheOnboardShown())
-              .thenThrow(CacheException());
+              .thenThrow(CacheException(''));
           //act
           final result = await splashRepositoryImpl.checkCacheOnboardShown();
           //assert
@@ -51,6 +60,77 @@ void main() {
           );
           verify(mockSplashLocalDataSource.checkCacheOnboardShown());
           verifyNoMoreInteractions(mockSplashLocalDataSource);
+        },
+      );
+    },
+  );
+
+  group(
+    'succes/fail test splash repository impl fetch app version number from database',
+    () {
+      const appVersionModelTest = AppVersionModel('1.0.0');
+      const platfrom = 'android';
+      test(
+        'succes test',
+        () async {
+          //arrange
+          when(
+            mockSplashRemoteDataSource.getAppDatabaseVersionNumber(
+              platform: platfrom,
+            ),
+          ).thenAnswer(
+            (_) async => const Right(appVersionModelTest),
+          );
+          //act
+          final result =
+              await splashRepositoryImpl.getAppVersionNumberFromDatabase(
+            platform: platfrom,
+          );
+          //assert
+          // ignore: inference_failure_on_instance_creation
+          expect(
+            result,
+            // ignore: inference_failure_on_instance_creation
+            const Right(appVersionModelTest),
+          );
+          verify(
+            mockSplashRemoteDataSource.getAppDatabaseVersionNumber(
+              platform: platfrom,
+            ),
+          );
+          verifyNoMoreInteractions(mockSplashRemoteDataSource);
+        },
+      );
+      test(
+        'fail test',
+        () async {
+          //arrange
+          when(
+            mockSplashRemoteDataSource.getAppDatabaseVersionNumber(
+              platform: platfrom,
+            ),
+          ).thenAnswer(
+            (_) async => Left(ServerFailure(errorMessage: 'errorMessage')),
+          );
+          //act
+          final result =
+              await splashRepositoryImpl.getAppVersionNumberFromDatabase(
+            platform: platfrom,
+          );
+          //assert
+          expect(result.isLeft(), isTrue);
+          result.fold(
+            (failure) {
+              expect(failure, isA<ServerFailure>());
+            },
+            (_) => fail('Should not reach here'),
+          );
+          verify(
+            mockSplashRemoteDataSource.getAppDatabaseVersionNumber(
+              platform: platfrom,
+            ),
+          );
+          verifyNoMoreInteractions(mockSplashRemoteDataSource);
         },
       );
     },

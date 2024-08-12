@@ -22,6 +22,16 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
+  _FakeEither_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [SplashLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -39,4 +49,35 @@ class MockSplashLocalDataSource extends _i1.Mock
         ),
         returnValue: _i3.Future<bool?>.value(),
       ) as _i3.Future<bool?>);
+}
+
+/// A class which mocks [SplashRemoteDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSplashRemoteDataSource extends _i1.Mock
+    implements _i2.SplashRemoteDataSource {
+  MockSplashRemoteDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionModel>>
+      getAppDatabaseVersionNumber({required String? platform}) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #getAppDatabaseVersionNumber,
+              [],
+              {#platform: platform},
+            ),
+            returnValue:
+                _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionModel>>.value(
+                    _FakeEither_0<_i2.Failure, _i2.AppVersionModel>(
+              this,
+              Invocation.method(
+                #getAppDatabaseVersionNumber,
+                [],
+                {#platform: platform},
+              ),
+            )),
+          ) as _i3.Future<_i2.Either<_i2.Failure, _i2.AppVersionModel>>);
 }

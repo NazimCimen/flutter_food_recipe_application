@@ -1,12 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 final serviceLocator = GetIt.instance;
-
 void setupLocator() {
   serviceLocator
+    ..registerLazySingleton<FirebaseAuth>(
+      () => FirebaseAuth.instance,
+    )
+    ..registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance,
+    )
     ..registerSingletonAsync<SharedPreferences>(
       () async => SharedPreferences.getInstance(),
     )
@@ -42,23 +48,40 @@ void setupLocator() {
         localDataSource: serviceLocator<OnBoardLocalDataSource>(),
       ),
     )
+    ..registerLazySingleton<AppVersionManager>(
+      () => AppVersionManagerImpl(),
+    )
     ..registerLazySingleton<SetOnBoardShownUseCase>(
       () => SetOnBoardShownUseCase(serviceLocator<OnBoardRepository>()),
+    )
+    ..registerLazySingleton<GetAppDatabaseVersionNumberUseCase>(
+      () => GetAppDatabaseVersionNumberUseCase(
+          serviceLocator<SplashRepository>()),
     )
     ..registerLazySingleton<SplashLocalDataSource>(
       () => SplashLocalDataSourceImpl(serviceLocator<SharedPreferences>()),
     )
+    ..registerLazySingleton<SplashRemoteDataSource>(
+      () => SplashRemoteDataSourceImpl(
+        serviceLocator<FirebaseFirestore>(),
+        serviceLocator<INetworkInfo>(),
+      ),
+    )
     ..registerLazySingleton<SplashRepository>(
-      () => SplashRepositoryImpl(serviceLocator<SplashLocalDataSource>()),
+      () => SplashRepositoryImpl(
+        serviceLocator<SplashLocalDataSource>(),
+        serviceLocator<SplashRemoteDataSource>(),
+      ),
     )
     ..registerLazySingleton<CheckCacheOnboardShownUseCase>(
       () => CheckCacheOnboardShownUseCase(serviceLocator<SplashRepository>()),
     )
     ..registerLazySingleton<SplashViewModel>(
-      () => SplashViewModel(serviceLocator<CheckCacheOnboardShownUseCase>()),
-    )
-    ..registerLazySingleton<FirebaseAuth>(
-      () => FirebaseAuth.instance,
+      () => SplashViewModel(
+        serviceLocator<CheckCacheOnboardShownUseCase>(),
+        serviceLocator<GetAppDatabaseVersionNumberUseCase>(),
+        serviceLocator<AppVersionManager>(),
+      ),
     )
     ..registerLazySingleton<GoogleSignIn>(
       () => GoogleSignIn(),
@@ -71,9 +94,30 @@ void setupLocator() {
         errorMapper: serviceLocator<IErrorMapper>(),
       ),
     )
+    ..registerLazySingleton<SecureEncryptionKeyManager>(
+      () => SecureEncryptionKeyManager(),
+    )
+    ..registerLazySingleton<BaseEncryptionService>(
+      () => AESEncryptionService(
+        serviceLocator<SecureEncryptionKeyManager>(),
+      ),
+    )
+    ..registerLazySingleton<EncryptedCacheManager>(
+      () => EncryptedCacheManager(
+        boxName: CacheHiveBoxEnum.authBox.name,
+        keyName: CacheKeyEnum.authToken.name,
+        encryptionService: serviceLocator<BaseEncryptionService>(),
+      ),
+    )
+    ..registerLazySingleton<AuthLocaleDataSource>(
+      () => AuthLocaleDataSourceImpl(
+        cacheManager: serviceLocator<EncryptedCacheManager>(),
+      ),
+    )
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(
         remoteDataSource: serviceLocator<AuthRemoteDataSource>(),
+        localeDataSource: serviceLocator<AuthLocaleDataSource>(),
       ),
     )
     ..registerLazySingleton<SignupUserUseCase>(
@@ -88,6 +132,9 @@ void setupLocator() {
     ..registerLazySingleton(
       () => SigninWithGoogleUserUseCase(serviceLocator<AuthRepository>()),
     )
+    ..registerLazySingleton<CacheUserTokenUseCase>(
+      () => CacheUserTokenUseCase(serviceLocator<AuthRepository>()),
+    )
     ..registerLazySingleton<AuthViewModel>(
       () => AuthViewModel(
         signinUserUseCase: serviceLocator<SigninUserUseCase>(),
@@ -96,6 +143,8 @@ void setupLocator() {
             serviceLocator<SigninWithAppleUserUseCase>(),
         signinWithGoogleUserUseCase:
             serviceLocator<SigninWithGoogleUserUseCase>(),
+        cacheUserTokenUseCase: serviceLocator<CacheUserTokenUseCase>(),
+        auth: serviceLocator<FirebaseAuth>(),
       ),
     );
 }

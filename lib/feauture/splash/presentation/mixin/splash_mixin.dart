@@ -8,22 +8,39 @@ mixin SplashMixin on State<SplashView> {
   void initState() {
     super.initState();
     _viewModel = GetIt.instance<SplashViewModel>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkOnBoardVisibility();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final onboardVisibility = await _viewModel.checkOnboardShown();
+      final devicePlatform = _viewModel.getDevicePlatform();
+      final appDatabaseVersionNumber = await _viewModel.getAppDatabaseVersion(
+        devicePlatform: devicePlatform,
+      );
+      final appDeviceVersionNumber =
+          await _viewModel.getDeviceAppVersionNumber();
+      final isForceUpdate = await _viewModel.checkForceUpdate(
+        appDatabaseVersionNumber,
+        appDeviceVersionNumber,
+      );
+      _navigateFromSplash(
+        isForceUpdate: isForceUpdate,
+        onboardScreenVisible: onboardVisibility,
+      );
     });
   }
 
-  Future<void> _checkOnBoardVisibility() async {
-    final result = await _viewModel.checkOnboardShown();
-    await Future<void>.delayed(const Duration(seconds: 1));
-    if (mounted) {
-      _navigateFromSplash(result);
+  void _navigateFromSplash({
+    required bool onboardScreenVisible,
+    required bool isForceUpdate,
+  }) {
+    if (isForceUpdate) {
+      AppDialogs.showForceUpdateDialog(
+        context: context,
+        title: StringConstants.titleForceUpdate,
+        description: StringConstants.descriptionForceUpdate,
+      );
+    } else {
+      onboardScreenVisible
+          ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView)
+          : NavigatorService.pushNamedAndRemoveUntil(AppRoutes.onboardView);
     }
-  }
-
-  void _navigateFromSplash(bool result) {
-    result
-        ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView)
-        : NavigatorService.pushNamedAndRemoveUntil(AppRoutes.onboardView);
   }
 }
