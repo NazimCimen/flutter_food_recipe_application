@@ -21,6 +21,6 @@ export 'package:flutter_food_recipe_application/feauture/auth/data/data_source/a
 export 'package:flutter_food_recipe_application/feauture/auth/data/model/user_model.dart';
 export 'package:flutter_food_recipe_application/feauture/auth/data/repository/auth_repository_impl.dart';
 export 'package:flutter_food_recipe_application/feauture/auth/data/data_source/auth_locale_data_source.dart';
-export 'package:flutter_food_recipe_application/feauture/home/home_view.dart';
+export 'package:flutter_food_recipe_application/feauture/home/presentation/view/home_view.dart';
 export 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 export 'package:flutter_food_recipe_application/feauture/auth/domain/usecase/cache_user_token_use_case.dart';
