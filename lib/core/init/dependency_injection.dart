@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
+import 'package:flutter_food_recipe_application/feauture/home/data/data_source/remote_data_source.dart';
+import 'package:flutter_food_recipe_application/feauture/home/data/repository/home_repository_impl.dart';
+import 'package:flutter_food_recipe_application/feauture/home/domain/repository/home_repository.dart';
+import 'package:flutter_food_recipe_application/feauture/home/domain/usecase/get_recipes_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/home/presentation/viewmodel/home_view_model.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
@@ -146,5 +151,18 @@ void setupLocator() {
         cacheUserTokenUseCase: serviceLocator<CacheUserTokenUseCase>(),
         auth: serviceLocator<FirebaseAuth>(),
       ),
+    )
+    ..registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImpl(serviceLocator<FirebaseFirestore>()),
+    )
+    ..registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImpl(
+          serviceLocator<INetworkInfo>(), serviceLocator<RemoteDataSource>()),
+    )
+    ..registerLazySingleton<GetRecipesUseCase>(
+      () => GetRecipesUseCase(serviceLocator<HomeRepository>()),
+    )
+    ..registerLazySingleton<HomeViewModel>(
+      () => HomeViewModel(serviceLocator<GetRecipesUseCase>()),
     );
 }

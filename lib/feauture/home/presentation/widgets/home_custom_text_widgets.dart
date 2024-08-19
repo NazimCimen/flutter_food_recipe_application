@@ -9,12 +9,14 @@ class HomeCustomTitleTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: Theme.of(context)
-          .textTheme
-          .bodyLarge
-          ?.copyWith(fontWeight: FontWeight.w700),
+    return FittedBox(
+      child: Text(
+        text,
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge
+            ?.copyWith(fontWeight: FontWeight.w700),
+      ),
     );
   }
 }

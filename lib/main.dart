@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 void main() async {

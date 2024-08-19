@@ -7,9 +7,9 @@ export 'package:flutter_food_recipe_application/feauture/splash/presentation/vie
 export 'package:flutter_food_recipe_application/feauture/splash/domain/repository/splash_repository.dart';
 export 'package:flutter_food_recipe_application/feauture/splash/data/data_source/splash_local_data_source.dart';
 export 'package:flutter_food_recipe_application/feauture/splash/data/repository/splash_repository_impl.dart';
-export 'package:flutter_food_recipe_application/core/utils/firebase_utils/firebase_collecition_enum.dart';
+export 'package:flutter_food_recipe_application/product/firebase_utils/firebase_collecition_enum.dart';
 export 'package:flutter_food_recipe_application/feauture/splash/data/model/app_version_model.dart';
 export 'package:flutter_food_recipe_application/feauture/splash/domain/entity/app_version_entity.dart';
 export 'package:flutter_food_recipe_application/feauture/splash/data/data_source/splash_remote_data_source.dart';
-export 'package:flutter_food_recipe_application/core/utils/firebase_utils/app_version_manager.dart';
+export 'package:flutter_food_recipe_application/product/firebase_utils/app_version_manager.dart';
 export 'package:flutter_food_recipe_application/feauture/splash/domain/usecase/get_app_database_version_number_use_case.dart';
