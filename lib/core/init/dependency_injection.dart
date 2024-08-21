@@ -159,10 +159,10 @@ void setupLocator() {
       () => HomeRepositoryImpl(
           serviceLocator<INetworkInfo>(), serviceLocator<RemoteDataSource>()),
     )
-    ..registerLazySingleton<GetRecipesUseCase>(
-      () => GetRecipesUseCase(serviceLocator<HomeRepository>()),
+    ..registerLazySingleton<GetRecipesFollowersUseCase>(
+      () => GetRecipesFollowersUseCase(serviceLocator<HomeRepository>()),
     )
     ..registerLazySingleton<HomeViewModel>(
-      () => HomeViewModel(serviceLocator<GetRecipesUseCase>()),
+      () => HomeViewModel(serviceLocator<GetRecipesFollowersUseCase>()),
     );
 }

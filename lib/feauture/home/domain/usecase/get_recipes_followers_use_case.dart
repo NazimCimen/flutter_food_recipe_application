@@ -3,9 +3,9 @@ import 'package:flutter_food_recipe_application/core/error/failure.dart';
 import 'package:flutter_food_recipe_application/feauture/home/domain/entity/recipe_entity.dart';
 import 'package:flutter_food_recipe_application/feauture/home/domain/repository/home_repository.dart';
 
-class GetRecipesUseCase {
+class GetRecipesFollowersUseCase {
   HomeRepository repository;
-  GetRecipesUseCase(this.repository);
+  GetRecipesFollowersUseCase(this.repository);
   Future<Either<Failure, RecipeEntity>> call() async {
     return repository.getRecipes();
   }

@@ -11,6 +11,7 @@ class RecipeEntity extends Equatable {
   final DateTime? sharedTime;
   final int? likesCount;
   final int? commentsCount;
+  final String? worldKitchen;
   final List<String?>? recipeStepIds;
 
   const RecipeEntity({
@@ -21,6 +22,7 @@ class RecipeEntity extends Equatable {
     required this.imageUrl,
     required this.recipeIngredients,
     required this.sharedTime,
+    required this.worldKitchen,
     this.likesCount = 0,
     this.commentsCount = 0,
     this.recipeStepIds = const [],
@@ -38,5 +40,6 @@ class RecipeEntity extends Equatable {
         likesCount,
         commentsCount,
         recipeStepIds,
+        worldKitchen
       ];
 }

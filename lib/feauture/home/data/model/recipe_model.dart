@@ -36,6 +36,7 @@ class RecipeModel extends RecipeEntity {
     required super.imageUrl,
     required super.recipeIngredients,
     required super.sharedTime,
+    required super.worldKitchen,
     super.likesCount,
     super.commentsCount,
     super.recipeStepIds = const [],
