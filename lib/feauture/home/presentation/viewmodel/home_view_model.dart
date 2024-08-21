@@ -7,14 +7,28 @@ import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.
 
 class HomeViewModel extends ChangeNotifier {
   final GetRecipesFollowersUseCase _getRecipesFollowersUseCase;
-  final GetRecipesWorldKitchenUseCase _getRecipesWorldKitchenUseCase;
 
   HomeViewModel(
     this._getRecipesFollowersUseCase,
-    this._getRecipesWorldKitchenUseCase,
   );
   RecipeEntity? recipeEntity;
+  List<RecipeEntity?> recipeListFollowers = [];
+  List<RecipeEntity?> recipeListWorldKitchen = [];
+  int? a;
   Future<void> failureOrGetRecipesFollowers() async {
+    final response = await _getRecipesFollowersUseCase.call();
+    response.fold(
+      (failure) {},
+      (entity) {
+        recipeEntity = entity;
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> failureOrGetRecipesWorldKitchen({
+    required String kitchen,
+  }) async {
     final response = await _getRecipesFollowersUseCase.call();
     response.fold(
       (failure) {},
