@@ -4,9 +4,15 @@ import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/home/data/data_source/remote_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/home/data/repository/home_repository_impl.dart';
 import 'package:flutter_food_recipe_application/feauture/home/domain/repository/home_repository.dart';
-import 'package:flutter_food_recipe_application/feauture/home/domain/usecase/get_recipes_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/home/domain/usecase/get_recipes_followers_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/home/presentation/viewmodel/home_view_model.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
+import 'package:flutter_food_recipe_application/feauture/share_post/data/data_source/local/share_post_local_data_source.dart';
+import 'package:flutter_food_recipe_application/feauture/share_post/data/repository/share_post_repository_impl.dart';
+import 'package:flutter_food_recipe_application/feauture/share_post/domain/repository/share_post_repository.dart';
+import 'package:flutter_food_recipe_application/feauture/share_post/domain/usecase/crop_image_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/share_post/domain/usecase/get_image_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/share_post/presentation/viewmodel/share_post_view_model.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 final serviceLocator = GetIt.instance;
@@ -164,5 +170,26 @@ void setupLocator() {
     )
     ..registerLazySingleton<HomeViewModel>(
       () => HomeViewModel(serviceLocator<GetRecipesFollowersUseCase>()),
+    )
+    ..registerLazySingleton<SharePostLocalDataSource>(
+      () => SharePostLocalDataSourceImpl(),
+    )
+    ..registerLazySingleton<SharePostRepository>(
+      () => SharePostRepositoryImpl(
+        localeDataSource: serviceLocator<SharePostLocalDataSource>(),
+        connectivity: serviceLocator<INetworkInfo>(),
+      ),
+    )
+    ..registerLazySingleton<GetImageUseCase>(
+      () => GetImageUseCase(repository: serviceLocator<SharePostRepository>()),
+    )
+    ..registerLazySingleton<CropImageUseCase>(
+      () => CropImageUseCase(repository: serviceLocator<SharePostRepository>()),
+    )
+    ..registerLazySingleton<SharePostViewModel>(
+      () => SharePostViewModel(
+        getImageUseCase: serviceLocator<GetImageUseCase>(),
+        cropImageUseCase: serviceLocator<CropImageUseCase>(),
+      ),
     );
 }
