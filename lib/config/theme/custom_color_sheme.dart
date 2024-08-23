@@ -6,7 +6,8 @@ final class CustomColorScheme {
   static const lightScheme = ColorScheme(
     brightness: Brightness.light,
     primary: Color(
-        0xFFFFAD00), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
+      0xFFFFAD00,
+    ), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
     onPrimary: Colors.white,
     secondary: Color(
         0xFF202E3B), // used for icons. and third main color of app(black white blue)

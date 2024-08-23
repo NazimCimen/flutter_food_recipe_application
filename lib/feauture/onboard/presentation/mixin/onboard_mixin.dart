@@ -43,6 +43,6 @@ mixin OnBoardMixin on State<OnBoardView> {
   void navigateToHomeView() {
     Provider.of<OnboardViewModel>(context, listen: false)
         .setOnBoardShownUseCase();
-    NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView);
+    NavigatorService.pushNamedAndRemoveUntil(AppRoutes.loginView);
   }
 }

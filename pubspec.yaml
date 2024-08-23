@@ -52,9 +52,9 @@ dependencies:
   flutter_image_slideshow: ^0.1.6 # Used to create image slideshows.
   flutter_svg: ^2.0.10+1
   shimmer: ^3.0.0
-  reorderables: ^0.6.0
   image_picker: ^1.1.2
   image_cropper: ^8.0.2
+  uuid: ^4.4.2
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
-import 'package:flutter_food_recipe_application/feauture/share_post/presentation/view/share_post_view.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/view/share_recipe_view.dart';
+import 'package:flutter_food_recipe_application/feauture/splash/presentation/view/splash_view.dart';
+import 'package:flutter_food_recipe_application/feauture/ui_view.dart';
 
 void main() async {
   final appInit = AppInitImpl();
@@ -19,10 +21,10 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         theme: CustomLightTheme().themeData,
         debugShowCheckedModeBanner: false,
-        /*   routes: AppRoutes.routes,
+        routes: AppRoutes.routes,
         initialRoute: AppRoutes.initialRoute,
-        navigatorKey: NavigatorService.navigatorKey,*/
-        home: SharePostView(),
+        navigatorKey: NavigatorService.navigatorKey,
+        home: ShareRecipeView(),
       ),
     );
   }

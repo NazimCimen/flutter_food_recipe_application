@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/feauture/home/domain/entity/recipe_entity.dart';
+import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
 import 'package:flutter_food_recipe_application/feauture/home/presentation/widgets/home_custom_text_widgets.dart';
 
 class RecipeCardWidget extends StatelessWidget {
@@ -52,7 +52,7 @@ class RecipeCardWidget extends StatelessWidget {
               : const SizedBox.shrink(),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.44,
+          height: MediaQuery.of(context).size.height * 0.38,
           child: (recipeList != null)
               ? _RecipeCard(
                   recipeList: recipeList!,
@@ -102,7 +102,7 @@ class _RecipeCategories extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     color: index == 0
                         ? Theme.of(context).colorScheme.surface
-                        : Theme.of(context).colorScheme.tertiary,
+                        : Theme.of(context).colorScheme.onTertiary,
                   ),
             )),
       ),
@@ -163,7 +163,7 @@ class _RecipeCard extends StatelessWidget {
                         children: [
                           Text(
                             maxLines: 2,
-                            'recidfffffffffffffffddddddddddddddddddddddddddddddddddddddddddddddddddddffffffffffffffffffpeTitle',
+                            recipeTitle,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

@@ -1,3 +1,0 @@
-enum FirebaseCollections {
-  version;
-}

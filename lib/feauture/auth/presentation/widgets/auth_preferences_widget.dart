@@ -53,7 +53,7 @@ class AuthPreferencesWidget extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+              color: Theme.of(context).colorScheme.onTertiary.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 4,
               offset: const Offset(0, 3),

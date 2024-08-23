@@ -16,6 +16,7 @@ enum ImageEnums {
   food3,
   sharePostImage,
   sharePostImageBack,
+  cook,
 }
 
 extension AssetExtension on ImageEnums {

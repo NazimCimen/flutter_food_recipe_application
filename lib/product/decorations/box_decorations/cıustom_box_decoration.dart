@@ -6,6 +6,7 @@ class CustomBoxDecoration {
   static BoxDecoration customBoxDecoration(BuildContext context) {
     return BoxDecoration(
       borderRadius: context.borderRadiusAllMedium,
+      color: Theme.of(context).colorScheme.tertiary,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/home/domain/entity/recipe_entity.dart';
+import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
 import 'package:flutter_food_recipe_application/feauture/home/domain/usecase/get_recipes_followers_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/home/domain/usecase/get_recipes_world_kitchen_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
@@ -12,7 +12,7 @@ class HomeViewModel extends ChangeNotifier {
     this._getRecipesFollowersUseCase,
   );
   RecipeEntity? recipeEntity;
-  List<RecipeEntity?> recipeListFollowers = [];
+  List<RecipeEntity?>? recipeListFollowers = [];
   List<RecipeEntity?> recipeListWorldKitchen = [];
   int? a;
   Future<void> failureOrGetRecipesFollowers() async {
@@ -20,7 +20,7 @@ class HomeViewModel extends ChangeNotifier {
     response.fold(
       (failure) {},
       (entity) {
-        recipeEntity = entity;
+        recipeListFollowers = entity;
         notifyListeners();
       },
     );
@@ -33,7 +33,7 @@ class HomeViewModel extends ChangeNotifier {
     response.fold(
       (failure) {},
       (entity) {
-        recipeEntity = entity;
+        recipeListFollowers = entity;
         notifyListeners();
       },
     );

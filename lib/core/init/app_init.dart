@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/home/presentation/viewmodel/home_view_model.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
-import 'package:flutter_food_recipe_application/feauture/share_post/presentation/viewmodel/share_post_view_model.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
 import 'package:flutter_food_recipe_application/main.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -45,8 +45,8 @@ class AppInitImpl extends AppInit {
           ChangeNotifierProvider<HomeViewModel>(
             create: (_) => serviceLocator<HomeViewModel>(),
           ),
-          ChangeNotifierProvider<SharePostViewModel>(
-            create: (_) => serviceLocator<SharePostViewModel>(),
+          ChangeNotifierProvider<ShareRecipeViewModel>(
+            create: (_) => serviceLocator<ShareRecipeViewModel>(),
           )
         ],
         child: const MyApp(),
