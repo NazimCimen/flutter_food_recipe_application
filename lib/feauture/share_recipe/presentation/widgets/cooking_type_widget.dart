@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 import 'package:flutter_food_recipe_application/product/decorations/input_decorations/custom_input_decoration.dart';
 
-class CustomDropDownMenuWidget extends StatelessWidget {
+class CustomDropDownMenuWidget extends StatefulWidget {
   const CustomDropDownMenuWidget({
     required this.controller,
     required this.dropBoxList,
@@ -17,12 +17,18 @@ class CustomDropDownMenuWidget extends StatelessWidget {
   final TextEditingController controller;
 
   @override
+  State<CustomDropDownMenuWidget> createState() =>
+      _CustomDropDownMenuWidgetState();
+}
+
+class _CustomDropDownMenuWidgetState extends State<CustomDropDownMenuWidget> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          titleText,
+          widget.titleText,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         DropdownMenu(
@@ -30,7 +36,7 @@ class CustomDropDownMenuWidget extends StatelessWidget {
           trailingIcon: const Icon(
             Icons.arrow_drop_down,
           ),
-          controller: controller,
+          controller: widget.controller,
           inputDecorationTheme: CustomInputDecoration.decorationTheme(context),
           label: buildText(context),
           textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -38,13 +44,14 @@ class CustomDropDownMenuWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
           onSelected: (value) {},
-          dropdownMenuEntries: dropBoxList,
+          dropdownMenuEntries: widget.dropBoxList,
         ),
       ],
     );
   }
 
   Text buildText(BuildContext context) {
-    return Text(labelText, style: Theme.of(context).textTheme.bodyMedium);
+    return Text(widget.labelText,
+        style: Theme.of(context).textTheme.bodyMedium);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_food_recipe_application/feauture/shared_layers/model/recipe_step_model.dart';
 
 class RecipeEntity extends Equatable {
   final String? postId;
@@ -12,6 +11,7 @@ class RecipeEntity extends Equatable {
   final int? likesCount;
   final int? commentsCount;
   final String? worldKitchen;
+  final String? cookingDuration;
   final List<String?>? recipeStepIds;
 
   const RecipeEntity({
@@ -23,6 +23,7 @@ class RecipeEntity extends Equatable {
     this.recipeIngredients,
     this.sharedTime,
     this.worldKitchen,
+    this.cookingDuration,
     this.likesCount = 0,
     this.commentsCount = 0,
     this.recipeStepIds = const [],
@@ -40,6 +41,7 @@ class RecipeEntity extends Equatable {
         likesCount,
         commentsCount,
         recipeStepIds,
-        worldKitchen
+        worldKitchen,
+        cookingDuration,
       ];
 }

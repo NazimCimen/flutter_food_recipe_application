@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+//// extends from BaseFirebaseModel....
 class RecipeStepEntity extends Equatable {
   final String? id;
   final int? stepNumber;

@@ -11,7 +11,11 @@ import 'package:flutter_food_recipe_application/feauture/share_recipe/presentati
 import 'package:flutter_food_recipe_application/product/constants/recipe_constants.dart';
 import 'package:image_picker/image_picker.dart';
 
-part '../sub_view/share_recipe_sub_view.dart';
+part '../sub_view/custom_bars.dart';
+part '../sub_view/input_page1.dart';
+part '../sub_view/input_page2.dart';
+part '../sub_view/input_page3.dart';
+part '../sub_view/input_page4.dart';
 
 /// camera gallery permission !!!!!
 class ShareRecipeView extends StatefulWidget {
@@ -33,6 +37,9 @@ class _ShareRecipeViewState extends State<ShareRecipeView>
       bottomNavigationBar: _CustomBottomNavigationBar(
         currentPage: context.watch<ShareRecipeViewModel>().currentPage,
         totalPages: context.read<ShareRecipeViewModel>().totalPage,
+        nextPage: nextPage,
+        previousPage: previusPage,
+        shareRecipe: shareRecipe,
         pageController: pageController,
       ),
       body: SafeArea(
@@ -51,8 +58,8 @@ class _ShareRecipeViewState extends State<ShareRecipeView>
               cookingTypeController: cookingTypeController,
               worldKitchenController: worldKitchenController,
             ),
-            _InputPage3(),
-            _InputPage4(),
+            const _InputPage3(),
+            const _InputPage4(),
           ],
         ),
       ),

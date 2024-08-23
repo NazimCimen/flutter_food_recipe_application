@@ -31,9 +31,6 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
               categoryList: generateListFollowersRecipeCategories(),
               recipeList: context.read<HomeViewModel>().recipeListFollowers,
               title: 'Your Followers',
-              foodImageUrl:
-                  'https://firebasestorage.googleapis.com/v0/b/flutter-recipe-app-af800.appspot.com/o/2.png?alt=media&token=53aa5fcb-fd8c-4628-8ae4-90dce1a00a2a',
-              recipeTitle: 'Bowl of noodle with beef',
               user: FirebaseAuth.instance.currentUser,
             ),
             SizedBox(height: context.dynamicHeight(0.03)),
@@ -46,9 +43,6 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                 context.watch<HomeViewModel>().recipeEntity
               ],
               title: 'World Kitchen',
-              foodImageUrl:
-                  'https://firebasestorage.googleapis.com/v0/b/flutter-recipe-app-af800.appspot.com/o/2.png?alt=media&token=53aa5fcb-fd8c-4628-8ae4-90dce1a00a2a',
-              recipeTitle: 'Bowl of noodle with beef',
               user: FirebaseAuth.instance.currentUser,
             ),
             SizedBox(height: context.dynamicHeight(0.03)),

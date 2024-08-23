@@ -39,7 +39,7 @@ mixin SplashMixin on State<SplashView> {
       );
     } else {
       onboardScreenVisible
-          ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.uiView)
+          ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.navBarView)
           : NavigatorService.pushNamedAndRemoveUntil(AppRoutes.onboardView);
     }
   }

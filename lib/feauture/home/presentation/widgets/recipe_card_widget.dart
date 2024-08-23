@@ -9,14 +9,10 @@ import 'package:flutter_food_recipe_application/feauture/home/presentation/widge
 class RecipeCardWidget extends StatelessWidget {
   final List<RecipeEntity?>? recipeList;
   final String title;
-  final String foodImageUrl;
-  final String recipeTitle;
   final User? user;
   final List<String?>? categoryList;
   const RecipeCardWidget({
     required this.title,
-    required this.foodImageUrl,
-    required this.recipeTitle,
     required this.user,
     required this.categoryList,
     required this.recipeList,
@@ -56,8 +52,6 @@ class RecipeCardWidget extends StatelessWidget {
           child: (recipeList != null)
               ? _RecipeCard(
                   recipeList: recipeList!,
-                  foodImageUrl: foodImageUrl,
-                  recipeTitle: recipeTitle,
                   user: user,
                 )
               : const SizedBox.shrink(),
@@ -113,14 +107,10 @@ class _RecipeCategories extends StatelessWidget {
 class _RecipeCard extends StatelessWidget {
   const _RecipeCard({
     required this.recipeList,
-    required this.foodImageUrl,
-    required this.recipeTitle,
     required this.user,
   });
 
   final List<RecipeEntity?> recipeList;
-  final String foodImageUrl;
-  final String recipeTitle;
   final User? user;
 
   @override
@@ -149,7 +139,8 @@ class _RecipeCard extends StatelessWidget {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(12)),
                       child: Image.network(
-                        foodImageUrl,
+                        recipeList[index]?.imageUrl ??
+                            'https://firebasestorage.googleapis.com/v0/b/flutter-recipe-app-af800.appspot.com/o/YUMMY.png?alt=media&token=d151d7da-aa1b-48d7-a25b-92089075b3cc',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -163,7 +154,7 @@ class _RecipeCard extends StatelessWidget {
                         children: [
                           Text(
                             maxLines: 2,
-                            recipeTitle,
+                            recipeList[index]?.recipeTitle ?? '',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

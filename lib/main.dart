@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/view/share_recipe_view.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/presentation/view/splash_view.dart';
-import 'package:flutter_food_recipe_application/feauture/ui_view.dart';
+import 'package:flutter_food_recipe_application/feauture/nav_bar/nav_bar_view.dart';
+
+///
+///ShareStepsIds and posts
+///ShareSteps fetch from idead home
+///controller or entity management
+///error handling
 
 void main() async {
   final appInit = AppInitImpl();

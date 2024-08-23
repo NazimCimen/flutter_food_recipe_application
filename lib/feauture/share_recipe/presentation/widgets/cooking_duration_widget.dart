@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 
-class CookingDurationWidget extends StatelessWidget {
+class CookingDurationWidget extends StatefulWidget {
   final double sliderValue;
   final ValueChanged<double> onSliderChanged;
 
@@ -11,6 +11,11 @@ class CookingDurationWidget extends StatelessWidget {
     super.key,
   });
 
+  @override
+  State<CookingDurationWidget> createState() => _CookingDurationWidgetState();
+}
+
+class _CookingDurationWidgetState extends State<CookingDurationWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,15 +50,15 @@ class CookingDurationWidget extends StatelessWidget {
         ),
         Slider(
           inactiveColor: Theme.of(context).colorScheme.tertiary,
-          value: sliderValue,
+          value: widget.sliderValue,
           max: 60,
           divisions: 2,
-          label: sliderValue.round() == 0
+          label: widget.sliderValue.round() == 0
               ? '<10'
-              : sliderValue.round() == 30
-                  ? sliderValue.round().toString()
+              : widget.sliderValue.round() == 30
+                  ? widget.sliderValue.round().toString()
                   : '>60',
-          onChanged: onSliderChanged,
+          onChanged: widget.onSliderChanged,
         ),
       ],
     );
@@ -68,7 +73,7 @@ class CookingDurationWidget extends StatelessWidget {
       text,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: this.sliderValue >= sliderValue
+            color: this.widget.sliderValue >= sliderValue
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.secondary,
           ),

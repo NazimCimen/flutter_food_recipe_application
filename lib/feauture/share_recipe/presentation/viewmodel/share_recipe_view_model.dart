@@ -1,12 +1,8 @@
 import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_url_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
-import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/crop_image_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_use_case.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,39 +24,23 @@ class ShareRecipeViewModel extends ChangeNotifier {
   final int _totalPages = 4;
   int get totalPage => _totalPages;
 
-  RecipeEntity _recipeEntity = RecipeEntity(
-    postId: null,
-    userId: null,
-    recipeTitle: '',
-    recipeDescription: '',
-    imageUrl: '',
-    recipeIngredients: [''],
-    sharedTime: null,
-    worldKitchen: '',
-  );
-
   double _cookingDuration = 30;
   double get cookingDuration => _cookingDuration;
 
-  List<String> _ingredients = [""];
+  List<String> _ingredients = [''];
   List<String> get ingredients => _ingredients;
 
   List<String> _recipeSteps = [''];
   List<String> get recipeSteps => _recipeSteps;
 
+  RecipeEntity entity = RecipeEntity(
+    cookingDuration: '30',
+    recipeIngredients: [''],
+  );
+
   File? croppedImage;
   File? image;
   String? imageUrl;
-
-  void setCookingDuration(double value) {
-    _cookingDuration = value;
-    notifyListeners();
-  }
-
-  void onPageChanged(int index) {
-    _currentPage = index;
-    notifyListeners();
-  }
 
   Future<void> getRecipeImage({required ImageSource source}) async {
     final result = await getImageUseCase.call(source: source);
@@ -96,29 +76,21 @@ class ShareRecipeViewModel extends ChangeNotifier {
   Future<void> getImageUrl() async {
     if (croppedImage == null) return;
     final response = await getImageUrlUseCase.call(imageFile: croppedImage!);
+    response.fold(
+      (failure) {},
+      (url) {
+        imageUrl = url;
+      },
+    );
   }
-//      String postId = const Uuid().v1().toString();
 
-  // RecipeEntity recipeEntity;
-  //RecipeStepEntity recipeStepEntity;
-  Future<void> shareRecipe({
+  Future<bool> shareRecipe({
     required String recipeTitle,
     required String recipeDescription,
     required String worldKitchen,
     required String cookingType,
-  }
-      //img                String
-      //title              String
-      //desc               String
-      //cookin duration    String
-      //cooking type       String
-      //ingredients        List<String>
-      // recipe steps      List<RecipeStepModel>
-      ) async {
-    await getImageUrl();
-    final postId = const Uuid().v1().toString();
-    // if imageUrl != null
-
+  }) async {
+    final postId = const Uuid().v1();
     final result = await shareRecipeUseCase.call(
       recipeEntity: RecipeEntity(
         postId: postId,
@@ -126,18 +98,46 @@ class ShareRecipeViewModel extends ChangeNotifier {
         recipeTitle: recipeTitle,
         recipeDescription: recipeDescription,
         imageUrl: imageUrl,
-        recipeIngredients: _ingredients,
+        cookingDuration: entity.cookingDuration,
+        recipeIngredients: entity.recipeIngredients,
         sharedTime: DateTime.now().toUtc(),
         worldKitchen: worldKitchen,
       ),
     );
-    /*  recipeEntity.recipeIngredients;
-    recipeEntity.imageUrl;
-    recipeEntity.recipeDescription;
-    recipeEntity.recipeTitle;
-    recipeEntity.worldKitchen;
-    recipeEntity.recipeStepIds;
+    var succes = false;
+    result.fold(
+      (failure) {
+        succes = true;
 
-    recipeStepEntity*/
+        ///FIX IMPORTANT RESULT FOLD POST FAIL
+      },
+      (result) {
+        succes = result;
+      },
+    );
+    return succes;
+
+    ///SERACH UTC IS GLOBAL UTC 3 2 .. IMPORTANTTTTTTTTTT
+  }
+
+  void reset() {
+    _currentPage = 0;
+    _cookingDuration = 30;
+    _ingredients = [''];
+    _recipeSteps = [''];
+    croppedImage = null;
+    image = null;
+    imageUrl = null;
+    notifyListeners();
+  }
+
+  void setCookingDuration(double value) {
+    _cookingDuration = value;
+    notifyListeners();
+  }
+
+  void onPageChanged(int index) {
+    _currentPage = index;
+    notifyListeners();
   }
 }

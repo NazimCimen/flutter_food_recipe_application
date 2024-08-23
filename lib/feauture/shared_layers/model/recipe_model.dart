@@ -20,6 +20,7 @@ class RecipeModel extends RecipeEntity
     super.worldKitchen,
     super.likesCount,
     super.commentsCount,
+    super.cookingDuration,
     super.recipeStepIds = const [],
   });
 
@@ -39,6 +40,7 @@ class RecipeModel extends RecipeEntity
       recipeIngredients: entity.recipeIngredients,
       sharedTime: entity.sharedTime,
       worldKitchen: entity.worldKitchen,
+      cookingDuration: entity.cookingDuration,
       likesCount: entity.likesCount,
       commentsCount: entity.commentsCount,
       recipeStepIds: entity.recipeStepIds,
@@ -55,6 +57,7 @@ class RecipeModel extends RecipeEntity
       recipeIngredients: recipeIngredients,
       sharedTime: sharedTime,
       worldKitchen: worldKitchen,
+      cookingDuration: cookingDuration,
       likesCount: likesCount,
       commentsCount: commentsCount,
       recipeStepIds: recipeStepIds,
