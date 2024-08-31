@@ -53,7 +53,7 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
               Padding(
                 padding: context.paddingHorizRightMedium,
                 child: GestureDetector(
-                  onTap: navigateToHomeView,
+                  onTap: navigateToLoginView,
                   child: Container(
                     height: context.dynamicHeight(0.04),
                     width: context.dynamicWidht(0.2),
@@ -106,7 +106,7 @@ class _OnBoardViewState extends State<OnBoardView> with OnBoardMixin {
 
   Widget _buildFailure(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
-      navigateToHomeView();
+      navigateToLoginView();
     });
     return const Center(
       child: CircularProgressIndicator(

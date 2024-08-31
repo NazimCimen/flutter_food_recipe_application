@@ -10,35 +10,64 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      forceMaterialTransparency: true,
-      automaticallyImplyLeading: false,
-      elevation: 0,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              context.read<ShareRecipeViewModel>().reset();
-              NavigatorService.pushNamedAndRemoveUntil(
-                AppRoutes.navBarView,
-              );
-            },
-            child: const Icon(
-              Icons.close_outlined,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.black.withOpacity(0.8), Colors.transparent],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: AppBar(
+        forceMaterialTransparency: true,
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                context.read<ShareRecipeViewModel>().reset();
+                NavigatorService.pushNamedAndRemoveUntil(
+                  AppRoutes.navBarView,
+                );
+              },
+              child: Icon(
+                Icons.close_outlined,
+                color: Theme.of(context).colorScheme.surface,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(1.5, 1.5),
+                    blurRadius: 2,
+                    color: Colors.black.withOpacity(0.7),
+                  ),
+                ],
+              ),
             ),
-          ),
-          TextButton(
-            child: Text(
+            Text(
+              'Share Your Kitchen',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(1.5, 1.5),
+                    blurRadius: 2,
+                    color: Colors.grey.shade800.withOpacity(0.7),
+                  ),
+                ],
+              ),
+            ),
+            Text(
               '$currentPage / $totalPage',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.surface,
                     fontWeight: FontWeight.bold,
+                    shadows: CustomShadows.customLowShadow(),
                   ),
             ),
-            onPressed: () {},
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -65,31 +94,40 @@ class _CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: context.paddingAllMedium,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (currentPage != 0)
-            _bottomButton(
-              context: context,
-              onPressed: previousPage,
-              text: 'BACK',
-            ),
-          const Spacer(),
-          if (currentPage + 1 < totalPages)
-            _bottomButton(
-              context: context,
-              onPressed: nextPage,
-              text: 'NEXT',
-            ),
-          if (currentPage + 1 == totalPages)
-            _bottomButton(
-              context: context,
-              onPressed: shareRecipe,
-              text: 'SHARE',
-            ),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.transparent, Colors.black.withOpacity(0.6)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: Padding(
+        padding: context.paddingAllMedium,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (currentPage != 0)
+              _bottomButton(
+                context: context,
+                onPressed: previousPage,
+                text: 'BACK',
+              ),
+            const Spacer(),
+            if (currentPage + 1 < totalPages)
+              _bottomButton(
+                context: context,
+                onPressed: nextPage,
+                text: 'NEXT',
+              ),
+            if (currentPage + 1 == totalPages)
+              _bottomButton(
+                context: context,
+                onPressed: shareRecipe,
+                text: 'SHARE',
+              ),
+          ],
+        ),
       ),
     );
   }

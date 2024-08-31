@@ -90,6 +90,8 @@ class _SigninViewState extends State<SigninView> with SigninViewMixin {
         padding: context.paddingHorizAllMedium,
         child: Form(
           key: formKey,
+          /////
+          // autovalidateMode: ,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

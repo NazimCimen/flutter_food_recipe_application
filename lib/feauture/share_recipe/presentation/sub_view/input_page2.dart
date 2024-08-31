@@ -1,12 +1,7 @@
 part of '../view/share_recipe_view.dart';
 
 class _InputPage2 extends StatelessWidget {
-  const _InputPage2({
-    required this.cookingTypeController,
-    required this.worldKitchenController,
-  });
-  final TextEditingController cookingTypeController;
-  final TextEditingController worldKitchenController;
+  const _InputPage2();
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +13,13 @@ class _InputPage2 extends StatelessWidget {
           children: [
             SizedBox(height: context.dynamicHeight(0.2)),
             CustomDropDownMenuWidget(
-              controller: worldKitchenController,
               dropBoxList: RecipeConstants.worldKitchenDropList,
-              labelText: 'choose a world kitchen',
+              hintText: 'choose a world kitchen',
               titleText: 'World Kitchen',
+              onSelected:
+                  context.read<ShareRecipeViewModel>().valueSetterWorldKitchen,
+              initialSelection:
+                  context.read<ShareRecipeViewModel>().worldKitchen,
             ),
             SizedBox(height: context.dynamicHeight(0.05)),
             Selector<ShareRecipeViewModel, double>(
@@ -39,10 +37,13 @@ class _InputPage2 extends StatelessWidget {
             ),
             SizedBox(height: context.dynamicHeight(0.05)),
             CustomDropDownMenuWidget(
-              controller: cookingTypeController,
+              onSelected:
+                  context.read<ShareRecipeViewModel>().valueSetterCookingType,
               dropBoxList: RecipeConstants.cookingTypeDropList,
-              labelText: 'choose a cooking type',
+              hintText: 'choose a cooking type',
               titleText: 'Cooking Type',
+              initialSelection:
+                  context.read<ShareRecipeViewModel>().cookingType,
             ),
             SizedBox(height: context.dynamicHeight(0.035)),
           ],

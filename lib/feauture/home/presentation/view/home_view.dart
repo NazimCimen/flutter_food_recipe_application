@@ -6,6 +6,7 @@ import 'package:flutter_food_recipe_application/feauture/home/presentation/widge
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 part '../widgets/home_sub_view.dart';
 
+/// FIX NOT LIST VIEW. BCZ IT MAKES HORIZONTOL INFINITY
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 

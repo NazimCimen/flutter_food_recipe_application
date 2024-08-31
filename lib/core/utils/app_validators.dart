@@ -47,4 +47,13 @@ class AppValidators {
     }
     return null;
   }
+
+  String? recipeNameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Lütfen tarifin adını giriniz';
+    } else if (value.length > 70) {
+      return 'Tarifin adı en fazla 70 karakter olabilir';
+    }
+    return null;
+  }
 }

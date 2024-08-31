@@ -15,7 +15,7 @@ export 'package:dartz/dartz.dart' hide State;
 export 'package:flutter_food_recipe_application/core/error/exception.dart';
 export 'package:flutter_food_recipe_application/core/error/error_mapper.dart';
 export 'package:flutter_food_recipe_application/core/utils/app_validators.dart';
-export 'package:flutter_food_recipe_application/core/utils/app_dialogs.dart';
+export 'package:flutter_food_recipe_application/product/componets/custom_dialogs.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:google_sign_in/google_sign_in.dart';
 export 'package:sign_in_with_apple/sign_in_with_apple.dart';

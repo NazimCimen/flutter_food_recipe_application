@@ -3,8 +3,10 @@ import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/view/share_recipe_view.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/presentation/view/splash_view.dart';
 import 'package:flutter_food_recipe_application/feauture/nav_bar/nav_bar_view.dart';
+import 'package:flutter_food_recipe_application/product/widgets/glass_background_widget.dart';
 
-///
+/// login sign up autovalidateMode
+///Validators lang localication.
 ///ShareStepsIds and posts
 ///ShareSteps fetch from idead home
 ///controller or entity management
@@ -27,10 +29,10 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         theme: CustomLightTheme().themeData,
         debugShowCheckedModeBanner: false,
+        navigatorKey: NavigatorService.navigatorKey,
         routes: AppRoutes.routes,
         initialRoute: AppRoutes.initialRoute,
-        navigatorKey: NavigatorService.navigatorKey,
-        home: ShareRecipeView(),
+        //home: TestView(),
       ),
     );
   }

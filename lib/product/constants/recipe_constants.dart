@@ -11,6 +11,7 @@ class RecipeConstants {
     DropdownMenuEntry(value: 'Buğulama', label: 'Buğulama'),
     DropdownMenuEntry(value: 'Tost Makinesi', label: 'Tost Makinesi'),
     DropdownMenuEntry(value: 'Airfryer', label: 'Airfryer'),
+    DropdownMenuEntry(value: 'Hiçbiri', label: 'Hiçbiri'),
   ];
   static const List<DropdownMenuEntry<String>> worldKitchenDropList = [
     DropdownMenuEntry(value: 'Turkish', label: 'Turkish'),
@@ -20,5 +21,6 @@ class RecipeConstants {
     DropdownMenuEntry(value: 'Japanese', label: 'Japanese'),
     DropdownMenuEntry(value: 'Chinese', label: 'Chinese'),
     DropdownMenuEntry(value: 'Mexican', label: 'Mexican'),
+    DropdownMenuEntry(value: 'Hiçbiri', label: 'Hiçbiri'),
   ];
 }

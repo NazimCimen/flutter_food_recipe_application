@@ -2,59 +2,154 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
+import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
+import 'package:flutter_food_recipe_application/product/constants/image_aspect_ratio.dart';
+import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
+import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_shadow_widget.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddRecipeImageWidget extends StatelessWidget {
-  final File? imageFile;
-  const AddRecipeImageWidget({
-    required this.imageFile,
-    super.key,
-  });
+  const AddRecipeImageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: context.dynamicWidht(0.8),
-        width: context.dynamicWidht(0.8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary,
-          borderRadius: context.borderRadiusAllMedium,
-        ),
-        child: Stack(
-          children: [
-            Center(
-              child: imageFile != null
-                  ? ClipRRect(
-                      borderRadius: context.borderRadiusAllMedium,
-                      child: Image.file(
-                        imageFile!,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          ImageEnums.sharePostImage.toPathPng,
-                          height: context.dynamicWidht(0.2),
-                        ),
-                        SizedBox(height: context.dynamicHeight(0.02)),
-                        Text(
-                          'Add Cover Photo\n(up to 12 Mb)',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.onTertiary,
-                              ),
-                        ),
-                      ],
-                    ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CustomTitleTextShadowWidget(text: 'Recipe Image'),
+        SizedBox(height: context.dynamicHeight(0.01)),
+        const _RecipeImageContainer(),
+      ],
+    );
+  }
+}
+
+class _RecipeImageContainer extends StatelessWidget {
+  const _RecipeImageContainer();
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.read<ShareRecipeViewModel>();
+    return GestureDetector(
+      onTap: () async {
+        provider.changeLoading();
+        final selectedSource = await _showMenuForImage(context: context);
+        await provider.getImageSourceAndProcessImage(
+          selectedSource: selectedSource,
+        );
+        provider.changeLoading();
+      },
+      child: Center(
+        child: AspectRatio(
+          aspectRatio: ImageAspectRatio.postAspectRatio.ratio,
+          child: Container(
+            decoration:
+                CustomBoxDecoration.customBoxDecorationImageArea(context),
+            child: Consumer<ShareRecipeViewModel>(
+              builder: (context, viewModel, child) {
+                if (viewModel.isLoading) {
+                  return const _LoadingIndicator();
+                } else if (viewModel.croppedImage != null) {
+                  return _CroppedImage(imageFile: viewModel.croppedImage!);
+                } else {
+                  return const _PlaceholderContent();
+                }
+              },
             ),
-          ],
+          ),
         ),
       ),
     );
   }
+}
+
+class _LoadingIndicator extends StatelessWidget {
+  const _LoadingIndicator();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(
+        color: Theme.of(context).colorScheme.primary,
+      ),
+    );
+  }
+}
+
+class _CroppedImage extends StatelessWidget {
+  final File imageFile;
+
+  const _CroppedImage({required this.imageFile});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: context.borderRadiusAllMedium,
+      child: Image.file(
+        imageFile,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
+
+class _PlaceholderContent extends StatelessWidget {
+  const _PlaceholderContent();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          ImageEnums.sharePostImage.toPathPng,
+          width: context.dynamicWidht(0.2),
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        SizedBox(height: context.dynamicHeight(0.02)),
+        Text(
+          'Add Cover Photo\n(up to 12 Mb)',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.surface,
+                fontWeight: FontWeight.w500,
+                shadows: CustomShadows.customLowShadow(),
+              ),
+        ),
+      ],
+    );
+  }
+}
+
+Future<ImageSource?> _showMenuForImage({
+  required BuildContext context,
+}) async {
+  return showModalBottomSheet<ImageSource>(
+    context: context,
+    builder: (BuildContext context) {
+      return Wrap(
+        children: <Widget>[
+          ListTile(
+            leading: const Icon(Icons.camera),
+            title: const Text('Kamera'),
+            onTap: () {
+              Navigator.pop(
+                context,
+                ImageSource.camera,
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.image),
+            title: const Text('Galeri'),
+            onTap: () {
+              Navigator.pop(
+                context,
+                ImageSource.gallery,
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

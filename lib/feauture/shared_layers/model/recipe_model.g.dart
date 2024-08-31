@@ -14,6 +14,7 @@ RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) => RecipeModel(
       imageUrl: json['imageUrl'] as String?,
       worldKitchen: json['worldKitchen'] as String?,
       cookingDuration: json['cookingDuration'] as String?,
+      cookingType: json['cookingType'] as String?,
       recipeIngredients: (json['recipeIngredients'] as List<dynamic>?)
           ?.map((e) => e as String?)
           .toList(),
@@ -41,5 +42,6 @@ Map<String, dynamic> _$RecipeModelToJson(RecipeModel instance) =>
       'commentsCount': instance.commentsCount,
       'recipeSteps': instance.recipeStepIds,
       'worldKitchen': instance.worldKitchen,
+      'cookingType': instance.cookingType,
       'cookingDuration': instance.cookingDuration,
     };

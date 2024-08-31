@@ -15,6 +15,7 @@ import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/use
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_url_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/logic/input_page4_logic.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/model/recipe_model.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
@@ -223,6 +224,7 @@ void setupLocator() {
     )
     ..registerLazySingleton<ShareRecipeViewModel>(
       () => ShareRecipeViewModel(
+        logic: InputPage4Logic(),
         getImageUseCase: serviceLocator<GetImageUseCase>(),
         cropImageUseCase: serviceLocator<CropImageUseCase>(),
         getImageUrlUseCase: serviceLocator<GetImageUrlUseCase>(),

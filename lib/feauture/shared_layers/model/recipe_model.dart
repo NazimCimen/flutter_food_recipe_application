@@ -21,6 +21,7 @@ class RecipeModel extends RecipeEntity
     super.likesCount,
     super.commentsCount,
     super.cookingDuration,
+    super.cookingType,
     super.recipeStepIds = const [],
   });
 
@@ -44,6 +45,7 @@ class RecipeModel extends RecipeEntity
       likesCount: entity.likesCount,
       commentsCount: entity.commentsCount,
       recipeStepIds: entity.recipeStepIds,
+      cookingType: entity.cookingType,
     );
   }
 
@@ -61,6 +63,7 @@ class RecipeModel extends RecipeEntity
       likesCount: likesCount,
       commentsCount: commentsCount,
       recipeStepIds: recipeStepIds,
+      cookingType: cookingType,
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
+import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_shadow_widget.dart';
 
-class CookingDurationWidget extends StatefulWidget {
+class CookingDurationWidget extends StatelessWidget {
   final double sliderValue;
   final ValueChanged<double> onSliderChanged;
 
@@ -12,53 +14,55 @@ class CookingDurationWidget extends StatefulWidget {
   });
 
   @override
-  State<CookingDurationWidget> createState() => _CookingDurationWidgetState();
-}
-
-class _CookingDurationWidgetState extends State<CookingDurationWidget> {
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Cooking Duration (in minutes)',
-          style: Theme.of(context).textTheme.bodyLarge,
+        const CustomTitleTextShadowWidget(
+          text: 'Cooking Duration (in minutes)',
         ),
         SizedBox(
-          height: context.dynamicHeight(0.02),
+          height: context.dynamicHeight(0.01),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildText(
-              context: context,
-              text: '<10',
-              sliderValue: 0,
-            ),
-            _buildText(
-              context: context,
-              text: '30',
-              sliderValue: 30,
-            ),
-            _buildText(
-              context: context,
-              text: '>60',
-              sliderValue: 60,
-            ),
-          ],
-        ),
-        Slider(
-          inactiveColor: Theme.of(context).colorScheme.tertiary,
-          value: widget.sliderValue,
-          max: 60,
-          divisions: 2,
-          label: widget.sliderValue.round() == 0
-              ? '<10'
-              : widget.sliderValue.round() == 30
-                  ? widget.sliderValue.round().toString()
-                  : '>60',
-          onChanged: widget.onSliderChanged,
+        Container(
+          decoration: CustomBoxDecoration.customBoxDecoration(context),
+          padding: context.paddingAllLow,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildText(
+                    context: context,
+                    text: '<10',
+                    sliderValue: 0,
+                  ),
+                  _buildText(
+                    context: context,
+                    text: '30',
+                    sliderValue: 30,
+                  ),
+                  _buildText(
+                    context: context,
+                    text: '>60',
+                    sliderValue: 60,
+                  ),
+                ],
+              ),
+              Slider(
+                inactiveColor: Theme.of(context).colorScheme.tertiary,
+                value: sliderValue,
+                max: 60,
+                divisions: 2,
+                label: sliderValue.round() == 0
+                    ? '<10'
+                    : sliderValue.round() == 30
+                        ? sliderValue.round().toString()
+                        : '>60',
+                onChanged: onSliderChanged,
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -72,11 +76,18 @@ class _CookingDurationWidgetState extends State<CookingDurationWidget> {
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: this.widget.sliderValue >= sliderValue
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.secondary,
+        fontWeight: FontWeight.bold,
+        color: sliderValue >= sliderValue
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.secondary,
+        shadows: [
+          Shadow(
+            offset: const Offset(1.5, 1.5),
+            blurRadius: 2,
+            color: Colors.black.withOpacity(0.7),
           ),
+        ],
+      ),
     );
   }
 }

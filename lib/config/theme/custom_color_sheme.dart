@@ -14,7 +14,6 @@ final class CustomColorScheme {
     onSecondary: Colors.white,
     error: Colors.red,
     onError: Colors.white,
-
     surface: Colors.white, //default card and text color
     onSurface: Colors.black,
     tertiary: Color(0xffF3F4F6),

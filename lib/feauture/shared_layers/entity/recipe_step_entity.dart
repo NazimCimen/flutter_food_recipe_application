@@ -13,6 +13,19 @@ class RecipeStepEntity extends Equatable {
     required this.stepDescription,
     required this.stepImageUrl,
   });
+  RecipeStepEntity copyWith({
+    int? stepNumber,
+    String? id,
+    String? stepDescription,
+    String? stepImageUrl,
+  }) {
+    return RecipeStepEntity(
+      id: id ?? this.id,
+      stepNumber: stepNumber ?? this.stepNumber,
+      stepDescription: stepDescription ?? this.stepDescription,
+      stepImageUrl: stepImageUrl ?? this.stepImageUrl,
+    );
+  }
 
   @override
   List<Object?> get props => [id, stepNumber, stepDescription, stepImageUrl];
