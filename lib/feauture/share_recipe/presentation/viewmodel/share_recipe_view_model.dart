@@ -16,13 +16,16 @@ class ShareRecipeViewModel extends ChangeNotifier {
   final CropImageUseCase cropImageUseCase;
   final GetImageUrlUseCase getImageUrlUseCase;
   final ShareRecipeUseCase shareRecipeUseCase;
-  final InputPage4Logic logic;
+  final InputPage4Logic inputPage4Logic;
+  // final InputPage1Mixin inputPage1Logic;
+
   ShareRecipeViewModel({
     required this.getImageUseCase,
     required this.cropImageUseCase,
     required this.getImageUrlUseCase,
-    required this.logic,
+    required this.inputPage4Logic,
     required this.shareRecipeUseCase,
+    //  required this.inputPage1Logic,
   });
 
   bool _isLoading = false;
@@ -33,14 +36,38 @@ class ShareRecipeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void valueSetterCookingType(String value) {
-    _cookingType = value;
+  List<String> _ingredients = [''];
+  List<String> get ingredients => _ingredients;
+
+  void updateIngredientList(List<String> ingredientList) {
+    _ingredients = ingredientList;
+    notifyListeners();
   }
 
-  void valueSetterWorldKitchen(String value) {
-    _worldKitchen = value;
+  File? _croppedImage;
+  File? get croppedImage => _croppedImage;
+
+  File? _selectedImage;
+  File? get selectedImage => _selectedImage;
+
+  String? imageUrl;
+  ///////////////////////////// PAGE 1 //////////////////////////////////////////////////////
+  String _recipeName = '';
+  String get recipeName => _recipeName;
+
+  void setInputsPage1({
+    required String recipeName,
+    required String recipeDescription,
+  }) {
+    _recipeName = recipeName;
+    _recipeDescription = recipeDescription;
   }
 
+  String _recipeDescription = '';
+  String get recipeDescription => _recipeDescription;
+////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////// PAGE 2 ////////////////////////////////////////////////
   double _cookingDuration = 30;
   double get cookingDuration => _cookingDuration;
 
@@ -50,44 +77,54 @@ class ShareRecipeViewModel extends ChangeNotifier {
   String _worldKitchen = '';
   String get worldKitchen => _worldKitchen;
 
-  List<String> _ingredients = [''];
-  List<String> get ingredients => _ingredients;
+  void valueSetterCookingType(String value) {
+    _cookingType = value;
+  }
 
-  File? _croppedImage;
-  File? get croppedImage => _croppedImage;
+  void valueSetterWorldKitchen(String value) {
+    _worldKitchen = value;
+  }
 
-  File? _selectedImage;
-  File? get selectedImage => _selectedImage;
+  void setInputsPage2({
+    required String recipeworldKitchen,
+    required String recipecookingType,
+  }) {
+    _worldKitchen = recipeworldKitchen;
+    _cookingType = recipecookingType;
+  }
 
-  String? imageUrl;
+////////////////////////////////////////////////////////////////////////////////////////
 
-  // List<RecipeStepEntity> _recipeSteps = [];
-  // List<RecipeStepEntity> get recipeSteps => _recipeSteps;
+//////////////////////////////// PAGE 4 ////////////////////////////////////////////////
 // İlk adımı eklemek için kullanılır
   void createInitialStep({required RecipeStepEntity step}) {
-    logic.addStep(recipeStep: step);
+    // daha önce bir adım eklenmediyse boş bir adım getir.
+    // eklendiyse diğer adımlar + boş adım..
+    if (inputPage4Logic.steps.isEmpty) {
+      inputPage4Logic.addStep(recipeStep: step);
+    }
   }
 
   // Yeni bir adım eklemek için
   void addNewRecipeStep({required RecipeStepEntity step}) {
-    logic.addStep(recipeStep: step);
+    inputPage4Logic.addStep(recipeStep: step);
     notifyListeners();
   }
 
   // Adım kaldırmak için (artık index yerine model kullanıyoruz)
   void removeRecipeStep(RecipeStepInputModel stepModel) {
-    logic.removeStep(stepModel.stepEntity);
+    inputPage4Logic.removeStep(stepModel.stepEntity);
     notifyListeners();
   }
 
   // Mevcut adımın geçerli olup olmadığını kontrol eder
   bool isCurrentStepValid() {
-    return logic.isCurrentStepValid();
+    return inputPage4Logic.isCurrentStepValid();
   }
 
   // Adımın açıklamasını güncellemek için
   void updateRecipeStep(RecipeStepInputModel stepModel, String description) {
-    logic.updateRecipeStep(stepModel.stepEntity, description);
+    inputPage4Logic.updateRecipeStep(stepModel.stepEntity, description);
     notifyListeners();
   }
 
@@ -103,8 +140,9 @@ class ShareRecipeViewModel extends ChangeNotifier {
 
   // Sayfa kapanırken tüm controller ve node'ları dispose etmek için
   void disposeStepPage() {
-    logic.dispose();
+    inputPage4Logic.dispose();
   }
+////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> getRecipeImage({required ImageSource source}) async {
     _selectedImage = null;

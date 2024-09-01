@@ -7,19 +7,11 @@ import 'package:flutter_food_recipe_application/product/componets/custom_snack_b
 
 mixin ShareRecipeViewMixin on State<ShareRecipeView> {
   late PageController pageController;
-  late TextEditingController recipeNameController;
-  late TextEditingController recipeDescriptionController;
-  late GlobalKey<FormState> page1FormKey;
 
-  late AppValidators validators;
   int _currentPage = 0;
   int get currentPage => _currentPage;
   final int _totalPages = 4;
   int get totalPage => _totalPages;
-
-  List<RecipeStepEntity> recipeSteps = [];
-  List<FocusNode> focusNodes = [];
-  List<TextEditingController> recipeStepControllers = [];
 
   void onPageChanged(int index) {
     _currentPage = index;
@@ -28,53 +20,20 @@ mixin ShareRecipeViewMixin on State<ShareRecipeView> {
 
   @override
   void initState() {
-    page1FormKey = GlobalKey<FormState>();
-    validators = AppValidators();
     pageController = PageController();
-    recipeNameController = TextEditingController();
-    recipeDescriptionController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    for (final node in focusNodes) {
-      node.dispose();
-    }
-    for (final controller in recipeStepControllers) {
-      controller.dispose();
-    }
-    recipeNameController.dispose();
-    recipeDescriptionController.dispose();
     pageController.dispose();
     super.dispose();
   }
 
-  /// this method ovveried in view.
-  void showScaffoldSnackBar() {
-    CustomSnackBars.showRecipeScaffoldSnackBar(
-      context: context,
-      text: 'Lütfen bir resim seçiniz.',
-    );
-  }
-
-  bool validateFields() {
-    if (page1FormKey.currentState!.validate()) {
-      if (context.read<ShareRecipeViewModel>().croppedImage == null) {
-        showScaffoldSnackBar();
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  void nextPage() {
+  /* void nextPage() {
     FocusScope.of(context).unfocus();
     if (_currentPage == 0) {
-      final isValidate = validateFields();
+     final isValidate = validateFields();
       if (isValidate) {
         pageController.nextPage(
           duration: const Duration(milliseconds: 500),
@@ -88,7 +47,7 @@ mixin ShareRecipeViewMixin on State<ShareRecipeView> {
       );
     }
   }
-
+*/
   void previusPage() {
     pageController.previousPage(
       duration: const Duration(milliseconds: 500),
@@ -96,7 +55,7 @@ mixin ShareRecipeViewMixin on State<ShareRecipeView> {
     );
   }
 
-  Future<void> shareRecipe() async {
+  /* Future<void> shareRecipe() async {
     final shareRecipeViewModel = context.read<ShareRecipeViewModel>();
 
     await shareRecipeViewModel.getImageUrl();
@@ -111,5 +70,5 @@ mixin ShareRecipeViewMixin on State<ShareRecipeView> {
         AppRoutes.navBarView,
       );
     }
-  }
+  }*/
 }

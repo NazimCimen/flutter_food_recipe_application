@@ -10,14 +10,13 @@ class CustomDropDownMenuWidget extends StatelessWidget {
     required this.hintText,
     required this.titleText,
     required this.onSelected,
-    required this.initialSelection,
+    required this.controller,
     super.key,
   });
   final List<DropdownMenuEntry<String>> dropBoxList;
   final String hintText;
   final String titleText;
-  final String? initialSelection;
-
+  final TextEditingController controller;
   final ValueSetter<String> onSelected;
   @override
   Widget build(BuildContext context) {
@@ -45,6 +44,7 @@ class CustomDropDownMenuWidget extends StatelessWidget {
             onSelected.call(value ?? '');
           },
           dropdownMenuEntries: dropBoxList,
+          controller: controller,
         ),
       ],
     );

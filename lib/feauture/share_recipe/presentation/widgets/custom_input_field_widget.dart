@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
 import 'package:flutter_food_recipe_application/product/decorations/input_decorations/custom_input_decoration.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_shadow_widget.dart';
 
@@ -31,6 +32,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
           validator: widget.validator,
           controller: widget.controller,
           maxLines: widget.maxLines,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.next,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Theme.of(context).colorScheme.surface,
+                fontWeight: FontWeight.bold,
+                shadows: CustomShadows.customLowShadow(),
+              ),
           decoration: CustomInputDecoration.inputDecoration(
             context: context,
             hintText: widget.hintText,

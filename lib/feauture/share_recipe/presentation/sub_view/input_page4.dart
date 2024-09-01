@@ -4,7 +4,12 @@ part of '../view/share_recipe_view.dart';
 // share edilirken absorb pointer
 
 class InputPage4 extends StatefulWidget {
-  const InputPage4({super.key});
+  final PageController pageController;
+
+  const InputPage4({
+    required this.pageController,
+    super.key,
+  });
 
   @override
   State<InputPage4> createState() => _InputPage4State();
@@ -13,16 +18,52 @@ class InputPage4 extends StatefulWidget {
 class _InputPage4State extends State<InputPage4> with InputPage4Mixin {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: context.paddingHorizAllLarge,
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _StepHeader(),
-          Expanded(child: _StepList()),
-          _AddStepButton(),
-        ],
-      ),
+    return Column(
+      children: [
+        SizedBox(
+          height: context.dynamicHeight(0.8),
+          child: Padding(
+            padding: context.paddingHorizAllLarge,
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _StepHeader(),
+                Expanded(child: _StepList()),
+                _AddStepButton(),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.transparent, Colors.black.withOpacity(0.6)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Padding(
+              padding: context.paddingAllMedium,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomButtonWidget(
+                    context: context,
+                    text: 'BACK',
+                    onPressed: previousPage,
+                  ),
+                  CustomButtonWidget(
+                    context: context,
+                    text: 'SHARE',
+                    onPressed: shareRecipe,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -43,7 +84,7 @@ class _AddStepButton extends StatelessWidget {
             viewModel.addNewRecipeStep(
               step: RecipeStepEntity(
                 id: const Uuid().v1(),
-                stepNumber: viewModel.logic.steps.length + 1,
+                stepNumber: viewModel.inputPage4Logic.steps.length + 1,
                 stepDescription: '',
                 stepImageUrl: '',
               ),
@@ -78,7 +119,7 @@ class _StepList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<ShareRecipeViewModel>();
-    final stepInputList = viewModel.logic.steps;
+    final stepInputList = viewModel.inputPage4Logic.steps;
 
     return ListView.builder(
       itemCount: stepInputList.length,
@@ -151,6 +192,12 @@ class _StepDescriptionField extends StatelessWidget {
     final viewModel = context.read<ShareRecipeViewModel>();
 
     return TextField(
+      keyboardType: TextInputType.text,
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            color: Theme.of(context).colorScheme.surface,
+            fontWeight: FontWeight.bold,
+            shadows: CustomShadows.customLowShadow(),
+          ),
       focusNode: step.focusNode,
       controller: step.controller,
       decoration: CustomInputDecoration.inputDecoration(

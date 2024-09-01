@@ -224,7 +224,7 @@ void setupLocator() {
     )
     ..registerLazySingleton<ShareRecipeViewModel>(
       () => ShareRecipeViewModel(
-        logic: InputPage4Logic(),
+        inputPage4Logic: InputPage4Logic(),
         getImageUseCase: serviceLocator<GetImageUseCase>(),
         cropImageUseCase: serviceLocator<CropImageUseCase>(),
         getImageUrlUseCase: serviceLocator<GetImageUrlUseCase>(),

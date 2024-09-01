@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page1_mixin.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page2_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page3_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page4_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/share_recipe_view_mixin.dart';
 import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
 import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
+import 'package:flutter_food_recipe_application/product/widgets/custom_button_widget.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_shadow_widget.dart';
 import 'package:flutter_food_recipe_application/product/widgets/glass_background_widget.dart';
 import 'package:flutter_food_recipe_application/product/models/recipe_step_input_model.dart';
@@ -71,27 +74,29 @@ class _ShareRecipeViewState extends State<ShareRecipeView>
                           physics: const NeverScrollableScrollPhysics(),
                           onPageChanged: onPageChanged,
                           children: [
-                            _InputPage1(
-                              page1FormKey: page1FormKey,
-                              recipeNameController: recipeNameController,
-                              validators: validators,
-                              recipeDescriptionController:
-                                  recipeDescriptionController,
+                            InputPage1(
+                              pageController: pageController,
                             ),
-                            const _InputPage2(),
-                            const InputPage3(),
-                            const InputPage4(),
+                            InputPage2(
+                              pageController: pageController,
+                            ),
+                            InputPage3(
+                              pageController: pageController,
+                            ),
+                            InputPage4(
+                              pageController: pageController,
+                            ),
                           ],
                         ),
                       ),
-                      _CustomBottomNavigationBar(
+                      /*    _CustomBottomNavigationBar(
                         currentPage: currentPage,
                         totalPages: totalPage,
                         nextPage: nextPage,
                         previousPage: previusPage,
                         shareRecipe: shareRecipe,
                         pageController: pageController,
-                      ),
+                      ),*/
                     ],
                   ),
                 ),

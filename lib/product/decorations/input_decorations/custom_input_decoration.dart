@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
+import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
 
 class CustomInputDecoration {
   CustomInputDecoration._();
@@ -12,26 +13,14 @@ class CustomInputDecoration {
         filled: true,
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: Theme.of(context).colorScheme.surface,
-          fontWeight: FontWeight.w500,
-          shadows: [
-            Shadow(
-              offset: const Offset(1.5, 1.5),
-              blurRadius: 2,
-              color: Colors.black.withOpacity(0.7),
+              color: Theme.of(context).colorScheme.surface,
+              fontWeight: FontWeight.w500,
+              shadows: CustomShadows.customLowShadow(),
             ),
-          ],
-        ),
         errorStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: Theme.of(context).colorScheme.error,
-          shadows: [
-            Shadow(
-              offset: const Offset(1.5, 1.5),
-              blurRadius: 2,
-              color: Colors.black.withOpacity(0.7),
+              color: Theme.of(context).colorScheme.error,
+              shadows: CustomShadows.customLowShadow(),
             ),
-          ],
-        ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 2,
