@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/app_core_export.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
+import 'package:flutter_food_recipe_application/product/componets/custom_sheets.dart';
 import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
 import 'package:flutter_food_recipe_application/product/constants/image_aspect_ratio.dart';
 import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
@@ -33,7 +34,8 @@ class _RecipeImageContainer extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         provider.changeLoading();
-        final selectedSource = await _showMenuForImage(context: context);
+        final selectedSource =
+            await CustomSheets.showMenuForImage(context: context);
         await provider.getImageSourceAndProcessImage(
           selectedSource: selectedSource,
         );
@@ -118,38 +120,4 @@ class _PlaceholderContent extends StatelessWidget {
       ],
     );
   }
-}
-
-Future<ImageSource?> _showMenuForImage({
-  required BuildContext context,
-}) async {
-  return showModalBottomSheet<ImageSource>(
-    context: context,
-    builder: (BuildContext context) {
-      return Wrap(
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.camera),
-            title: const Text('Kamera'),
-            onTap: () {
-              Navigator.pop(
-                context,
-                ImageSource.camera,
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.image),
-            title: const Text('Galeri'),
-            onTap: () {
-              Navigator.pop(
-                context,
-                ImageSource.gallery,
-              );
-            },
-          ),
-        ],
-      );
-    },
-  );
 }

@@ -56,7 +56,7 @@ class _InputPage4State extends State<InputPage4> with InputPage4Mixin {
                   CustomButtonWidget(
                     context: context,
                     text: 'SHARE',
-                    onPressed: shareRecipe,
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -82,6 +82,7 @@ class _AddStepButton extends StatelessWidget {
         onPressed: () {
           if (viewModel.isCurrentStepValid()) {
             viewModel.addNewRecipeStep(
+              stepImageFile: null,
               step: RecipeStepEntity(
                 id: const Uuid().v1(),
                 stepNumber: viewModel.inputPage4Logic.steps.length + 1,
@@ -220,20 +221,33 @@ class _StepImagePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: CustomBoxDecoration.customBoxDecorationImageArea(context),
-      child: AspectRatio(
-        aspectRatio: ImageAspectRatio.stepAspectRatio.ratio,
-        child: Center(
-          child: IconButton(
-            icon: Image.asset(
-              ImageEnums.sharePostImage.toPathPng,
-              width: context.dynamicWidht(0.2),
-              color: Theme.of(context).colorScheme.primary,
+    final viewModel = context.read<ShareRecipeViewModel>();
+
+    return GestureDetector(
+      onTap: () async {
+        viewModel.changeLoading();
+        final selectedSource =
+            await CustomSheets.showMenuForImage(context: context);
+        await viewModel.getImageSourceAndProcessImage(
+          selectedSource: selectedSource,
+        );
+        viewModel.changeLoading();
+      },
+      child: DecoratedBox(
+        decoration: CustomBoxDecoration.customBoxDecorationImageArea(context),
+        child: AspectRatio(
+          aspectRatio: ImageAspectRatio.stepAspectRatio.ratio,
+          child: Center(
+            child: IconButton(
+              icon: Image.asset(
+                ImageEnums.sharePostImage.toPathPng,
+                width: context.dynamicWidht(0.2),
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onPressed: () {
+                // Kamera işlemi buraya
+              },
             ),
-            onPressed: () {
-              // Kamera işlemi buraya
-            },
           ),
         ),
       ),

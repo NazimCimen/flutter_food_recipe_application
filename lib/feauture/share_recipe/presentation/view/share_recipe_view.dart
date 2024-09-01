@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page1_mixin.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_food_recipe_application/feauture/share_recipe/presentati
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page3_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page4_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/share_recipe_view_mixin.dart';
+import 'package:flutter_food_recipe_application/product/componets/custom_sheets.dart';
 import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
 import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_button_widget.dart';
@@ -89,14 +92,6 @@ class _ShareRecipeViewState extends State<ShareRecipeView>
                           ],
                         ),
                       ),
-                      /*    _CustomBottomNavigationBar(
-                        currentPage: currentPage,
-                        totalPages: totalPage,
-                        nextPage: nextPage,
-                        previousPage: previusPage,
-                        shareRecipe: shareRecipe,
-                        pageController: pageController,
-                      ),*/
                     ],
                   ),
                 ),

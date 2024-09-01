@@ -9,11 +9,15 @@ class InputPage4Logic {
   List<RecipeStepInputModel> get steps => _inputSteps;
 
   void addStep({required RecipeStepEntity recipeStep}) {
-    _inputSteps.add(RecipeStepInputModel(
-      controller: TextEditingController(),
-      focusNode: FocusNode(),
-      stepEntity: recipeStep,
-    ));
+    // paylaşacağın zaman liste içersindeki file'ların url'ini al
+    _inputSteps.add(
+      RecipeStepInputModel(
+        controller: TextEditingController(),
+        focusNode: FocusNode(),
+        stepEntity: recipeStep,
+        stepImageFile: null,
+      ),
+    );
   }
 
   void removeStep(RecipeStepEntity recipeStep) {
@@ -49,6 +53,7 @@ class InputPage4Logic {
         .firstWhereOrNull((step) => step.stepEntity == recipeStep);
   }
 
+///////////// listeyi temizleeeeeeeeee
   void dispose() {
     for (final step in _inputSteps) {
       step.controller.dispose();

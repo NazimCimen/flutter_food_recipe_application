@@ -17,15 +17,12 @@ class ShareRecipeViewModel extends ChangeNotifier {
   final GetImageUrlUseCase getImageUrlUseCase;
   final ShareRecipeUseCase shareRecipeUseCase;
   final InputPage4Logic inputPage4Logic;
-  // final InputPage1Mixin inputPage1Logic;
-
   ShareRecipeViewModel({
     required this.getImageUseCase,
     required this.cropImageUseCase,
     required this.getImageUrlUseCase,
     required this.inputPage4Logic,
     required this.shareRecipeUseCase,
-    //  required this.inputPage1Logic,
   });
 
   bool _isLoading = false;
@@ -36,13 +33,16 @@ class ShareRecipeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+/////////////////////////////////////////////////////////////////////
   List<String> _ingredients = [''];
   List<String> get ingredients => _ingredients;
-
   void updateIngredientList(List<String> ingredientList) {
     _ingredients = ingredientList;
     notifyListeners();
   }
+/////////////////////////////////////////////////////////////////////
+
+///////////////////////////// PAGE 1 //////////////////////////////////////////////////////
 
   File? _croppedImage;
   File? get croppedImage => _croppedImage;
@@ -51,9 +51,11 @@ class ShareRecipeViewModel extends ChangeNotifier {
   File? get selectedImage => _selectedImage;
 
   String? imageUrl;
-  ///////////////////////////// PAGE 1 //////////////////////////////////////////////////////
   String _recipeName = '';
   String get recipeName => _recipeName;
+
+  String _recipeDescription = '';
+  String get recipeDescription => _recipeDescription;
 
   void setInputsPage1({
     required String recipeName,
@@ -63,8 +65,6 @@ class ShareRecipeViewModel extends ChangeNotifier {
     _recipeDescription = recipeDescription;
   }
 
-  String _recipeDescription = '';
-  String get recipeDescription => _recipeDescription;
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////// PAGE 2 ////////////////////////////////////////////////
@@ -98,18 +98,22 @@ class ShareRecipeViewModel extends ChangeNotifier {
 //////////////////////////////// PAGE 4 ////////////////////////////////////////////////
 // İlk adımı eklemek için kullanılır
   void createInitialStep({required RecipeStepEntity step}) {
-    // daha önce bir adım eklenmediyse boş bir adım getir.
-    // eklendiyse diğer adımlar + boş adım..
     if (inputPage4Logic.steps.isEmpty) {
       inputPage4Logic.addStep(recipeStep: step);
     }
   }
 
   // Yeni bir adım eklemek için
-  void addNewRecipeStep({required RecipeStepEntity step}) {
+  void addNewRecipeStep({
+    required RecipeStepEntity step,
+    required File? stepImageFile,
+  }) {
     inputPage4Logic.addStep(recipeStep: step);
     notifyListeners();
   }
+
+  /// get ımage
+  /// get cropped image => File....
 
   // Adım kaldırmak için (artık index yerine model kullanıyoruz)
   void removeRecipeStep(RecipeStepInputModel stepModel) {

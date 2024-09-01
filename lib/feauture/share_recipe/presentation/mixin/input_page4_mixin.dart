@@ -34,7 +34,7 @@ mixin InputPage4Mixin on State<InputPage4> {
     );
   }
 
-  Future<void> shareRecipe() async {
+  /* Future<void> shareRecipe()async {
     FocusScope.of(context).unfocus();
     final shareRecipeViewModel = context.read<ShareRecipeViewModel>();
 
@@ -50,5 +50,5 @@ mixin InputPage4Mixin on State<InputPage4> {
         AppRoutes.navBarView,
       );
     }
-  }
+  }*/
 }
