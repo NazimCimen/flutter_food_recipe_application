@@ -1,21 +1,24 @@
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
+import 'package:flutter_food_recipe_application/product/firebase/base_firebase_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'recipe_step_model.g.dart';
 
 @JsonSerializable()
-class RecipeStepModel extends RecipeStepEntity {
+class RecipeStepModel extends RecipeStepEntity
+    implements BaseFirebaseModel<RecipeStepModel> {
   const RecipeStepModel({
-    required super.id,
-    required super.stepNumber,
-    required super.stepDescription,
-    required super.stepImageUrl,
+    super.id,
+    super.stepDescription,
+    super.stepImageUrl,
+    super.stepNumber,
   });
 
-  factory RecipeStepModel.fromJson(Map<String, dynamic> json) {
-    return _$RecipeStepModelFromJson(json);
-  }
+  @override
+  RecipeStepModel fromJson(Map<String, dynamic> json) =>
+      _$RecipeStepModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$RecipeStepModelToJson(this);
   factory RecipeStepModel.fromEntity(RecipeStepEntity entity) {
     return RecipeStepModel(

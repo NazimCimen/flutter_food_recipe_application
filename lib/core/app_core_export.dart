@@ -19,8 +19,8 @@ export 'package:flutter_food_recipe_application/product/componets/custom_dialogs
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:google_sign_in/google_sign_in.dart';
 export 'package:sign_in_with_apple/sign_in_with_apple.dart';
-export 'package:flutter_food_recipe_application/core/params/user_signin_input_model.dart';
-export 'package:flutter_food_recipe_application/core/params/user_signup_input_model.dart';
+export 'package:flutter_food_recipe_application/product/models/user_signin_input_model.dart';
+export 'package:flutter_food_recipe_application/product/models/user_signup_input_model.dart';
 export 'package:flutter_food_recipe_application/firebase_options.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:flutter_food_recipe_application/core/cache/cache_manager/base_cache_manager.dart';

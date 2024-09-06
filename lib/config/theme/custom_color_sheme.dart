@@ -10,7 +10,8 @@ final class CustomColorScheme {
     ), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
     onPrimary: Colors.white,
     secondary: Color(
-        0xFF202E3B), // used for icons. and third main color of app(black white blue)
+      0xFF202E3B,
+    ), // used for icons. and third main color of app(black white blue)
     onSecondary: Colors.white,
     error: Colors.red,
     onError: Colors.white,

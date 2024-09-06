@@ -65,42 +65,11 @@ class _InputPage2State extends State<InputPage2> with InputPage2Mixin {
           ),
         ),
         Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.transparent, Colors.black.withOpacity(0.6)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: Padding(
-              padding: context.paddingAllMedium,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomButtonWidget(
-                    context: context,
-                    text: 'BACK',
-                    onPressed: () {
-                      widget.pageController.previousPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.linearToEaseOut,
-                      );
-                    },
-                  ),
-                  CustomButtonWidget(
-                    context: context,
-                    text: 'NEXT',
-                    onPressed: () {
-                      widget.pageController.nextPage(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.linearToEaseOut,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+          child: BottomActionBar(
+            previousPagebutton: previousPage,
+            nextOrShareButton: nextPage,
+            previousPageBtnText: 'BACK',
+            nextOrShareBtnText: 'NEXT',
           ),
         ),
       ],

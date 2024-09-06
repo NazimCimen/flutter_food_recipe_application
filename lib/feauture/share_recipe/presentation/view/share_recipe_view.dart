@@ -7,15 +7,20 @@ import 'package:flutter_food_recipe_application/feauture/share_recipe/presentati
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page3_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page4_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/share_recipe_view_mixin.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/bottom_action_bar_widget.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/custom_add_button.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/share_recipe_loading_widget.dart';
 import 'package:flutter_food_recipe_application/product/componets/custom_sheets.dart';
 import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
 import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
+import 'package:flutter_food_recipe_application/product/models/recipe_ingredient_input_model.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_button_widget.dart';
+import 'package:flutter_food_recipe_application/product/widgets/custom_progress_indicator.dart';
+import 'package:flutter_food_recipe_application/product/widgets/custom_show_cropped_image.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_shadow_widget.dart';
 import 'package:flutter_food_recipe_application/product/widgets/glass_background_widget.dart';
 import 'package:flutter_food_recipe_application/product/models/recipe_step_input_model.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/add_recipe_image_widget.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/cooking_duration_widget.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/custom_drop_down_menu_widget.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/custom_input_field_widget.dart';
@@ -27,6 +32,7 @@ import 'package:flutter_food_recipe_application/product/decorations/input_decora
 import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_widget.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:uuid/uuid.dart';
 
 part '../sub_view/custom_bars.dart';
@@ -49,53 +55,55 @@ class _ShareRecipeViewState extends State<ShareRecipeView>
   @override
   Widget build(BuildContext context) {
     return AbsorbPointer(
-        absorbing: context.watch<ShareRecipeViewModel>().isLoading,
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Stack(
-              fit: StackFit.expand,
-              children: [
-                Center(
-                  child: Image.asset(
-                    fit: BoxFit.cover,
-                    ImageEnums.shareRecipeBack.toPathPng,
-                    height: double.infinity,
+      absorbing: context.watch<ShareRecipeViewModel>().isLoading,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            Center(
+              child: Image.asset(
+                fit: BoxFit.cover,
+                ImageEnums.shareRecipeBack.toPathPng,
+                height: double.infinity,
+              ),
+            ),
+            GlassBackgroundWidget(
+              theHeight: double.infinity,
+              theWidht: double.infinity,
+              theChild: Column(
+                children: [
+                  _CustomAppBar(
+                    currentPage: currentPage + 1,
+                    totalPage: totalPage,
                   ),
-                ),
-                GlassBackgroundWidget(
-                  theHeight: double.infinity,
-                  theWidht: double.infinity,
-                  theChild: Column(
-                    children: [
-                      _CustomAppBar(
-                        currentPage: currentPage + 1,
-                        totalPage: totalPage,
-                      ),
-                      Expanded(
-                        child: PageView(
-                          controller: pageController,
-                          physics: const NeverScrollableScrollPhysics(),
-                          onPageChanged: onPageChanged,
-                          children: [
-                            InputPage1(
-                              pageController: pageController,
-                            ),
-                            InputPage2(
-                              pageController: pageController,
-                            ),
-                            InputPage3(
-                              pageController: pageController,
-                            ),
-                            InputPage4(
-                              pageController: pageController,
-                            ),
-                          ],
+                  Expanded(
+                    child: PageView(
+                      controller: pageController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      onPageChanged: onPageChanged,
+                      children: [
+                        InputPage1(
+                          pageController: pageController,
                         ),
-                      ),
-                    ],
+                        InputPage2(
+                          pageController: pageController,
+                        ),
+                        InputPage3(
+                          pageController: pageController,
+                        ),
+                        InputPage4(
+                          pageController: pageController,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )));
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

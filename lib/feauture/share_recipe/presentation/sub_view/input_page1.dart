@@ -33,7 +33,7 @@ class _InputPage1State extends State<InputPage1> with InputPage1Mixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: context.dynamicHeight(0.02)),
-                    const AddRecipeImageWidget(),
+                    const _AddRecipeImageWidget(),
                     SizedBox(height: context.dynamicHeight(0.035)),
                     CustomInputField(
                       hintText: 'Food Name',
@@ -78,6 +78,90 @@ class _InputPage1State extends State<InputPage1> with InputPage1Mixin {
               ),
             ),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AddRecipeImageWidget extends StatelessWidget {
+  const _AddRecipeImageWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CustomTitleTextShadowWidget(text: 'Recipe Image'),
+        SizedBox(height: context.dynamicHeight(0.01)),
+        const _RecipeImageContainer(),
+      ],
+    );
+  }
+}
+
+class _RecipeImageContainer extends StatelessWidget {
+  const _RecipeImageContainer();
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.read<ShareRecipeViewModel>();
+    return GestureDetector(
+      onTap: () async {
+        provider.changeLoading();
+        final selectedSource =
+            await CustomSheets.showMenuForImage(context: context);
+        await provider.getImageSourceAndProcessImage(
+          selectedSource: selectedSource,
+        );
+        provider.changeLoading();
+      },
+      child: Center(
+        child: AspectRatio(
+          aspectRatio: ImageAspectRatio.postAspectRatio.ratio,
+          child: Container(
+            decoration:
+                CustomBoxDecoration.customBoxDecorationImageArea(context),
+            child: Consumer<ShareRecipeViewModel>(
+              builder: (context, viewModel, child) {
+                if (viewModel.isLoading) {
+                  return const CustomProgressIndicator();
+                } else if (viewModel.croppedImage != null) {
+                  return CustomShowCroppedImageWidget(
+                    imageFile: viewModel.croppedImage!,
+                  );
+                } else {
+                  return const _PlaceholderContent();
+                }
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PlaceholderContent extends StatelessWidget {
+  const _PlaceholderContent();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          ImageEnums.sharePostImage.toPathPng,
+          width: context.dynamicWidht(0.2),
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        SizedBox(height: context.dynamicHeight(0.02)),
+        Text(
+          'Add Cover Photo\n(up to 12 Mb)',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.surface,
+                fontWeight: FontWeight.w500,
+                shadows: CustomShadows.customLowShadow(),
+              ),
         ),
       ],
     );

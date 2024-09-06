@@ -1,13 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_url_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_steps_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/logic/input_page4_logic.dart';
+import 'package:flutter_food_recipe_application/product/constants/image_aspect_ratio.dart';
 import 'package:flutter_food_recipe_application/product/models/recipe_step_input_model.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/crop_image_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
@@ -16,13 +18,14 @@ class ShareRecipeViewModel extends ChangeNotifier {
   final CropImageUseCase cropImageUseCase;
   final GetImageUrlUseCase getImageUrlUseCase;
   final ShareRecipeUseCase shareRecipeUseCase;
-  final InputPage4Logic inputPage4Logic;
+  final ShareRecipeStepsUseCase shareRecipeStepsUseCase;
+
   ShareRecipeViewModel({
     required this.getImageUseCase,
     required this.cropImageUseCase,
     required this.getImageUrlUseCase,
-    required this.inputPage4Logic,
     required this.shareRecipeUseCase,
+    required this.shareRecipeStepsUseCase,
   });
 
   bool _isLoading = false;
@@ -36,11 +39,19 @@ class ShareRecipeViewModel extends ChangeNotifier {
 /////////////////////////////////////////////////////////////////////
   List<String> _ingredients = [''];
   List<String> get ingredients => _ingredients;
-  void updateIngredientList(List<String> ingredientList) {
+  void updateIngredientList({required List<String> ingredientList}) {
     _ingredients = ingredientList;
     notifyListeners();
   }
+
 /////////////////////////////////////////////////////////////////////
+  List<RecipeStepInputModel> _steps = [];
+
+  List<RecipeStepInputModel> get steps => _steps;
+  void updateStepList(List<RecipeStepInputModel> stepList) {
+    _steps = stepList;
+    notifyListeners();
+  }
 
 ///////////////////////////// PAGE 1 //////////////////////////////////////////////////////
 
@@ -50,7 +61,6 @@ class ShareRecipeViewModel extends ChangeNotifier {
   File? _selectedImage;
   File? get selectedImage => _selectedImage;
 
-  String? imageUrl;
   String _recipeName = '';
   String get recipeName => _recipeName;
 
@@ -95,57 +105,6 @@ class ShareRecipeViewModel extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////// PAGE 4 ////////////////////////////////////////////////
-// İlk adımı eklemek için kullanılır
-  void createInitialStep({required RecipeStepEntity step}) {
-    if (inputPage4Logic.steps.isEmpty) {
-      inputPage4Logic.addStep(recipeStep: step);
-    }
-  }
-
-  // Yeni bir adım eklemek için
-  void addNewRecipeStep({
-    required RecipeStepEntity step,
-    required File? stepImageFile,
-  }) {
-    inputPage4Logic.addStep(recipeStep: step);
-    notifyListeners();
-  }
-
-  /// get ımage
-  /// get cropped image => File....
-
-  // Adım kaldırmak için (artık index yerine model kullanıyoruz)
-  void removeRecipeStep(RecipeStepInputModel stepModel) {
-    inputPage4Logic.removeStep(stepModel.stepEntity);
-    notifyListeners();
-  }
-
-  // Mevcut adımın geçerli olup olmadığını kontrol eder
-  bool isCurrentStepValid() {
-    return inputPage4Logic.isCurrentStepValid();
-  }
-
-  // Adımın açıklamasını güncellemek için
-  void updateRecipeStep(RecipeStepInputModel stepModel, String description) {
-    inputPage4Logic.updateRecipeStep(stepModel.stepEntity, description);
-    notifyListeners();
-  }
-
-  // Verilen adım modeline odaklanmak için (FocusNode döndürür)
-  FocusNode getFocusNodeForStep(RecipeStepInputModel stepModel) {
-    return stepModel.focusNode;
-  }
-
-  // Verilen adım modeline ait controller döndürür
-  TextEditingController getControllerForStep(RecipeStepInputModel stepModel) {
-    return stepModel.controller;
-  }
-
-  // Sayfa kapanırken tüm controller ve node'ları dispose etmek için
-  void disposeStepPage() {
-    inputPage4Logic.dispose();
-  }
 ////////////////////////////////////////////////////////////////////////////////////////
 
   Future<void> getRecipeImage({required ImageSource source}) async {
@@ -163,6 +122,44 @@ class ShareRecipeViewModel extends ChangeNotifier {
     );
   }
 
+  Future<File?> getImageSourceAndProcessImageStep({
+    required ImageSource? selectedSource,
+  }) async {
+    File? pickedImage;
+    if (selectedSource != null) {
+      final result = await getImageUseCase.call(source: selectedSource);
+      result.fold(
+        (fail) {
+          print('fail');
+        },
+        (image) {
+          if (image != null) {
+            pickedImage = image;
+          }
+        },
+      );
+      if (pickedImage != null) {
+        _croppedImage = null;
+        final result = await cropImageUseCase.call(
+          imageFile: pickedImage!,
+          cropAspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
+        );
+        result.fold(
+          (fail) {
+            print('fail');
+          },
+          (image) {
+            if (image != null) {
+              _croppedImage = image;
+            }
+          },
+        );
+        return _croppedImage;
+      }
+    }
+    return null;
+  }
+
   Future<void> getImageSourceAndProcessImage(
       {required ImageSource? selectedSource}) async {
     if (selectedSource != null) {
@@ -176,7 +173,10 @@ class ShareRecipeViewModel extends ChangeNotifier {
   Future<void> cropRecipeImage() async {
     _croppedImage = null;
     if (_selectedImage == null) return;
-    final result = await cropImageUseCase.call(source: _selectedImage!);
+    final result = await cropImageUseCase.call(
+      imageFile: _selectedImage!,
+      cropAspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+    );
     result.fold(
       (fail) {
         print('fail');
@@ -189,51 +189,99 @@ class ShareRecipeViewModel extends ChangeNotifier {
     );
   }
 
-  Future<void> getImageUrl() async {
-    if (croppedImage == null) return;
-    final response = await getImageUrlUseCase.call(imageFile: croppedImage!);
+  Future<String> getImageUrl({required File? croppedImageFile}) async {
+    var imageUrl =
+        'https://firebasestorage.googleapis.com/v0/b/flutter-recipe-app-af800.appspot.com/o/YUMMY.png?alt=media&token=d151d7da-aa1b-48d7-a25b-92089075b3cc';
+    if (croppedImageFile == null) return imageUrl;
+    final response = await getImageUrlUseCase.call(imageFile: croppedImageFile);
     response.fold(
       (failure) {},
       (url) {
-        imageUrl = url;
+        if (url != null) {
+          imageUrl = url;
+        }
       },
     );
+    return imageUrl;
   }
 
-  Future<bool> shareRecipe({
-    required String recipeTitle,
-    required String recipeDescription,
-  }) async {
-    final postId = const Uuid().v1();
+  /// user ıd'yi eklemeyi unutma
+  Future<bool> shareRecipe({required String postId}) async {
+    final entityList = await convertStepInputListToEntityList();
+    final stepIds = extractStepIds(entityList);
+    final recipeImageUrl = await getImageUrl(croppedImageFile: _croppedImage);
     final result = await shareRecipeUseCase.call(
-      /// emphty validate FIX... worldKitchen cookingType and all
       recipeEntity: RecipeEntity(
         postId: postId,
         userId: postId,
-        recipeTitle: recipeTitle,
+        recipeTitle: recipeName,
         recipeDescription: recipeDescription,
-        imageUrl: imageUrl,
+        imageUrl: recipeImageUrl,
         cookingDuration: _cookingDuration.toString(),
         recipeIngredients: _ingredients,
         sharedTime: DateTime.now().toUtc(),
         worldKitchen: _worldKitchen,
         cookingType: _cookingType,
+        recipeStepIds: stepIds,
       ),
     );
     var succes = false;
     result.fold(
       (failure) {
+        //internet
+        // server
+        // sayfa geçişlerindeki awaitlik.
+        // crop design
+        //reset viewmodel.
         succes = true;
-
-        ///FIX IMPORTANT RESULT FOLD POST FAIL
       },
       (result) {
         succes = result;
       },
     );
-    return succes;
 
-    ///SERACH UTC IS GLOBAL UTC 3 2 .. IMPORTANTTTTTTTTTT
+    return succes;
+  }
+
+  Future<bool> shareRecipeSteps({required String postId}) async {
+    final entityList = await convertStepInputListToEntityList();
+    final result = await shareRecipeStepsUseCase.call(
+      recipeStepEntityList: entityList,
+      postId: postId,
+    );
+    var succes = false;
+    result.fold(
+      (failure) {
+        succes = true;
+      },
+      (result) {
+        succes = result;
+      },
+    );
+
+    return succes;
+  }
+
+  ///dispose etmeyi unutma......
+  Future<List<RecipeStepEntity>> convertStepInputListToEntityList() async {
+    final stepEntities = await Future.wait(
+      _steps.map((inputStep) async {
+        final url =
+            await getImageUrl(croppedImageFile: inputStep.stepImageFile);
+        return RecipeStepEntity(
+          id: const Uuid().v1(),
+          stepNumber: _steps.indexOf(inputStep) + 1,
+          stepDescription: inputStep.controller.text,
+          stepImageUrl: url,
+        );
+      }),
+    );
+    return stepEntities;
+  }
+
+  /// Bu metot entity listesi alır ve her bir entity'nin id'sini liste olarak döner.
+  List<String> extractStepIds(List<RecipeStepEntity> entityList) {
+    return entityList.map((entity) => entity.id).whereType<String>().toList();
   }
 
   void reset() {
@@ -244,7 +292,7 @@ class ShareRecipeViewModel extends ChangeNotifier {
     _selectedImage = null;
     _cookingType = '';
     _worldKitchen = '';
-    imageUrl = null;
+    // imageUrl = null;
     notifyListeners();
   }
 

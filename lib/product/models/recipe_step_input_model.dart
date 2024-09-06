@@ -1,33 +1,31 @@
 import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
 
 class RecipeStepInputModel extends Equatable {
   const RecipeStepInputModel({
     required this.controller,
     required this.focusNode,
-    required this.stepEntity,
     required this.stepImageFile,
+    required this.loading,
   });
   final TextEditingController controller;
   final FocusNode focusNode;
-  final RecipeStepEntity stepEntity;
   final File? stepImageFile;
+  final bool loading;
   @override
-  List<Object?> get props => [controller, focusNode, stepEntity, stepImageFile];
+  List<Object?> get props => [controller, focusNode, stepImageFile];
   RecipeStepInputModel copyWith({
     TextEditingController? controller,
     FocusNode? focusNode,
-    RecipeStepEntity? stepEntity,
     File? stepImageFile,
+    bool? loading,
   }) {
     return RecipeStepInputModel(
       controller: controller ?? this.controller,
       focusNode: focusNode ?? this.focusNode,
-      stepEntity: stepEntity ?? this.stepEntity,
       stepImageFile: stepImageFile ?? this.stepImageFile,
+      loading: loading ?? this.loading,
     );
   }
 }

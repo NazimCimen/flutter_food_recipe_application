@@ -18,7 +18,7 @@ class _SigninViewState extends State<SigninView> with SigninViewMixin {
         absorbing: isRequestAvaible,
         child: Stack(
           children: [
-            _buildBackgroundImage(),
+            const _BackgroundImageWidget(),
             _buildBodyContent(context),
           ],
         ),
@@ -64,13 +64,6 @@ class _SigninViewState extends State<SigninView> with SigninViewMixin {
           ],
         ),
       ),
-    );
-  }
-
-  Image _buildBackgroundImage() {
-    return Image.asset(
-      ImageEnums.authBackgroundImage.toPathPng,
-      fit: BoxFit.cover,
     );
   }
 
@@ -205,5 +198,17 @@ class _SigninViewState extends State<SigninView> with SigninViewMixin {
         Provider.of<AuthViewModel>(context, listen: false).clearFailure();
       });
     }
+  }
+}
+
+class _BackgroundImageWidget extends StatelessWidget {
+  const _BackgroundImageWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      ImageEnums.authBackgroundImage.toPathPng,
+      fit: BoxFit.cover,
+    );
   }
 }

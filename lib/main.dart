@@ -11,6 +11,11 @@ import 'package:flutter_food_recipe_application/product/widgets/glass_background
 ///ShareSteps fetch from idead home
 ///controller or entity management
 ///error handling
+/// camera permission  image pick and crop
+/// uygulama silinip tekrar çalışınca onboardan sonra nav bar görünmüyor.
+/// fix default image url post and step
+///   share post  ///SERACH UTC IS GLOBAL UTC 3 2 .. IMPORTANTTTTTTTTTT
+/// share yaparken user ıd'yi eklemeyi unutma
 
 void main() async {
   final appInit = AppInitImpl();

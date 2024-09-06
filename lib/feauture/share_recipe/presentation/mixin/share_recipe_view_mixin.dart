@@ -30,45 +30,10 @@ mixin ShareRecipeViewMixin on State<ShareRecipeView> {
     super.dispose();
   }
 
-  /* void nextPage() {
-    FocusScope.of(context).unfocus();
-    if (_currentPage == 0) {
-     final isValidate = validateFields();
-      if (isValidate) {
-        pageController.nextPage(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.linearToEaseOut,
-        );
-      }
-    } else {
-      pageController.nextPage(
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.linearToEaseOut,
-      );
-    }
-  }
-*/
   void previusPage() {
     pageController.previousPage(
       duration: const Duration(milliseconds: 500),
       curve: Curves.linearToEaseOut,
     );
   }
-
-  /* Future<void> shareRecipe() async {
-    final shareRecipeViewModel = context.read<ShareRecipeViewModel>();
-
-    await shareRecipeViewModel.getImageUrl();
-
-    final navigate = await shareRecipeViewModel.shareRecipe(
-      recipeTitle: recipeNameController.text,
-      recipeDescription: recipeDescriptionController.text,
-    );
-    shareRecipeViewModel.reset();
-    if (navigate == true) {
-      await NavigatorService.pushNamedAndRemoveUntil(
-        AppRoutes.navBarView,
-      );
-    }
-  }*/
 }

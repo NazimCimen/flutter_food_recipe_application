@@ -84,7 +84,7 @@ class CookingDurationWidget extends StatelessWidget {
           Shadow(
             offset: const Offset(1.5, 1.5),
             blurRadius: 2,
-            color: Colors.black.withOpacity(0.7),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
           ),
         ],
       ),

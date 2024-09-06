@@ -7,7 +7,6 @@ import 'package:flutter_food_recipe_application/product/models/recipe_ingredient
 
 mixin InputPage3Mixin on State<InputPage3> {
   List<RecipeIngredientInputModel> ingredientInputs = [];
-
   @override
   void initState() {
     getDefaultValues();
@@ -41,6 +40,7 @@ mixin InputPage3Mixin on State<InputPage3> {
         });
       });
     } else {
+      FocusScope.of(context).unfocus();
       CustomSnackBars.showRecipeScaffoldSnackBar(
         context: context,
         text:
@@ -67,11 +67,18 @@ mixin InputPage3Mixin on State<InputPage3> {
   }
 
   void updateViewModelIngredients() {
+    cleanEmptyDatasInIngredientList();
     context.read<ShareRecipeViewModel>().updateIngredientList(
-          ingredientInputs
+          ingredientList: ingredientInputs
               .map((input) => input.controller.text.trim())
               .toList(),
         );
+  }
+
+  void cleanEmptyDatasInIngredientList() {
+    ingredientInputs.removeWhere(
+      (element) => element.controller.text.trim().isEmpty,
+    );
   }
 
   void previousPage() {

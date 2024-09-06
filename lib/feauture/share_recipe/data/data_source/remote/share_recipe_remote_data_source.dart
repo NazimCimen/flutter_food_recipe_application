@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/error/failure.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/model/recipe_model.dart';
+import 'package:flutter_food_recipe_application/feauture/shared_layers/model/recipe_step_model.dart';
 import 'package:flutter_food_recipe_application/product/firebase/firebase_collection_enum.dart';
 import 'package:flutter_food_recipe_application/product/firebase/firebase_converter.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -12,68 +13,26 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 abstract class ShareRecipeRemoteDataSource {
-  Future<Either<Failure, File?>> getImage(ImageSource source);
-  Future<Either<Failure, File?>> cropImage(File imageFile);
   Future<Either<Failure, String?>> getImageUrl(File imageFile);
   Future<Either<Failure, bool>> shareRecipe(RecipeModel recipeModel);
+  Future<Either<Failure, bool>> shareRecipeSteps({
+    required List<RecipeStepModel> recipeStepModelList,
+    required String postId,
+  });
 }
 
 class ShareRecipeRemoteDataSourceImpl extends ShareRecipeRemoteDataSource {
   final FirebaseStorage storage;
   final FirebaseFirestore firestore;
-  final FirebaseConverter<RecipeModel> firebaseConverter;
+  final FirebaseConverter<RecipeModel> recipeFirebaseConverter;
+  final FirebaseConverter<RecipeStepModel> stepFirebaseConverter;
 
-  ShareRecipeRemoteDataSourceImpl(
-      {required this.storage,
-      required this.firestore,
-      required this.firebaseConverter});
-  @override
-  Future<Either<Failure, File?>> getImage(ImageSource source) async {
-    final picker = ImagePicker();
-    try {
-      final pickedFile = await picker.pickImage(source: source);
-      if (pickedFile != null) {
-        return Right(File(pickedFile.path));
-      } else {
-        return Left(ServerFailure(errorMessage: 'no image selected'));
-      }
-    } catch (e) {
-      return Left(ServerFailure(errorMessage: 'no image selected'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, File?>> cropImage(File imageFile) async {
-    try {
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: imageFile.path,
-        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            aspectRatioPresets: [
-              CropAspectRatioPreset.square,
-            ],
-          ),
-          IOSUiSettings(
-            title: 'Cropper',
-            aspectRatioPresets: [
-              CropAspectRatioPreset.square,
-            ],
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-        return Right(File(croppedFile.path));
-      } else {
-        return Left(ServerFailure(errorMessage: 'no image cropped'));
-      }
-    } catch (e) {
-      return Left(ServerFailure(errorMessage: 'no image cropped'));
-    }
-  }
+  ShareRecipeRemoteDataSourceImpl({
+    required this.storage,
+    required this.firestore,
+    required this.recipeFirebaseConverter,
+    required this.stepFirebaseConverter,
+  });
 
   @override
   Future<Either<Failure, String?>> getImageUrl(File imageFile) async {
@@ -92,13 +51,42 @@ class ShareRecipeRemoteDataSourceImpl extends ShareRecipeRemoteDataSource {
   @override
   Future<Either<Failure, bool>> shareRecipe(RecipeModel recipeModel) async {
     try {
-      await firebaseConverter
+      await recipeFirebaseConverter
           .collectionRef(FirebaseCollectionEnum.recipes)
-          .add(recipeModel);
+          .doc(
+            recipeModel.postId,
+          )
+          .set(recipeModel);
       return const Right(true);
     } catch (e) {
       print("Firestore Error: $e");
       return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> shareRecipeSteps({
+    required List<RecipeStepModel> recipeStepModelList,
+    required String postId,
+  }) async {
+    try {
+      final stepsCollectionRef = stepFirebaseConverter
+          .collectionRef(FirebaseCollectionEnum.recipes)
+          .doc(postId)
+          .collection('steps');
+
+      for (var recipeStep in recipeStepModelList) {
+        await stepsCollectionRef.doc(recipeStep.id).set(recipeStep.toJson());
+      }
+
+      return const Right(true);
+    } catch (e) {
+      print("Firestore Error: $e");
+      return Left(
+        ServerFailure(
+          errorMessage: 'Error sharing recipe steps: ${e.toString()}',
+        ),
+      );
     }
   }
 }

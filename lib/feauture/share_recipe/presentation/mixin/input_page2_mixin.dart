@@ -22,6 +22,20 @@ mixin InputPage2Mixin on State<InputPage2> {
     super.dispose();
   }
 
+  void previousPage() {
+    widget.pageController.previousPage(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.linearToEaseOut,
+    );
+  }
+
+  void nextPage() {
+    widget.pageController.nextPage(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.linearToEaseOut,
+    );
+  }
+
   void getDefaultValues() {
     recipeWorlKitchenController.text =
         context.read<ShareRecipeViewModel>().worldKitchen;
