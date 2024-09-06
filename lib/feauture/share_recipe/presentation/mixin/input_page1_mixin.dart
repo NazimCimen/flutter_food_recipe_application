@@ -37,7 +37,7 @@ mixin InputPage1Mixin on State<InputPage1> {
 
   bool validateFields() {
     if (page1FormKey.currentState!.validate()) {
-      if (context.read<ShareRecipeViewModel>().croppedImage == null) {
+      if (context.read<ShareRecipeViewModel>().selectedRecipeImage == null) {
         showScaffoldSnackBar(context);
         return false;
       } else {
@@ -64,8 +64,10 @@ mixin InputPage1Mixin on State<InputPage1> {
   }
 
   void getDefaultValues() {
-    recipeNameController.text = context.read<ShareRecipeViewModel>().recipeName;
+    recipeNameController.text =
+        context.read<ShareRecipeViewModel>().recipeEntity.recipeTitle ?? '';
     recipeDescriptionController.text =
-        context.read<ShareRecipeViewModel>().recipeDescription;
+        context.read<ShareRecipeViewModel>().recipeEntity.recipeDescription ??
+            '';
   }
 }

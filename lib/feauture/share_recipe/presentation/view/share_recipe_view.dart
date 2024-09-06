@@ -8,12 +8,12 @@ import 'package:flutter_food_recipe_application/feauture/share_recipe/presentati
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/input_page4_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/mixin/share_recipe_view_mixin.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/bottom_action_bar_widget.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/custom_add_button.dart';
+import 'package:flutter_food_recipe_application/product/models/recipe_ingredient_input_model.dart';
+import 'package:flutter_food_recipe_application/product/widgets/custom_add_button.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/share_recipe_loading_widget.dart';
 import 'package:flutter_food_recipe_application/product/componets/custom_sheets.dart';
 import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
 import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
-import 'package:flutter_food_recipe_application/product/models/recipe_ingredient_input_model.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_button_widget.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_progress_indicator.dart';
 import 'package:flutter_food_recipe_application/product/widgets/custom_show_cropped_image.dart';
@@ -24,16 +24,11 @@ import 'package:flutter_food_recipe_application/feauture/share_recipe/presentati
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/cooking_duration_widget.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/custom_drop_down_menu_widget.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/widgets/custom_input_field_widget.dart';
-import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
-import 'package:flutter_food_recipe_application/product/componets/custom_snack_bars.dart';
 import 'package:flutter_food_recipe_application/product/constants/image_aspect_ratio.dart';
 import 'package:flutter_food_recipe_application/product/constants/recipe_constants.dart';
 import 'package:flutter_food_recipe_application/product/decorations/input_decorations/custom_input_decoration.dart';
-import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_widget.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:lottie/lottie.dart';
-import 'package:uuid/uuid.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 part '../sub_view/custom_bars.dart';
 part '../sub_view/input_page1.dart';
@@ -55,7 +50,8 @@ class _ShareRecipeViewState extends State<ShareRecipeView>
   @override
   Widget build(BuildContext context) {
     return AbsorbPointer(
-      absorbing: context.watch<ShareRecipeViewModel>().isLoading,
+      absorbing:
+          context.watch<ShareRecipeViewModel>().state == ViewState.loading,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Stack(

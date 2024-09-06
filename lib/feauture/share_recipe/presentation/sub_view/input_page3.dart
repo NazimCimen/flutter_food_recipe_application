@@ -27,13 +27,12 @@ class _InputPage3State extends State<InputPage3> with InputPage3Mixin {
           ),
         ),
         // Alt Eylem Çubuğu
-        Expanded(
-          child: BottomActionBar(
-            previousPagebutton: previousPage,
-            nextOrShareButton: nextPage,
-            nextOrShareBtnText: 'NEXT',
-            previousPageBtnText: 'BACK',
-          ),
+
+        BottomActionBar(
+          previousPagebutton: previousPage,
+          nextOrShareButton: nextPage,
+          nextOrShareBtnText: 'NEXT',
+          previousPageBtnText: 'BACK',
         ),
       ],
     );

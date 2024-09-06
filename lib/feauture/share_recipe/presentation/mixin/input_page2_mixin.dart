@@ -38,8 +38,8 @@ mixin InputPage2Mixin on State<InputPage2> {
 
   void getDefaultValues() {
     recipeWorlKitchenController.text =
-        context.read<ShareRecipeViewModel>().worldKitchen;
+        context.read<ShareRecipeViewModel>().recipeEntity.worldKitchen ?? '';
     recipeCookingTypeController.text =
-        context.read<ShareRecipeViewModel>().cookingType;
+        context.read<ShareRecipeViewModel>().recipeEntity.cookingType ?? '';
   }
 }

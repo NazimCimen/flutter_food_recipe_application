@@ -17,8 +17,8 @@ class _InputPage4State extends State<InputPage4> with InputPage4Mixin {
   @override
   Widget build(BuildContext context) {
     return Consumer<ShareRecipeViewModel>(
-      builder: (context, viewmodel, child) {
-        return viewmodel.isLoading
+      builder: (context, viewModel, child) {
+        return viewModel.state == ViewState.loading
             ? const ShareRecipeLoadingWidget()
             : Column(
                 children: [

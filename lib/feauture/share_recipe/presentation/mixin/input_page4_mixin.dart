@@ -5,6 +5,7 @@ import 'package:flutter_food_recipe_application/feauture/share_recipe/presentati
 import 'package:flutter_food_recipe_application/product/componets/custom_sheets.dart';
 import 'package:flutter_food_recipe_application/product/componets/custom_snack_bars.dart';
 import 'package:flutter_food_recipe_application/product/models/recipe_step_input_model.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:uuid/uuid.dart';
 
 mixin InputPage4Mixin on State<InputPage4> {
@@ -108,17 +109,18 @@ mixin InputPage4Mixin on State<InputPage4> {
     _toggleStepLoading(index, true);
     final selectedSource =
         await CustomSheets.showMenuForImage(context: context);
-    final imageFile = await context
-        .read<ShareRecipeViewModel>()
-        .getImageSourceAndProcessImageStep(
-          selectedSource: selectedSource,
-        );
-    final updatedStep = _inputSteps[index].copyWith(
-      stepImageFile: imageFile,
-      loading: false,
-    );
-    _inputSteps[index] = updatedStep;
-    setState(() {});
+    if (selectedSource != null) {
+      final imageFile = await context.read<ShareRecipeViewModel>().getStepImage(
+            selectedSource: selectedSource,
+            aspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
+          );
+      final updatedStep = _inputSteps[index].copyWith(
+        stepImageFile: imageFile,
+        loading: false,
+      );
+      _inputSteps[index] = updatedStep;
+    }
+    _toggleStepLoading(index, false);
   }
 
   /// Adımın yüklenme durumunu değiştirir
@@ -142,7 +144,7 @@ mixin InputPage4Mixin on State<InputPage4> {
 
     // Async işlemler sırasında context kullanımını mounted kontrolü ile güvence altına alıyoruz
     if (!mounted) return;
-    context.read<ShareRecipeViewModel>().changeLoading();
+    context.read<ShareRecipeViewModel>().setState(ViewState.loading);
 
     updateViewModelSteps();
 
@@ -153,7 +155,7 @@ mixin InputPage4Mixin on State<InputPage4> {
         await context.read<ShareRecipeViewModel>().shareRecipe(postId: postId);
 
     if (!mounted) {
-      return; // Async işlemden sonra context'in hala mevcut olup olmadığını kontrol et
+      return;
     }
     if (!recipeResult) {
       _showErrorSnackbar('Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyin.');
@@ -166,9 +168,9 @@ mixin InputPage4Mixin on State<InputPage4> {
         .shareRecipeSteps(postId: postId);
 
     if (!mounted) {
-      return; // Async işlemden sonra context'in hala mevcut olup olmadığını kontrol et
+      return;
     }
-    context.read<ShareRecipeViewModel>().changeLoading();
+    context.read<ShareRecipeViewModel>().setState(ViewState.inActive);
 
     if (!stepsResult) {
       _showErrorSnackbar('Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyin.');
@@ -184,31 +186,4 @@ mixin InputPage4Mixin on State<InputPage4> {
       text: message,
     );
   }
-  /* Future<void> shareRecipe() async {
-    FocusScope.of(context).unfocus();
-    context.read<ShareRecipeViewModel>().changeLoading();
-    updateViewModelSteps();
-    final postId = const Uuid().v1();
-    final result =
-        await context.read<ShareRecipeViewModel>().shareRecipe(postId: postId);
-    if (result == false) {
-      CustomSnackBars.showRecipeScaffoldSnackBar(
-        context: context,
-        text: 'Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyin.',
-      );
-    } else {
-      final resultSteps = await context
-          .read<ShareRecipeViewModel>()
-          .shareRecipeSteps(postId: postId);
-      context.read<ShareRecipeViewModel>().changeLoading();
-      if (resultSteps == false) {
-        CustomSnackBars.showRecipeScaffoldSnackBar(
-          context: context,
-          text: 'Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyin.',
-        );
-      } else {
-        await NavigatorService.pushNamedAndRemoveUntil(AppRoutes.navBarView);
-      }
-    }
-  }*/
 }

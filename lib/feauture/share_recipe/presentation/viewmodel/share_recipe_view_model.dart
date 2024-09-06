@@ -1,199 +1,150 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_url_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/get_image_url_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_steps_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_use_case.dart';
-import 'package:flutter_food_recipe_application/product/constants/image_aspect_ratio.dart';
+import 'package:flutter_food_recipe_application/product/firebase/firebase_constants.dart';
 import 'package:flutter_food_recipe_application/product/models/recipe_step_input_model.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/crop_image_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/crop_image_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/get_image_file_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
+enum ViewState { inActive, error, success, loading }
+
 class ShareRecipeViewModel extends ChangeNotifier {
-  final GetImageUseCase getImageUseCase;
-  final CropImageUseCase cropImageUseCase;
   final GetImageUrlUseCase getImageUrlUseCase;
   final ShareRecipeUseCase shareRecipeUseCase;
   final ShareRecipeStepsUseCase shareRecipeStepsUseCase;
-
+  final GetImageFileUseCase getImageUseCase;
+  final CropImageUseCase cropImageUseCase;
   ShareRecipeViewModel({
-    required this.getImageUseCase,
     required this.cropImageUseCase,
+    required this.getImageUseCase,
     required this.getImageUrlUseCase,
     required this.shareRecipeUseCase,
     required this.shareRecipeStepsUseCase,
   });
+  ViewState _state = ViewState.inActive;
+  ViewState get state => _state;
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  RecipeEntity recipeEntity = RecipeEntity(
+    recipeTitle: 'aaaaa',
+    recipeDescription: '',
+    cookingType: '',
+    worldKitchen: '',
+    recipeIngredients: [''],
+    cookingDuration: 30,
+  );
 
-  void changeLoading() {
-    _isLoading = !_isLoading;
-    notifyListeners();
-  }
-
-/////////////////////////////////////////////////////////////////////
-  List<String> _ingredients = [''];
-  List<String> get ingredients => _ingredients;
-  void updateIngredientList({required List<String> ingredientList}) {
-    _ingredients = ingredientList;
-    notifyListeners();
-  }
-
-/////////////////////////////////////////////////////////////////////
   List<RecipeStepInputModel> _steps = [];
-
   List<RecipeStepInputModel> get steps => _steps;
+
+  File? _selectedRecipeImage;
+  File? get selectedRecipeImage => _selectedRecipeImage;
+
+  void setState(ViewState state) {
+    _state = state;
+    notifyListeners();
+  }
+
+// PAGE 1///////////////////////////////////////////////////////////////////////////////
+  void setInputsPage1({
+    required String recipeName,
+    required String recipeDescription,
+  }) {
+    recipeEntity = recipeEntity.copyWith(
+      recipeTitle: recipeName,
+      recipeDescription: recipeDescription,
+    );
+    notifyListeners();
+  }
+///////////////////////////////////////////////////////////////////////////////////
+
+  ///PAGE 2 //////////////////////////// ////////////////////////////////////////////////
+
+  void valueSetterCookingType(String value) {
+    recipeEntity = recipeEntity.copyWith(cookingType: value);
+  }
+
+  void valueSetterWorldKitchen(String value) {
+    recipeEntity = recipeEntity.copyWith(worldKitchen: value);
+  }
+
+  void setCookingDuration(double value) {
+    recipeEntity = recipeEntity.copyWith(cookingDuration: value);
+    notifyListeners();
+  }
+////////////////////////////////////////////////////////////////////////////////////////
+
+  ///PAGE 3 //////////////////////////// ////////////////////////////////////////////////
+  void updateIngredientList({required List<String> ingredientList}) {
+    recipeEntity = recipeEntity.copyWith(recipeIngredients: ingredientList);
+    notifyListeners();
+  }
+
   void updateStepList(List<RecipeStepInputModel> stepList) {
     _steps = stepList;
     notifyListeners();
   }
 
-///////////////////////////// PAGE 1 //////////////////////////////////////////////////////
-
-  File? _croppedImage;
-  File? get croppedImage => _croppedImage;
-
-  File? _selectedImage;
-  File? get selectedImage => _selectedImage;
-
-  String _recipeName = '';
-  String get recipeName => _recipeName;
-
-  String _recipeDescription = '';
-  String get recipeDescription => _recipeDescription;
-
-  void setInputsPage1({
-    required String recipeName,
-    required String recipeDescription,
-  }) {
-    _recipeName = recipeName;
-    _recipeDescription = recipeDescription;
-  }
-
 ////////////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////// PAGE 2 ////////////////////////////////////////////////
-  double _cookingDuration = 30;
-  double get cookingDuration => _cookingDuration;
+  ///PAGE 4 //////////////////////////// ////////////////////////////////////////////////
 
-  String _cookingType = '';
-  String get cookingType => _cookingType;
-
-  String _worldKitchen = '';
-  String get worldKitchen => _worldKitchen;
-
-  void valueSetterCookingType(String value) {
-    _cookingType = value;
-  }
-
-  void valueSetterWorldKitchen(String value) {
-    _worldKitchen = value;
-  }
-
-  void setInputsPage2({
-    required String recipeworldKitchen,
-    required String recipecookingType,
-  }) {
-    _worldKitchen = recipeworldKitchen;
-    _cookingType = recipecookingType;
-  }
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-  Future<void> getRecipeImage({required ImageSource source}) async {
-    _selectedImage = null;
-    final result = await getImageUseCase.call(source: source);
-    result.fold(
-      (fail) {
-        print('fail');
-      },
-      (image) {
-        if (image != null) {
-          _selectedImage = image;
-        }
-      },
-    );
-  }
-
-  Future<File?> getImageSourceAndProcessImageStep({
-    required ImageSource? selectedSource,
+  Future<void> getRecipeImage({
+    required ImageSource selectedSource,
+    required CropAspectRatio aspectRatio,
   }) async {
-    File? pickedImage;
-    if (selectedSource != null) {
-      final result = await getImageUseCase.call(source: selectedSource);
-      result.fold(
-        (fail) {
-          print('fail');
-        },
-        (image) {
-          if (image != null) {
-            pickedImage = image;
-          }
-        },
-      );
-      if (pickedImage != null) {
-        _croppedImage = null;
-        final result = await cropImageUseCase.call(
-          imageFile: pickedImage!,
-          cropAspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
-        );
-        result.fold(
-          (fail) {
-            print('fail');
-          },
-          (image) {
-            if (image != null) {
-              _croppedImage = image;
-            }
-          },
-        );
-        return _croppedImage;
-      }
-    }
-    return null;
-  }
-
-  Future<void> getImageSourceAndProcessImage(
-      {required ImageSource? selectedSource}) async {
-    if (selectedSource != null) {
-      await getRecipeImage(source: selectedSource);
-      if (selectedImage != null) {
-        await cropRecipeImage();
-      }
-    }
-  }
-
-  Future<void> cropRecipeImage() async {
-    _croppedImage = null;
-    if (_selectedImage == null) return;
-    final result = await cropImageUseCase.call(
-      imageFile: _selectedImage!,
-      cropAspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+    _selectedRecipeImage = await selectAndCropImage(
+      selectedSource: selectedSource,
+      aspectRatio: aspectRatio,
     );
-    result.fold(
-      (fail) {
-        print('fail');
-      },
-      (image) {
+  }
+
+  Future<File?> getStepImage({
+    required ImageSource selectedSource,
+    required CropAspectRatio aspectRatio,
+  }) async {
+    return selectAndCropImage(
+      selectedSource: selectedSource,
+      aspectRatio: aspectRatio,
+    );
+  }
+
+  Future<File?> selectAndCropImage({
+    required ImageSource selectedSource,
+    required CropAspectRatio aspectRatio,
+  }) async {
+    final result = await getImageUseCase.call(source: selectedSource);
+    return result.fold(
+      (fail) => null,
+      (image) async {
         if (image != null) {
-          _croppedImage = image;
+          final croppedResult = await cropImageUseCase.call(
+            imageFile: image,
+            cropAspectRatio: aspectRatio,
+          );
+          return croppedResult.fold(
+            (fail) => null,
+            (croppedImage) => croppedImage,
+          );
         }
+        return null;
       },
     );
   }
 
-  Future<String> getImageUrl({required File? croppedImageFile}) async {
-    var imageUrl =
-        'https://firebasestorage.googleapis.com/v0/b/flutter-recipe-app-af800.appspot.com/o/YUMMY.png?alt=media&token=d151d7da-aa1b-48d7-a25b-92089075b3cc';
-    if (croppedImageFile == null) return imageUrl;
-    final response = await getImageUrlUseCase.call(imageFile: croppedImageFile);
+  Future<String> getImageUrl({
+    required File? imageFile,
+    required String defaultIUrl,
+  }) async {
+    var imageUrl = defaultIUrl;
+    if (imageFile == null) return imageUrl;
+    final response = await getImageUrlUseCase.call(imageFile: imageFile);
     response.fold(
       (failure) {},
       (url) {
@@ -209,30 +160,28 @@ class ShareRecipeViewModel extends ChangeNotifier {
   Future<bool> shareRecipe({required String postId}) async {
     final entityList = await convertStepInputListToEntityList();
     final stepIds = extractStepIds(entityList);
-    final recipeImageUrl = await getImageUrl(croppedImageFile: _croppedImage);
+    final recipeImageUrl = await getImageUrl(
+      imageFile: _selectedRecipeImage,
+      defaultIUrl: FirebaseConstants.defaultRecipeImageUrl,
+    );
     final result = await shareRecipeUseCase.call(
       recipeEntity: RecipeEntity(
         postId: postId,
         userId: postId,
-        recipeTitle: recipeName,
-        recipeDescription: recipeDescription,
+        recipeTitle: 'recipeName',
+        recipeDescription: 'recipeDescription',
         imageUrl: recipeImageUrl,
-        cookingDuration: _cookingDuration.toString(),
-        recipeIngredients: _ingredients,
+        cookingDuration: 30,
+        recipeIngredients: ['_ingredients'],
         sharedTime: DateTime.now().toUtc(),
-        worldKitchen: _worldKitchen,
-        cookingType: _cookingType,
+        worldKitchen: '_worldKitchen',
+        cookingType: '_cookingType',
         recipeStepIds: stepIds,
       ),
     );
     var succes = false;
     result.fold(
       (failure) {
-        //internet
-        // server
-        // sayfa geçişlerindeki awaitlik.
-        // crop design
-        //reset viewmodel.
         succes = true;
       },
       (result) {
@@ -266,8 +215,10 @@ class ShareRecipeViewModel extends ChangeNotifier {
   Future<List<RecipeStepEntity>> convertStepInputListToEntityList() async {
     final stepEntities = await Future.wait(
       _steps.map((inputStep) async {
-        final url =
-            await getImageUrl(croppedImageFile: inputStep.stepImageFile);
+        final url = await getImageUrl(
+          imageFile: inputStep.stepImageFile,
+          defaultIUrl: FirebaseConstants.defaultRecipeStepImageUrl,
+        );
         return RecipeStepEntity(
           id: const Uuid().v1(),
           stepNumber: _steps.indexOf(inputStep) + 1,
@@ -285,19 +236,8 @@ class ShareRecipeViewModel extends ChangeNotifier {
   }
 
   void reset() {
-    _cookingDuration = 30;
-    _ingredients = [''];
     //_recipeSteps = [''];
-    _croppedImage = null;
-    _selectedImage = null;
-    _cookingType = '';
-    _worldKitchen = '';
     // imageUrl = null;
-    notifyListeners();
-  }
-
-  void setCookingDuration(double value) {
-    _cookingDuration = value;
     notifyListeners();
   }
 }

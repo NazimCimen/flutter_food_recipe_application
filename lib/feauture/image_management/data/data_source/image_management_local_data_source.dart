@@ -1,12 +1,12 @@
 import 'dart:io';
+
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/error/failure.dart';
 import 'package:flutter_food_recipe_application/core/utils/crop_ui_settings.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-abstract class ShareRecipeLocalDataSource {
+abstract class ImageManagementLocalDataSource {
   Future<Either<Failure, File?>> getImage(ImageSource source);
   Future<Either<Failure, File?>> cropImage({
     required File imageFile,
@@ -14,8 +14,9 @@ abstract class ShareRecipeLocalDataSource {
   });
 }
 
-class ShareRecipeLocalDataSourceImpl extends ShareRecipeLocalDataSource {
-  ShareRecipeLocalDataSourceImpl();
+class ImageManagementLocalDataSourceImpl
+    extends ImageManagementLocalDataSource {
+  ImageManagementLocalDataSourceImpl();
   @override
   Future<Either<Failure, File?>> getImage(ImageSource source) async {
     final picker = ImagePicker();
@@ -31,6 +32,7 @@ class ShareRecipeLocalDataSourceImpl extends ShareRecipeLocalDataSource {
     }
   }
 
+  @override
   Future<Either<Failure, File?>> cropImage({
     required File imageFile,
     required CropAspectRatio cropAspectRatio,

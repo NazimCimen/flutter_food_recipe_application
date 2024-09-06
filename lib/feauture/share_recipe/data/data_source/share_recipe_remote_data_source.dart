@@ -1,19 +1,14 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/core/error/failure.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/model/recipe_model.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/model/recipe_step_model.dart';
 import 'package:flutter_food_recipe_application/product/firebase/firebase_collection_enum.dart';
 import 'package:flutter_food_recipe_application/product/firebase/firebase_converter.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 abstract class ShareRecipeRemoteDataSource {
-  Future<Either<Failure, String?>> getImageUrl(File imageFile);
   Future<Either<Failure, bool>> shareRecipe(RecipeModel recipeModel);
   Future<Either<Failure, bool>> shareRecipeSteps({
     required List<RecipeStepModel> recipeStepModelList,

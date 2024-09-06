@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/view/share_recipe_view.dart';
-import 'package:flutter_food_recipe_application/feauture/splash/presentation/view/splash_view.dart';
-import 'package:flutter_food_recipe_application/feauture/nav_bar/nav_bar_view.dart';
-import 'package:flutter_food_recipe_application/product/widgets/glass_background_widget.dart';
 
 /// login sign up autovalidateMode
 ///Validators lang localication.

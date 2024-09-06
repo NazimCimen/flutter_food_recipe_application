@@ -61,7 +61,10 @@ class _InputPage1State extends State<InputPage1> with InputPage1Mixin {
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.transparent, Colors.black.withOpacity(0.6)],
+                colors: [
+                  Colors.transparent,
+                  Theme.of(context).colorScheme.onSurface.withOpacity(0.6)
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -104,16 +107,20 @@ class _RecipeImageContainer extends StatelessWidget {
   const _RecipeImageContainer();
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<ShareRecipeViewModel>();
+    final viewModel = context.read<ShareRecipeViewModel>();
     return GestureDetector(
       onTap: () async {
-        provider.changeLoading();
+        viewModel.setState(ViewState.loading);
         final selectedSource =
             await CustomSheets.showMenuForImage(context: context);
-        await provider.getImageSourceAndProcessImage(
-          selectedSource: selectedSource,
-        );
-        provider.changeLoading();
+        if (selectedSource != null) {
+          await viewModel.getRecipeImage(
+            selectedSource: selectedSource,
+            aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+          );
+        }
+
+        viewModel.setState(ViewState.inActive);
       },
       child: Center(
         child: AspectRatio(
@@ -123,11 +130,11 @@ class _RecipeImageContainer extends StatelessWidget {
                 CustomBoxDecoration.customBoxDecorationImageArea(context),
             child: Consumer<ShareRecipeViewModel>(
               builder: (context, viewModel, child) {
-                if (viewModel.isLoading) {
+                if (viewModel.state == ViewState.loading) {
                   return const CustomProgressIndicator();
-                } else if (viewModel.croppedImage != null) {
+                } else if (viewModel.selectedRecipeImage != null) {
                   return CustomShowCroppedImageWidget(
-                    imageFile: viewModel.croppedImage!,
+                    imageFile: viewModel.selectedRecipeImage!,
                   );
                 } else {
                   return const _PlaceholderContent();

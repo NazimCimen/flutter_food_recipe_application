@@ -26,7 +26,7 @@ class CropperUiSettings {
       lockAspectRatio: true,
       showCropGrid: true,
       aspectRatioPresets: [
-        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio5x4,
         CropAspectRatioPreset.ratio16x9,
       ],
     );
@@ -38,7 +38,7 @@ class CropperUiSettings {
       title: 'Resmi Kırp',
       aspectRatioLockEnabled: true,
       aspectRatioPresets: [
-        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio5x4,
         CropAspectRatioPreset.ratio16x9,
       ],
     );

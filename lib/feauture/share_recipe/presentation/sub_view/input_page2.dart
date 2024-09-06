@@ -36,7 +36,8 @@ class _InputPage2State extends State<InputPage2> with InputPage2Mixin {
                   ),
                   SizedBox(height: context.dynamicHeight(0.05)),
                   Selector<ShareRecipeViewModel, double>(
-                    selector: (_, viewModel) => viewModel.cookingDuration,
+                    selector: (_, viewModel) =>
+                        viewModel.recipeEntity.cookingDuration ?? 30.0,
                     builder: (context, cookingDuration, child) {
                       return CookingDurationWidget(
                         sliderValue: cookingDuration,
@@ -64,13 +65,11 @@ class _InputPage2State extends State<InputPage2> with InputPage2Mixin {
             ),
           ),
         ),
-        Expanded(
-          child: BottomActionBar(
-            previousPagebutton: previousPage,
-            nextOrShareButton: nextPage,
-            previousPageBtnText: 'BACK',
-            nextOrShareBtnText: 'NEXT',
-          ),
+        BottomActionBar(
+          previousPagebutton: previousPage,
+          nextOrShareButton: nextPage,
+          previousPageBtnText: 'BACK',
+          nextOrShareBtnText: 'NEXT',
         ),
       ],
     );

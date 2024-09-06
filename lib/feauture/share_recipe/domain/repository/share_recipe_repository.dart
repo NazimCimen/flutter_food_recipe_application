@@ -7,12 +7,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class ShareRecipeRepository {
-  Future<Either<Failure, File?>> getImage(ImageSource source);
-  Future<Either<Failure, File?>> cropImage({
-    required File imageFile,
-    required CropAspectRatio cropAspectRatio,
-  });
-  Future<Either<Failure, String?>> getImageUrl(File imageFile);
   Future<Either<Failure, bool>> shareRecipe(RecipeEntity recipeEntity);
   Future<Either<Failure, bool>> shareRecipeSteps({
     required List<RecipeStepEntity> recipeStepEntityList,

@@ -7,14 +7,17 @@ import 'package:flutter_food_recipe_application/feauture/home/data/repository/ho
 import 'package:flutter_food_recipe_application/feauture/home/domain/repository/home_repository.dart';
 import 'package:flutter_food_recipe_application/feauture/home/domain/usecase/get_recipes_followers_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/home/presentation/viewmodel/home_view_model.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/data/data_source/image_management_local_data_source.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/data/data_source/image_management_remote_data_source.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/data/repository/image_management_repository_impl.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/repository/image_managemenT_repository.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/data/data_source/local/share_recipe_local_data_source.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/data/data_source/remote/share_recipe_remote_data_source.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/data/data_source/share_recipe_remote_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/data/repository/share_recipe_repository_impl.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/repository/share_recipe_repository.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/crop_image_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_url_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/get_image_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/crop_image_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/get_image_url_use_case.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/get_image_file_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_steps_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_use_case.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
@@ -204,8 +207,33 @@ void setupLocator() {
     ..registerLazySingleton<HomeViewModel>(
       () => HomeViewModel(serviceLocator<GetRecipesFollowersUseCase>()),
     )
-    ..registerLazySingleton<ShareRecipeLocalDataSource>(
-      () => ShareRecipeLocalDataSourceImpl(),
+    ..registerLazySingleton<ImageManagementRemoteDataSource>(
+      () => ImageManagementRemoteDataSourceImpl(
+        storage: serviceLocator<FirebaseStorage>(),
+      ),
+    )
+    ..registerLazySingleton<ImageManagementLocalDataSource>(
+      () => ImageManagementLocalDataSourceImpl(),
+    )
+    ..registerLazySingleton<ImageManagementRepository>(
+      () => ImageManagementRepositoryImpl(
+        remoteDataSource: serviceLocator<ImageManagementRemoteDataSource>(),
+        connectivity: serviceLocator<INetworkInfo>(),
+        localDataSource: serviceLocator<ImageManagementLocalDataSource>(),
+      ),
+    )
+    ..registerLazySingleton<GetImageFileUseCase>(
+      () => GetImageFileUseCase(
+        repository: serviceLocator<ImageManagementRepository>(),
+      ),
+    )
+    ..registerLazySingleton<CropImageUseCase>(
+      () => CropImageUseCase(
+          repository: serviceLocator<ImageManagementRepository>()),
+    )
+    ..registerLazySingleton<GetImageUrlUseCase>(
+      () => GetImageUrlUseCase(
+          repository: serviceLocator<ImageManagementRepository>()),
     )
     ..registerLazySingleton<ShareRecipeRemoteDataSource>(
       () => ShareRecipeRemoteDataSourceImpl(
@@ -221,20 +249,7 @@ void setupLocator() {
       () => ShareRecipeRepositoryImpl(
         remoteDataSource: serviceLocator<ShareRecipeRemoteDataSource>(),
         connectivity: serviceLocator<INetworkInfo>(),
-        localDataSource: serviceLocator<ShareRecipeLocalDataSource>(),
       ),
-    )
-    ..registerLazySingleton<GetImageUseCase>(
-      () =>
-          GetImageUseCase(repository: serviceLocator<ShareRecipeRepository>()),
-    )
-    ..registerLazySingleton<CropImageUseCase>(
-      () =>
-          CropImageUseCase(repository: serviceLocator<ShareRecipeRepository>()),
-    )
-    ..registerLazySingleton<GetImageUrlUseCase>(
-      () => GetImageUrlUseCase(
-          repository: serviceLocator<ShareRecipeRepository>()),
     )
     ..registerLazySingleton<ShareRecipeUseCase>(
       () => ShareRecipeUseCase(
@@ -247,7 +262,7 @@ void setupLocator() {
     )
     ..registerLazySingleton<ShareRecipeViewModel>(
       () => ShareRecipeViewModel(
-        getImageUseCase: serviceLocator<GetImageUseCase>(),
+        getImageUseCase: serviceLocator<GetImageFileUseCase>(),
         cropImageUseCase: serviceLocator<CropImageUseCase>(),
         getImageUrlUseCase: serviceLocator<GetImageUrlUseCase>(),
         shareRecipeUseCase: serviceLocator<ShareRecipeUseCase>(),

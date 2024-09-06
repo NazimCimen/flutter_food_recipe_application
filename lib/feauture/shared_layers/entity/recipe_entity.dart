@@ -11,7 +11,7 @@ class RecipeEntity extends Equatable {
   final int? likesCount;
   final int? commentsCount;
   final String? worldKitchen;
-  final String? cookingDuration;
+  final double? cookingDuration;
   final String? cookingType;
   final List<String?>? recipeStepIds;
 
@@ -47,4 +47,35 @@ class RecipeEntity extends Equatable {
         cookingDuration,
         cookingType,
       ];
+  RecipeEntity copyWith({
+    String? postId,
+    String? userId,
+    String? recipeTitle,
+    String? recipeDescription,
+    String? imageUrl,
+    List<String?>? recipeIngredients,
+    DateTime? sharedTime,
+    int? likesCount,
+    int? commentsCount,
+    String? worldKitchen,
+    double? cookingDuration,
+    String? cookingType,
+    List<String?>? recipeStepIds,
+  }) {
+    return RecipeEntity(
+      postId: postId ?? this.postId,
+      userId: userId ?? this.userId,
+      recipeTitle: recipeTitle ?? this.recipeTitle,
+      recipeDescription: recipeDescription ?? this.recipeDescription,
+      imageUrl: imageUrl ?? this.imageUrl,
+      recipeIngredients: recipeIngredients ?? this.recipeIngredients,
+      sharedTime: sharedTime ?? this.sharedTime,
+      likesCount: likesCount ?? this.likesCount,
+      commentsCount: commentsCount ?? this.commentsCount,
+      worldKitchen: worldKitchen ?? this.worldKitchen,
+      cookingDuration: cookingDuration ?? this.cookingDuration,
+      cookingType: cookingType ?? this.cookingType,
+      recipeStepIds: recipeStepIds ?? this.recipeStepIds,
+    );
+  }
 }

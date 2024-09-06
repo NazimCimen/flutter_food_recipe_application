@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_food_recipe_application/feauture/shared_layers/model/recipe_step_model.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
 import 'package:flutter_food_recipe_application/product/firebase/base_firebase_model.dart';
 import 'package:json_annotation/json_annotation.dart';

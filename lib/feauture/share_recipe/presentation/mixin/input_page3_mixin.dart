@@ -99,9 +99,12 @@ mixin InputPage3Mixin on State<InputPage3> {
     );
   }
 
+  ///MARK:fix ingredinet nullblty
   void getDefaultValues() {
     final viewModel = context.read<ShareRecipeViewModel>();
-    ingredientInputs = viewModel.ingredients.map((ingredient) {
+
+    ingredientInputs =
+        viewModel.recipeEntity.recipeIngredients!.map((ingredient) {
       return RecipeIngredientInputModel(
         controller: TextEditingController(text: ingredient),
         focusNode: FocusNode(),

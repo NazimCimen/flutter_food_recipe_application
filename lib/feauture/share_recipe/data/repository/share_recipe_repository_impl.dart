@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/data/data_source/local/share_recipe_local_data_source.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/data/data_source/remote/share_recipe_remote_data_source.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/data/data_source/share_recipe_remote_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/repository/share_recipe_repository.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
 import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
@@ -14,34 +13,11 @@ import 'package:image_picker/image_picker.dart';
 /// connectivity check !!!!!
 class ShareRecipeRepositoryImpl extends ShareRecipeRepository {
   final ShareRecipeRemoteDataSource remoteDataSource;
-  final ShareRecipeLocalDataSource localDataSource;
   final INetworkInfo connectivity;
   ShareRecipeRepositoryImpl({
     required this.remoteDataSource,
     required this.connectivity,
-    required this.localDataSource,
   });
-  @override
-  Future<Either<Failure, File?>> getImage(ImageSource source) async {
-    final result = await localDataSource.getImage(source);
-    return result;
-  }
-
-  @override
-  Future<Either<Failure, File?>> cropImage({
-    required File imageFile,
-    required CropAspectRatio cropAspectRatio,
-  }) async {
-    final result = await localDataSource.cropImage(
-        imageFile: imageFile, cropAspectRatio: cropAspectRatio);
-    return result;
-  }
-
-  @override
-  Future<Either<Failure, String?>> getImageUrl(File imageFile) async {
-    final result = await remoteDataSource.getImageUrl(imageFile);
-    return result;
-  }
 
   @override
   Future<Either<Failure, bool>> shareRecipe(RecipeEntity recipeEntity) async {
