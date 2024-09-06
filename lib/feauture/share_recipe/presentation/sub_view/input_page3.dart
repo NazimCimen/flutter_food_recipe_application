@@ -17,7 +17,6 @@ class _InputPage3State extends State<InputPage3> with InputPage3Mixin {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // İçerik Gövdesi
         SizedBox(
           height: context.dynamicHeight(0.8),
           child: _IngredientListSection(
@@ -26,8 +25,6 @@ class _InputPage3State extends State<InputPage3> with InputPage3Mixin {
             ingredients: ingredientInputs,
           ),
         ),
-        // Alt Eylem Çubuğu
-
         BottomActionBar(
           previousPagebutton: previousPage,
           nextOrShareButton: nextPage,

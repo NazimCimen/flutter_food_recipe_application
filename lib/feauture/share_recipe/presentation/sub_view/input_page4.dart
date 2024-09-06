@@ -1,6 +1,5 @@
 part of '../view/share_recipe_view.dart';
 
-// InputPage4 widget'ı: Paylaşım adımları sayfası
 class InputPage4 extends StatefulWidget {
   final PageController pageController;
 
@@ -41,7 +40,6 @@ class _InputPage4State extends State<InputPage4> with InputPage4Mixin {
   }
 }
 
-// Tarif adımlarını ve adım ekleme butonunu içerir
 class _RecipeStepsContainer extends StatelessWidget {
   final List<RecipeStepInputModel> steps;
   final VoidCallback addNewStep;
@@ -83,7 +81,6 @@ class _RecipeStepsContainer extends StatelessWidget {
   }
 }
 
-// Adım listesini oluşturur
 class _StepList extends StatelessWidget {
   final List<RecipeStepInputModel> stepInputs;
   final void Function(int index) removeStep;
@@ -129,7 +126,6 @@ class _StepList extends StatelessWidget {
   }
 }
 
-// Step başlığı ve silme butonu
 class _StepHeaderRow extends StatelessWidget {
   final RecipeStepInputModel step;
   final void Function(int index) removeStep;
@@ -172,7 +168,6 @@ class _StepHeaderRow extends StatelessWidget {
   }
 }
 
-// Step açıklama girişi
 class _StepDescriptionField extends StatelessWidget {
   final RecipeStepInputModel step;
 
@@ -198,7 +193,6 @@ class _StepDescriptionField extends StatelessWidget {
   }
 }
 
-// Step resim seçici (kamera butonu)
 class _StepImagePicker extends StatelessWidget {
   final RecipeStepInputModel step;
   final void Function(int index) getStepImage;
@@ -245,7 +239,6 @@ class _StepImagePicker extends StatelessWidget {
   }
 }
 
-// Step başlığını içerir
 class _StepHeader extends StatelessWidget {
   const _StepHeader();
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 import 'package:flutter_food_recipe_application/feauture/home/presentation/viewmodel/home_view_model.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
 
 mixin HomeViewMixin on State<HomeView> {
   int activeIndex = 0;

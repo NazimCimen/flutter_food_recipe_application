@@ -21,6 +21,7 @@ class ShareRecipeRemoteDataSourceImpl extends ShareRecipeRemoteDataSource {
     required this.stepFirebaseConverter,
   });
 
+  /// Shares the main recipe
   @override
   Future<Either<Failure, bool>> shareRecipe(RecipeModel recipeModel) async {
     try {
@@ -32,11 +33,11 @@ class ShareRecipeRemoteDataSourceImpl extends ShareRecipeRemoteDataSource {
           .set(recipeModel);
       return const Right(true);
     } catch (e) {
-      print("Firestore Error: $e");
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 
+  /// Shares the step recipe
   @override
   Future<Either<Failure, bool>> shareRecipeSteps({
     required List<RecipeStepModel> recipeStepModelList,
@@ -48,16 +49,15 @@ class ShareRecipeRemoteDataSourceImpl extends ShareRecipeRemoteDataSource {
           .doc(postId)
           .collection('steps');
 
-      for (var recipeStep in recipeStepModelList) {
+      for (final recipeStep in recipeStepModelList) {
         await stepsCollectionRef.doc(recipeStep.id).set(recipeStep.toJson());
       }
 
       return const Right(true);
     } catch (e) {
-      print("Firestore Error: $e");
       return Left(
         ServerFailure(
-          errorMessage: 'Error sharing recipe steps: ${e.toString()}',
+          errorMessage: e.toString(),
         ),
       );
     }

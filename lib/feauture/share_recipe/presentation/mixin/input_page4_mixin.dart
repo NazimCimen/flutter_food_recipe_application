@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 mixin InputPage4Mixin on State<InputPage4> {
+  // List to store the step inputs
   final List<RecipeStepInputModel> _inputSteps = [];
+
+  // Exposing the steps list through a getter
   List<RecipeStepInputModel> get steps => _inputSteps;
 
-  ///init state içimdeki işlemler fazla olursa ekrana çizim yap çizimden sonra methodları çalıştır k
-  ///ki  geçislerde kasma olmasın
-
+  /// If there are intensive operations in initState, we execute these operations
+  /// after the screen rendering is complete to avoid lag during transitions.
   @override
   void initState() {
     super.initState();
+    // Initializing steps after the screen rendering is complete
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeSteps();
     });
   }
 
-  /// ViewModel'deki adımları başlatmak veya varsayılan bir adım eklemek için kullanılır
+  /// Initializes the steps from the ViewModel or adds a default step if none exist
   void _initializeSteps() {
     final viewModelSteps = context.read<ShareRecipeViewModel>().steps;
     if (viewModelSteps.isNotEmpty) {
@@ -27,7 +30,7 @@ mixin InputPage4Mixin on State<InputPage4> {
     setState(() {});
   }
 
-  ///MARK:DISPOSE CONTROLLERS
+  /// Disposes controllers and focus nodes for each step to prevent memory leaks
   @override
   void dispose() {
     for (var step in _inputSteps) {
@@ -38,20 +41,20 @@ mixin InputPage4Mixin on State<InputPage4> {
     super.dispose();
   }
 
-  /// ViewModel'deki adım listesini günceller ve boş adımları temizler
+  /// Updates the step list in the ViewModel and removes empty steps
   void updateViewModelSteps() {
     _removeEmphtySteps();
     context.read<ShareRecipeViewModel>().updateStepList(_inputSteps);
   }
 
-  /// Boş olan tüm adımları temizler
+  /// Removes all empty steps
   void _removeEmphtySteps() {
     _inputSteps.removeWhere(
       (element) => element.controller.text.trim().isEmpty,
     );
   }
 
-  /// Varsayılan boş bir adım ekler
+  /// Adds a default empty step
   void _addDefaultStep() {
     _inputSteps.add(
       RecipeStepInputModel(
@@ -63,7 +66,7 @@ mixin InputPage4Mixin on State<InputPage4> {
     );
   }
 
-  /// Mevcut adımın geçerli olup olmadığını kontrol eder ve yeni bir adım ekler
+  /// Checks if the current step is valid and adds a new step if valid
   void addNewStep() {
     final isValid = isCurrentStepValid();
     if (isValid) {
@@ -86,16 +89,17 @@ mixin InputPage4Mixin on State<InputPage4> {
     } else {
       CustomSnackBars.showRecipeScaffoldSnackBar(
         context: context,
-        text: 'Lütfen mevcut adımı doldurun.',
+        text: 'Please fill in the current step.',
       );
     }
   }
 
-  /// Geçerli adımı doğrular
+  /// Validates if the current step is filled
   bool isCurrentStepValid() {
     return _inputSteps.every((step) => step.controller.text.isNotEmpty);
   }
 
+  /// Removes a step at the given index and disposes its controllers
   void removeStep(int index) {
     _inputSteps[index].controller.dispose();
     _inputSteps[index].focusNode.dispose();
@@ -103,7 +107,7 @@ mixin InputPage4Mixin on State<InputPage4> {
     setState(() {});
   }
 
-  /// Adım için bir resim seçer ve günceller
+  /// Selects an image for a step and updates it
   Future<void> getStepImageFile(int index) async {
     _toggleStepLoading(index, true);
     final selectedSource =
@@ -122,12 +126,13 @@ mixin InputPage4Mixin on State<InputPage4> {
     _toggleStepLoading(index, false);
   }
 
-  /// Adımın yüklenme durumunu değiştirir
+  /// Toggles the loading state of a step
   void _toggleStepLoading(int index, bool isLoading) {
     _inputSteps[index] = _inputSteps[index].copyWith(loading: isLoading);
     setState(() {});
   }
 
+  /// Navigates to the previous page after unfocusing and updating steps
   void previousPage() {
     FocusScope.of(context).unfocus();
     updateViewModelSteps();
@@ -137,11 +142,11 @@ mixin InputPage4Mixin on State<InputPage4> {
     );
   }
 
-  /// Tarifi paylaşır ve adım adım paylaşım işlemlerini gerçekleştirir
+  /// Shares the recipe and performs step-by-step sharing processes
   Future<void> shareRecipe() async {
     FocusScope.of(context).unfocus();
 
-    // Async işlemler sırasında context kullanımını mounted kontrolü ile güvence altına alıyoruz
+    // Ensuring safe context usage during async operations with mounted check
     if (!mounted) return;
     context.read<ShareRecipeViewModel>().setState(ViewState.loading);
 
@@ -149,7 +154,7 @@ mixin InputPage4Mixin on State<InputPage4> {
 
     final postId = const Uuid().v1();
 
-    // İlk async işlem
+    // First async operation
     final recipeResult =
         await context.read<ShareRecipeViewModel>().shareRecipe(postId: postId);
 
@@ -157,11 +162,11 @@ mixin InputPage4Mixin on State<InputPage4> {
       return;
     }
     if (!recipeResult) {
-      _showErrorSnackbar('Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyin.');
+      _showErrorSnackbar('An error occurred. Please try again later.');
       return;
     }
 
-    // İkinci async işlem
+    // Second async operation
     final stepsResult = await context
         .read<ShareRecipeViewModel>()
         .shareRecipeSteps(postId: postId);
@@ -172,14 +177,14 @@ mixin InputPage4Mixin on State<InputPage4> {
     context.read<ShareRecipeViewModel>().setState(ViewState.inActive);
 
     if (!stepsResult) {
-      _showErrorSnackbar('Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyin.');
+      _showErrorSnackbar('An error occurred. Please try again later.');
     } else {
       context.read<ShareRecipeViewModel>().reset();
       await NavigatorService.pushNamedAndRemoveUntil(AppRoutes.navBarView);
     }
   }
 
-  /// Hata mesajını gösterir
+  /// Displays an error message using a snackbar
   void _showErrorSnackbar(String message) {
     CustomSnackBars.showRecipeScaffoldSnackBar(
       context: context,

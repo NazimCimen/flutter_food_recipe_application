@@ -1,7 +1,5 @@
 part of '../view/share_recipe_view.dart';
 
-//// FIX  IMPORTANT  .. CROPLASAN BİLE ÖLÇEĞİ AZALTINCA IMAGE ALANA SIĞMIYOR.
-/////  add crash analatics for image picking and croping...
 class InputPage1 extends StatefulWidget {
   const InputPage1({
     required this.pageController,
@@ -63,7 +61,7 @@ class _InputPage1State extends State<InputPage1> with InputPage1Mixin {
               gradient: LinearGradient(
                 colors: [
                   Colors.transparent,
-                  Theme.of(context).colorScheme.onSurface.withOpacity(0.6)
+                  Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -162,7 +160,7 @@ class _PlaceholderContent extends StatelessWidget {
         ),
         SizedBox(height: context.dynamicHeight(0.02)),
         Text(
-          'Add Cover Photo\n(up to 12 Mb)',
+          'Add Cover Photo',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.surface,

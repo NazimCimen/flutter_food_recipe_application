@@ -8,6 +8,8 @@ class ShareRecipeStepsUseCase {
     required String postId,
   }) async {
     return repository.shareRecipeSteps(
-        recipeStepEntityList: recipeStepEntityList, postId: postId);
+      recipeStepEntityList: recipeStepEntityList,
+      postId: postId,
+    );
   }
 }

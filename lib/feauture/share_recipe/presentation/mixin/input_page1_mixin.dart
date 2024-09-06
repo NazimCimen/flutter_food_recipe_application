@@ -24,7 +24,8 @@ mixin InputPage1Mixin on State<InputPage1> {
     super.dispose();
   }
 
-  /// this method ovveried in view.
+  /// Shows a snackbar with a message to prompt the user to select an image.
+  /// This method is meant to be overridden in the view.
   void showScaffoldSnackBar(BuildContext context) {
     CustomSnackBars.showRecipeScaffoldSnackBar(
       context: context,
@@ -32,6 +33,9 @@ mixin InputPage1Mixin on State<InputPage1> {
     );
   }
 
+  /// Validates the form fields and checks if an image is selected.
+  /// Returns true if validation is successful and an image is selected,
+  /// otherwise shows a snackbar and returns false.
   bool validateFields() {
     if (page1FormKey.currentState!.validate()) {
       if (context.read<ShareRecipeViewModel>().selectedRecipeImage == null) {
@@ -45,6 +49,8 @@ mixin InputPage1Mixin on State<InputPage1> {
     }
   }
 
+  /// Proceeds to the next page if the form fields are valid and an image is selected.
+  /// It also saves the recipe title and description to the ViewModel.
   void nextPage() {
     FocusScope.of(context).unfocus();
     final isValidate = validateFields();
@@ -60,6 +66,8 @@ mixin InputPage1Mixin on State<InputPage1> {
     }
   }
 
+  /// Retrieves the default values for the recipe name and description from the ViewModel
+  /// and sets them in the corresponding text controllers.
   void getDefaultValues() {
     recipeNameController.text =
         context.read<ShareRecipeViewModel>().recipeEntity.recipeTitle ?? '';

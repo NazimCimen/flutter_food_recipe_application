@@ -20,6 +20,7 @@ mixin InputPage2Mixin on State<InputPage2> {
     super.dispose();
   }
 
+  /// Navigates to the previous page in the PageView when the user wants to go back.
   void previousPage() {
     widget.pageController.previousPage(
       duration: const Duration(milliseconds: 500),
@@ -27,6 +28,7 @@ mixin InputPage2Mixin on State<InputPage2> {
     );
   }
 
+  /// Navigates to the next page in the PageView when the user wants to proceed.
   void nextPage() {
     widget.pageController.nextPage(
       duration: const Duration(milliseconds: 500),
@@ -34,6 +36,8 @@ mixin InputPage2Mixin on State<InputPage2> {
     );
   }
 
+  /// Retrieves the default values for the recipe's world kitchen and cooking type
+  /// from the ViewModel and sets them in the corresponding text controllers.
   void getDefaultValues() {
     recipeWorlKitchenController.text =
         context.read<ShareRecipeViewModel>().recipeEntity.worldKitchen ?? '';
