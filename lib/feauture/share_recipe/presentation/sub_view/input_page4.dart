@@ -215,7 +215,7 @@ class _StepImagePicker extends StatelessWidget {
     return DecoratedBox(
       decoration: CustomBoxDecoration.customBoxDecorationImageArea(context),
       child: AspectRatio(
-        aspectRatio: ImageAspectRatio.stepAspectRatio.ratio,
+        aspectRatio: ImageAspectRatioEnum.stepAspectRatio.ratio,
         child: Builder(
           builder: (context) {
             if (step.loading) {

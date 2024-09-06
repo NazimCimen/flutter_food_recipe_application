@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/view/share_recipe_view.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 mixin ShareRecipeViewMixin on State<ShareRecipeView> {
   late PageController pageController;
@@ -24,6 +24,10 @@ mixin ShareRecipeViewMixin on State<ShareRecipeView> {
   void dispose() {
     pageController.dispose();
     super.dispose();
+  }
+
+  void onPopInvoked() {
+    context.read<ShareRecipeViewModel>().reset();
   }
 
   void previusPage() {

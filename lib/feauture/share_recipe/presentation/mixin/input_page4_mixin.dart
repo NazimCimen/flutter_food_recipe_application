@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/view/share_recipe_view.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
-import 'package:flutter_food_recipe_application/product/componets/custom_sheets.dart';
-import 'package:flutter_food_recipe_application/product/componets/custom_snack_bars.dart';
-import 'package:flutter_food_recipe_application/product/models/recipe_step_input_model.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:uuid/uuid.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 mixin InputPage4Mixin on State<InputPage4> {
   final List<RecipeStepInputModel> _inputSteps = [];
@@ -34,8 +27,14 @@ mixin InputPage4Mixin on State<InputPage4> {
     setState(() {});
   }
 
+  ///MARK:DISPOSE CONTROLLERS
   @override
   void dispose() {
+    for (var step in _inputSteps) {
+      step.controller.dispose();
+      step.focusNode.dispose();
+    }
+    _inputSteps.clear();
     super.dispose();
   }
 
@@ -112,7 +111,7 @@ mixin InputPage4Mixin on State<InputPage4> {
     if (selectedSource != null) {
       final imageFile = await context.read<ShareRecipeViewModel>().getStepImage(
             selectedSource: selectedSource,
-            aspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
+            aspectRatio: ImageAspectRatioEnum.stepAspectRatio.ratioCrop,
           );
       final updatedStep = _inputSteps[index].copyWith(
         stepImageFile: imageFile,
@@ -175,6 +174,7 @@ mixin InputPage4Mixin on State<InputPage4> {
     if (!stepsResult) {
       _showErrorSnackbar('Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyin.');
     } else {
+      context.read<ShareRecipeViewModel>().reset();
       await NavigatorService.pushNamedAndRemoveUntil(AppRoutes.navBarView);
     }
   }

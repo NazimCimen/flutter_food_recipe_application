@@ -4,7 +4,7 @@ import 'package:flutter_food_recipe_application/core/connection/network_info.dar
 import 'package:flutter_food_recipe_application/core/error/failure.dart';
 import 'package:flutter_food_recipe_application/feauture/image_management/data/data_source/image_management_local_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/image_management/data/data_source/image_management_remote_data_source.dart';
-import 'package:flutter_food_recipe_application/feauture/image_management/domain/repository/image_managemenT_repository.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/repository/image_management_repository.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 

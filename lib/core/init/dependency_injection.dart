@@ -10,7 +10,7 @@ import 'package:flutter_food_recipe_application/feauture/home/presentation/viewm
 import 'package:flutter_food_recipe_application/feauture/image_management/data/data_source/image_management_local_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/image_management/data/data_source/image_management_remote_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/image_management/data/repository/image_management_repository_impl.dart';
-import 'package:flutter_food_recipe_application/feauture/image_management/domain/repository/image_managemenT_repository.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/domain/repository/image_management_repository.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/data/data_source/share_recipe_remote_data_source.dart';
 import 'package:flutter_food_recipe_application/feauture/share_recipe/data/repository/share_recipe_repository_impl.dart';

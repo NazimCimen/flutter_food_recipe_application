@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
-import 'package:flutter_food_recipe_application/product/decorations/input_decorations/custom_input_decoration.dart';
-import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_shadow_widget.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 class CustomInputField extends StatefulWidget {
   const CustomInputField({

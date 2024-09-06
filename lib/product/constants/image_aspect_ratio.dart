@@ -1,41 +1,28 @@
 import 'package:image_cropper/image_cropper.dart';
 
-enum ImageAspectRatio {
+enum ImageAspectRatioEnum {
   postAspectRatio,
   stepAspectRatio,
 }
 
-extension ImageAspectRatioExtension on ImageAspectRatio {
+extension ImageAspectRatioExtension on ImageAspectRatioEnum {
   double get ratio {
     switch (this) {
-      case ImageAspectRatio.stepAspectRatio:
+      case ImageAspectRatioEnum.stepAspectRatio:
         return 2 / 1;
-      case ImageAspectRatio.postAspectRatio:
+      case ImageAspectRatioEnum.postAspectRatio:
         return 5 / 4;
     }
   }
 }
 
-/*enum CropImageAspectRatio {
-  postAspectRatio,
-  stepAspectRatio,
-}
-
-class CropAspectRatio {
-  final double ratioX;
-  final double ratioY;
-
-  CropAspectRatio({required this.ratioX, required this.ratioY});
-}
-
-extension CropImageAspectRatioExtension on CropImageAspectRatio {
-  CropAspectRatio get ratio {
+extension CropImageAspectRatioExtension on ImageAspectRatioEnum {
+  CropAspectRatio get ratioCrop {
     switch (this) {
-      case CropImageAspectRatio.stepAspectRatio:
-        return CropAspectRatio(ratioX: 16, ratioY: 9);
-      case CropImageAspectRatio.postAspectRatio:
-        return CropAspectRatio(ratioX: 1, ratioY: 1);
+      case ImageAspectRatioEnum.stepAspectRatio:
+        return const CropAspectRatio(ratioX: 16, ratioY: 9);
+      case ImageAspectRatioEnum.postAspectRatio:
+        return const CropAspectRatio(ratioX: 5, ratioY: 4);
     }
   }
 }
-*/

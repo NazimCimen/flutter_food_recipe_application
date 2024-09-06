@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
-import 'package:flutter_food_recipe_application/feauture/image_management/domain/repository/image_managemenT_repository.dart';
+import 'package:flutter_food_recipe_application/feauture/image_management/image_management_export.dart';
 
 class GetImageUrlUseCase {
   final ImageManagementRepository repository;

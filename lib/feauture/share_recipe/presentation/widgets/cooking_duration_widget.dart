@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/product/decorations/box_decorations/custom_box_decoration.dart';
-import 'package:flutter_food_recipe_application/product/widgets/custom_title_text_shadow_widget.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 class CookingDurationWidget extends StatelessWidget {
   final double sliderValue;

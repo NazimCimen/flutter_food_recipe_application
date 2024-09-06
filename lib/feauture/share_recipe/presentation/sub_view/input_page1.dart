@@ -116,7 +116,7 @@ class _RecipeImageContainer extends StatelessWidget {
         if (selectedSource != null) {
           await viewModel.getRecipeImage(
             selectedSource: selectedSource,
-            aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+            aspectRatio: ImageAspectRatioEnum.postAspectRatio.ratioCrop,
           );
         }
 
@@ -124,7 +124,7 @@ class _RecipeImageContainer extends StatelessWidget {
       },
       child: Center(
         child: AspectRatio(
-          aspectRatio: ImageAspectRatio.postAspectRatio.ratio,
+          aspectRatio: ImageAspectRatioEnum.postAspectRatio.ratio,
           child: Container(
             decoration:
                 CustomBoxDecoration.customBoxDecorationImageArea(context),

@@ -1,17 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/get_image_url_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_steps_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/domain/usecase/share_recipe_use_case.dart';
-import 'package:flutter_food_recipe_application/product/firebase/firebase_constants.dart';
-import 'package:flutter_food_recipe_application/product/models/recipe_step_input_model.dart';
-import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
-import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/crop_image_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/image_management/domain/usecase/get_image_file_use_case.dart';
-import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_step_entity.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 enum ViewState { inActive, error, success, loading }
 
@@ -31,14 +20,15 @@ class ShareRecipeViewModel extends ChangeNotifier {
   ViewState _state = ViewState.inActive;
   ViewState get state => _state;
 
-  RecipeEntity recipeEntity = RecipeEntity(
-    recipeTitle: 'aaaaa',
+  RecipeEntity _recipeEntity = const RecipeEntity(
+    recipeTitle: '',
     recipeDescription: '',
     cookingType: '',
     worldKitchen: '',
     recipeIngredients: [''],
     cookingDuration: 30,
   );
+  RecipeEntity get recipeEntity => _recipeEntity;
 
   List<RecipeStepInputModel> _steps = [];
   List<RecipeStepInputModel> get steps => _steps;
@@ -51,38 +41,32 @@ class ShareRecipeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-// PAGE 1///////////////////////////////////////////////////////////////////////////////
-  void setInputsPage1({
+  void setRecipeTitleAndDesc({
     required String recipeName,
     required String recipeDescription,
   }) {
-    recipeEntity = recipeEntity.copyWith(
+    _recipeEntity = recipeEntity.copyWith(
       recipeTitle: recipeName,
       recipeDescription: recipeDescription,
     );
     notifyListeners();
   }
-///////////////////////////////////////////////////////////////////////////////////
-
-  ///PAGE 2 //////////////////////////// ////////////////////////////////////////////////
 
   void valueSetterCookingType(String value) {
-    recipeEntity = recipeEntity.copyWith(cookingType: value);
+    _recipeEntity = _recipeEntity.copyWith(cookingType: value);
   }
 
   void valueSetterWorldKitchen(String value) {
-    recipeEntity = recipeEntity.copyWith(worldKitchen: value);
+    _recipeEntity = _recipeEntity.copyWith(worldKitchen: value);
   }
 
   void setCookingDuration(double value) {
-    recipeEntity = recipeEntity.copyWith(cookingDuration: value);
+    _recipeEntity = _recipeEntity.copyWith(cookingDuration: value);
     notifyListeners();
   }
-////////////////////////////////////////////////////////////////////////////////////////
 
-  ///PAGE 3 //////////////////////////// ////////////////////////////////////////////////
   void updateIngredientList({required List<String> ingredientList}) {
-    recipeEntity = recipeEntity.copyWith(recipeIngredients: ingredientList);
+    _recipeEntity = _recipeEntity.copyWith(recipeIngredients: ingredientList);
     notifyListeners();
   }
 
@@ -90,10 +74,6 @@ class ShareRecipeViewModel extends ChangeNotifier {
     _steps = stepList;
     notifyListeners();
   }
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-  ///PAGE 4 //////////////////////////// ////////////////////////////////////////////////
 
   Future<void> getRecipeImage({
     required ImageSource selectedSource,
@@ -164,20 +144,14 @@ class ShareRecipeViewModel extends ChangeNotifier {
       imageFile: _selectedRecipeImage,
       defaultIUrl: FirebaseConstants.defaultRecipeImageUrl,
     );
+    _recipeEntity = _recipeEntity = _recipeEntity.copyWith(
+      postId: const Uuid().v1(),
+      recipeStepIds: stepIds,
+      imageUrl: recipeImageUrl,
+      sharedTime: DateTime.now().toUtc(),
+    );
     final result = await shareRecipeUseCase.call(
-      recipeEntity: RecipeEntity(
-        postId: postId,
-        userId: postId,
-        recipeTitle: 'recipeName',
-        recipeDescription: 'recipeDescription',
-        imageUrl: recipeImageUrl,
-        cookingDuration: 30,
-        recipeIngredients: ['_ingredients'],
-        sharedTime: DateTime.now().toUtc(),
-        worldKitchen: '_worldKitchen',
-        cookingType: '_cookingType',
-        recipeStepIds: stepIds,
-      ),
+      recipeEntity: _recipeEntity,
     );
     var succes = false;
     result.fold(
@@ -236,8 +210,22 @@ class ShareRecipeViewModel extends ChangeNotifier {
   }
 
   void reset() {
-    //_recipeSteps = [''];
-    // imageUrl = null;
+    _recipeEntity = const RecipeEntity(
+      recipeTitle: '',
+      recipeDescription: '',
+      cookingType: '',
+      worldKitchen: '',
+      recipeIngredients: [''],
+      cookingDuration: 30,
+    );
+
+    for (final step in _steps) {
+      step.controller.dispose();
+      step.focusNode.dispose();
+    }
+    _steps.clear();
+    _selectedRecipeImage = null;
+    setState(ViewState.inActive);
     notifyListeners();
   }
 }

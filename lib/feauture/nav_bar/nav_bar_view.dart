@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/config/routes/app_routes.dart';
-import 'package:flutter_food_recipe_application/config/routes/navigator_service.dart';
-import 'package:flutter_food_recipe_application/core/utils/image_enum.dart';
 import 'package:flutter_food_recipe_application/feauture/home/presentation/view/home_view.dart';
 import 'package:flutter_food_recipe_application/feauture/nav_bar/nav_bar_view_model.dart';
 import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.dart';
-import 'package:provider/provider.dart';
 
 class NavBarView extends StatelessWidget {
   const NavBarView({super.key});
@@ -61,9 +57,11 @@ class NavBarView extends StatelessWidget {
   }
 
   BottomAppBar buildBottomAppBar(
-      BuildContext context, NavBarViewModel viewModel) {
+    BuildContext context,
+    NavBarViewModel viewModel,
+  ) {
     return BottomAppBar(
-      notchMargin: 2.0,
+      notchMargin: 2,
       height: context.dynamicHeight(0.086),
       padding: context.paddingAllMedium,
       color: Theme.of(context).colorScheme.tertiary,

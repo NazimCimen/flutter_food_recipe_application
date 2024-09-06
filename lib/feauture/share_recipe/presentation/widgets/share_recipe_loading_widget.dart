@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/product/constants/custom_shadows.dart';
-import 'package:lottie/lottie.dart';
 import 'dart:ui';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 class ShareRecipeLoadingWidget extends StatelessWidget {
   const ShareRecipeLoadingWidget({

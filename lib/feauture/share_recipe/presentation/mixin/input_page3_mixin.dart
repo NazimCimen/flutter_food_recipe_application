@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/view/share_recipe_view.dart';
-import 'package:flutter_food_recipe_application/feauture/share_recipe/presentation/viewmodel/share_recipe_view_model.dart';
-import 'package:flutter_food_recipe_application/product/componets/custom_snack_bars.dart';
-import 'package:flutter_food_recipe_application/product/models/recipe_ingredient_input_model.dart';
+import 'package:flutter_food_recipe_application/feauture/share_recipe/share_recipe_export.dart';
 
 mixin InputPage3Mixin on State<InputPage3> {
   List<RecipeIngredientInputModel> ingredientInputs = [];
