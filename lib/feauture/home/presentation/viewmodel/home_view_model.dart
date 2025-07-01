@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_food_recipe_application/feauture/shared_layers/entity/recipe_entity.dart';
+import 'package:flutter_food_recipe_application/feauture/home/domain/usecase/get_recipes_followers_use_case.dart';
+
+class HomeViewModel extends ChangeNotifier {
+  final GetRecipesFollowersUseCase _getRecipesFollowersUseCase;
+
+  HomeViewModel(
+    this._getRecipesFollowersUseCase,
+  );
+  RecipeEntity? recipeEntity;
+  List<RecipeEntity?>? recipeListFollowers = [];
+  List<RecipeEntity?> recipeListWorldKitchen = [];
+  int? a;
+  Future<void> failureOrGetRecipesFollowers() async {
+    final response = await _getRecipesFollowersUseCase.call();
+    response.fold(
+      (failure) {},
+      (entity) {
+        recipeListFollowers = entity;
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> failureOrGetRecipesWorldKitchen({
+    required String kitchen,
+  }) async {
+    final response = await _getRecipesFollowersUseCase.call();
+    response.fold(
+      (failure) {},
+      (entity) {
+        recipeListFollowers = entity;
+        notifyListeners();
+      },
+    );
+  }
+}

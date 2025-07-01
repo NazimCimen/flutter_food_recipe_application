@@ -16,17 +16,12 @@ final class CustomLightTheme implements ApplicationTheme {
         useMaterial3: true,
         fontFamily: GoogleFonts.montserrat().fontFamily,
         colorScheme: CustomColorScheme.lightScheme,
-        /*    textTheme: TextTheme(
-          bodyMedium: TextStyle(
-            color: colorScheme.onSurface,
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: colorScheme.secondary,
           ),
-          headlineSmall: TextStyle(
-            color: colorScheme.onSurface,
-          ),
-          headlineMedium: TextStyle(
-            color: colorScheme.onSurface,
-          ),
-        ),*/
+        ),
       );
 }
 

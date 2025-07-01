@@ -32,14 +32,14 @@ mixin SplashMixin on State<SplashView> {
     required bool isForceUpdate,
   }) {
     if (isForceUpdate) {
-      AppDialogs.showForceUpdateDialog(
+      CustomDialogs.showForceUpdateDialog(
         context: context,
         title: StringConstants.titleForceUpdate,
         description: StringConstants.descriptionForceUpdate,
       );
     } else {
       onboardScreenVisible
-          ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView)
+          ? NavigatorService.pushNamedAndRemoveUntil(AppRoutes.navBarView)
           : NavigatorService.pushNamedAndRemoveUntil(AppRoutes.onboardView);
     }
   }

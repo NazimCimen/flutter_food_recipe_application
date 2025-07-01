@@ -35,6 +35,7 @@ class OnBoardLocalDataSourceImpl implements OnBoardLocalDataSource {
   /// SET AND SAVE ONBOARD SCREEN VISIBILITY FLAG
   @override
   Future<void> setOnBoardShown() async {
-    await sharedPreferences.setBool(LocalKeysEnum.onboard.name, true);
+    await sharedPreferences.setBool(
+        LocalKeysEnum.onboardVisibility3.name, true);
   }
 }

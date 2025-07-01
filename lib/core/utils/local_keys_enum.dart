@@ -1,3 +1,3 @@
 enum LocalKeysEnum {
-  onboard,
+  onboardVisibility3,
 }

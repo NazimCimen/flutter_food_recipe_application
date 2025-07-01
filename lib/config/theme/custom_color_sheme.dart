@@ -6,19 +6,20 @@ final class CustomColorScheme {
   static const lightScheme = ColorScheme(
     brightness: Brightness.light,
     primary: Color(
-        0xFFFFAD00), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
+      0xFFFFAD00,
+    ), //background scaffold and appbar. check light themedata for  appbar and scaffold theme
     onPrimary: Colors.white,
     secondary: Color(
-        0xFF202E3B), // used for icons. and third main color of app(black white blue)
+      0xFF202E3B,
+    ), // used for icons. and third main color of app(black white blue)
     onSecondary: Colors.white,
     error: Colors.red,
     onError: Colors.white,
-
     surface: Colors.white, //default card and text color
     onSurface: Colors.black,
-    tertiary: Colors.black, // used for hint and text field colors
+    tertiary: Color(0xffF3F4F6),
     onTertiary: Colors.grey,
-
+    onPrimaryContainer: Color(0xffFFF5E6),
     outline: Colors.white,
   );
   static const darkSheme = ColorScheme(
@@ -32,11 +33,12 @@ final class CustomColorScheme {
     onSecondary: Colors.white,
     error: Colors.red,
     onError: Colors.white,
+    onPrimaryContainer: Color(0xffFFF5E6),
 
     surface: Colors.white, //default card and text color
     onSurface: Colors.black,
 
-    tertiary: Colors.black,
+    tertiary: Color(0xffF3F4F6),
     onTertiary: Colors.grey,
     outline: Colors.white,
   );
