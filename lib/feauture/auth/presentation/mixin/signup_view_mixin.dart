@@ -74,7 +74,7 @@ mixin SignupViewMixin on State<SignupView> {
       });
     } else {
       setState(() {
-        isAutoValidateSignin = AutovalidateMode.always;
+        //      isAutoValidateSignin = AutovalidateMode.always;
       });
     }
   }

@@ -27,7 +27,7 @@ mixin OnBoardMixin on State<OnBoardView> {
       setState(() {});
     } else {
       if (mounted) {
-        navigateToHomeView();
+        navigateToLoginView();
       }
     }
   }
@@ -40,7 +40,8 @@ mixin OnBoardMixin on State<OnBoardView> {
     }
   }
 
-  void navigateToHomeView() {
+  /// MARK: !!!!!!!!!!
+  void navigateToLoginView() {
     Provider.of<OnboardViewModel>(context, listen: false)
         .setOnBoardShownUseCase();
     NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeView);

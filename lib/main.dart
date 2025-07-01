@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_recipe_application/core/app_core_export.dart';
+import 'package:flutter_food_recipe_application/feauture/auth/auth_export.dart';
 
 void main() async {
   final appInit = AppInitImpl();
@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         theme: CustomLightTheme().themeData,
         debugShowCheckedModeBanner: false,
+        navigatorKey: NavigatorService.navigatorKey,
         routes: AppRoutes.routes,
         initialRoute: AppRoutes.initialRoute,
-        navigatorKey: NavigatorService.navigatorKey,
+        //home: TestView(),
       ),
     );
   }

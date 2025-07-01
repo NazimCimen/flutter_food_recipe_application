@@ -3,8 +3,8 @@ import 'package:flutter_food_recipe_application/feauture/onboard/onboard_export.
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
 
 @immutable
-class AppDialogs {
-  const AppDialogs._();
+class CustomDialogs {
+  const CustomDialogs._();
   static void showMyDialog(
           {required BuildContext context, required bool condition}) =>
       showDialog<void>(

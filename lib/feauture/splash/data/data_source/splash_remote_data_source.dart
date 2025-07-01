@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_food_recipe_application/feauture/splash/splash_export.dart';
+import 'package:flutter_food_recipe_application/product/firebase/firebase_collection_enum.dart';
 
 abstract class SplashRemoteDataSource {
   Future<Either<Failure, AppVersionModel>> getAppDatabaseVersionNumber({
@@ -26,7 +27,7 @@ class SplashRemoteDataSourceImpl implements SplashRemoteDataSource {
     if (connection == true) {
       try {
         final response = await firestore
-            .collection(FirebaseCollections.version.name)
+            .collection(FirebaseCollectionEnum.version.name)
             .doc(platform)
             .get();
         if (response.data() != null) {

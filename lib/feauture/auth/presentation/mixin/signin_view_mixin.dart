@@ -69,7 +69,8 @@ mixin SigninViewMixin on State<SigninView> {
       });
     } else {
       setState(() {
-        isAutoValidateSignin = AutovalidateMode.always;
+        /// burası gereksiz. tekrar kontrol et sonra kaldır.
+        //    isAutoValidateSignin = AutovalidateMode.always;
       });
     }
   }
